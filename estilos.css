@@ -1,9 +1,5 @@
 body {
-    background-color: #1F1C17;
-}
-
-#div-busqueda {
-    justify-content: center;
+    background-color: #FEC224;
 }
 
 a {
@@ -11,28 +7,33 @@ a {
     display: block;
 }
 
-button a, .lista-desplegable a {
-    color: black;
+#boton-hamburguesa, #boton-carrito {
+    border: none !important;
+    color: black !important;
 }
 
-li a {
-    color: white;
-    padding: 8px 50px;
+#boton-hamburguesa:hover, #a-carrito:hover {
+    color: red !important;
 }
 
-nav a:hover, .lista-desplegable a:hover {
-    background-color:dimgrey;
-    color: white;
-}
-
-.ocultar {
-    display: none;
-}
-
-#boton-hamburguesa {
+.search-container {
+    margin-top: 5px;
     position: relative;
 }
 
-#desplegable-hamburguesa {
-    position: absolute;
+.search-input {
+    height: 35px;
+    border-radius: 30px;
+    padding-left: 40px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-60%);
+    color: #888;
+}
+

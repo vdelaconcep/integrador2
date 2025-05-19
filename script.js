@@ -1,13 +1,6 @@
-const listaDesplegable = document.querySelector('.lista-desplegable');
-const botonDesplegable = document.getElementById('boton-desplegable');
-const botonHamburguesa = document.getElementById('boton-hamburguesa');
-const desplegableHamburguesa = document.getElementById('desplegable-hamburguesa')
+const item = document.querySelectorAll('.dropdown-item');
 
-botonDesplegable.addEventListener('click', () => {
-    listaDesplegable.classList.toggle('ocultar')
+item.forEach(element => {
+    element.addEventListener('click', (event) => 
+    event.stopPropagation());
 })
-
-botonHamburguesa.addEventListener('click', () => {
-    desplegableHamburguesa.classList.toggle('ocultar')
-})
-
