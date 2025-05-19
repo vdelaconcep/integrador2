@@ -10,10 +10,15 @@ a {
 #boton-hamburguesa, #boton-carrito {
     border: none !important;
     color: black !important;
+    font-size: 1.3em;
 }
 
 #boton-hamburguesa:hover, #a-carrito:hover {
     color: red !important;
+}
+
+.menu, .productos {
+    background-color: black !important;
 }
 
 .search-container {
@@ -22,6 +27,7 @@ a {
 }
 
 .search-input {
+    background-color:darkgrey;
     height: 35px;
     border-radius: 30px;
     padding-left: 40px;
@@ -33,7 +39,28 @@ a {
     position: absolute;
     top: 50%;
     left: 30px;
-    transform: translateY(-60%);
-    color: #888;
+    transform: translateY(-80%);
+    color: black;
 }
 
+.dropdown-item, .productos {
+    color: white !important;
+}
+
+.dropdown-productos {
+    color: black;
+    padding: 6px;
+}
+
+.dropdown-item:hover, .productos:hover, .dropdown-productos:hover {
+    background-color:#E55648 !important;
+    color: white !important;
+}
+
+.tarjeta {
+    width: 300px !important;
+}
+
+.sombra {
+    box-shadow: 0 2px 5px grey;
+}

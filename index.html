@@ -9,45 +9,65 @@
 
     <link rel="stylesheet" href="./estilos.css">
 
+    <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico?">
+
 </head>
 <body>
     <header>
-        <div class="text-white">
-            <div class="hstack">
-                <div id="hamburguesa" class="ps-2">
-                    <nav class="dropdown">
-                        <button id="boton-hamburguesa" class="btn dropdown-toggle" data-bs-toggle="dropdown">
-                            <b>☰</b> <span class="caret"></span>
-                        </button>
-                        <ul class="list-unstyled text-center dropdown-menu" style="width: 75vw;">
-                            <div class="search-container ps-3 pe-3 pt-0 dropdown-item">
-                                <input class="form-control search-input" type="text" placeholder="Buscar...">
-                                <i class="fas fa-search search-icon"></i>
-                            </div>
-                            <li class="dropdown"><a href="#productos" class="dropdown-item dropdown-toggle" data-bs-toggle="collapse">Productos <span class="caret"></span></a>
-                                <ul class="list-unstyled bg-light collapse" id="productos">
-                                    <li><a href="" class="dropdown-item">Remeras</a></li>
-                                    <li><a href="" class="dropdown-item">Buzos</a></li>
-                                    <li><a href="" class="dropdown-item">Mochilas</a></li>
-                                    <li><a href="" class="dropdown-item">Ver todo</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="" class="dropdown-item">Alta</a></li>
-                            <li><a href="" class="dropdown-item">Contacto</a></li>
-                            <li><a href="" class="dropdown-item">Nosotros</a></li>
-                        </ul>
-                    </nav>
-                </div>
-                <div class="ms-auto pe-2">
-                    <button id="boton-carrito" class="btn">
-                        <a style="color: black;" id="a-carrito" href=""><i class="fa-solid fa-cart-shopping"></i></a>
+        <div class="hstack">
+            <div id="hamburguesa">
+                <nav class="dropdown">
+                    <button id="boton-hamburguesa" class="btn dropdown-toggle" data-bs-toggle="dropdown">
+                        <b>☰</b> <span class="caret"></span>
                     </button>
-                </div>
+                    <ul class="menu list-unstyled text-center dropdown-menu" style="width: 100vw;">
+                        <div class="search-container ps-3 pe-3 pt-0 pb-2">
+                            <input class="form-control search-input" type="text" placeholder="Buscar...">
+                            <i class="fas fa-search search-icon"></i>
+                        </div>
+                        <li class="dropdown"><a href="#productos" class="productos dropdown-item dropdown-toggle" data-bs-toggle="collapse">Productos <span class="caret"></span></a>
+                            <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="productos">
+                                <li><a href="" class="dropdown-productos">Remeras</a></li>
+                                <li><a href="" class="dropdown-productos">Buzos</a></li>
+                                <li><a href="" class="dropdown-productos">Mochilas</a></li>
+                                <li><a href="" class="dropdown-productos">Ver todo</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="" class="dropdown-item">Alta</a></li>
+                        <li><a href="" class="dropdown-item">Contacto</a></li>
+                        <li><a href="" class="dropdown-item">Nosotros</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="ms-auto pe-2">
+                <button id="boton-carrito" class="btn">
+                    <a style="color: black;" id="a-carrito" href=""><i class="fa-solid fa-cart-shopping"></i></a>
+                </button>
             </div>
         </div>
-        <a href=""><img class="w-100" src="./assets/img/banner.jpg" alt="banner"></a>
+        <a href=""><img class="w-100" src="./assets/img/banner.png" alt="banner"></a>
+        <p class="text-center"><b>REMERAS - BUZOS - MOCHILAS</b></p>
     </header>
     <main class="container">
+        <div class="tarjetas d-flex flex-wrap" style="justify-content: center;">
+            <div class="tarjeta bg-light sombra rounded m-3 hstack" style="justify-content: space-between;">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga2.jpg" alt="">
+                <div class="descripcion text-center pe-3">
+                    <h4>La Renga #2</h4>
+                    <h4 class="text-info">$20000</h4>
+                    <button class="btn btn-info">Agregar <b>+</b></button>
+                </div>
+            </div>
+            <div class="tarjeta bg-light sombra rounded m-3 hstack" style="justify-content: space-between;">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga3.jpg" alt="">
+                <div class="descripcion text-center pe-3">
+                    <h4>La Renga #3</h4>
+                    <h4 class="text-info">$20000</h4>
+                    <button class="btn btn-info">Agregar <b>+</b></button>
+                </div>
+            </div>
+            
+        </div>
     </main>
 
     <script src="https://kit.fontawesome.com/5eafe979f1.js" crossorigin="anonymous"></script>
