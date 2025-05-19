@@ -1,0 +1,38 @@
+body {
+    background-color: #1F1C17;
+}
+
+#div-busqueda {
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+    display: block;
+}
+
+button a, .lista-desplegable a {
+    color: black;
+}
+
+li a {
+    color: white;
+    padding: 8px 50px;
+}
+
+nav a:hover, .lista-desplegable a:hover {
+    background-color:dimgrey;
+    color: white;
+}
+
+.ocultar {
+    display: none;
+}
+
+#boton-hamburguesa {
+    position: relative;
+}
+
+#desplegable-hamburguesa {
+    position: absolute;
+}
