@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="./assets/img/favicon.ico?">
 
 </head>
-<body style="background-color: #FEC224;">
+<body style="background-color: #634899;">
     <header>
         <div class="hstack">
             <div id="hamburguesa" class="d-md-none">
@@ -70,25 +70,27 @@
         <p class="text-end mt-0 pt-0 pe-3"><b>REMERAS - BUZOS - MOCHILAS</b></p>
     </header>
     <main>
-        <div class="tarjetas d-flex flex-wrap" style="justify-content: center;">
-            <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
-                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga2.jpg" alt="">
-                <div class="descripcion text-center pe-3">
-                    <h5>La Renga #2</h5>
-                    <h4 class="text-info">$20.000</h4>
-                    <button class="agregar btn btn-dark">Agregar <b>+</b></button>
-                </div>
-            </div>
-            <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
-                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga3.jpg" alt="">
-                <div class="descripcion text-center pe-3">
-                    <h4>La Renga #3</h4>
-                    <h4 class="text-info">$20.000</h4>
-                    <button class="agregar btn btn-dark">Agregar <b>+</b></button>
-                </div>
-            </div>
+        <div class="container d-flex flex-column" style="max-width: 500px;">
+            <h1 class="text-white text-center">
+                Dejanos tu mensaje:
+            </h1>
+        <form class="text-white">
+            <label for="nombre" class="form-label ps-2 mt-3">Nombre:</label>
+            <input class="form-control" type="text" name="nombre">
             
-        </div>
+            <label for="email" class="form-label ps-2 mt-3">E-mail:</label>
+            <input class="form-control" type="text" name="email">
+            
+            <label for="mensaje" class="form-label ps-2 mt-3">Mensaje:</label>
+            <textarea class="form-control" name="mensaje"></textarea>
+
+            <div class="text-center m-5">
+            <button class="btn btn-dark" style="width: 90px;">
+                Enviar
+            </button>
+            </div>
+        </form>
+    </div>
     </main>
 
     <script src="https://kit.fontawesome.com/5eafe979f1.js" crossorigin="anonymous"></script>

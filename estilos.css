@@ -1,8 +1,8 @@
-body {
-    background-color: #FEC224;
-    /* background-color: #E55648; */
-    /* background-color: #58944E; */
-}
+
+    /* background-color: #E55648; rojo*/
+    /* background-color: #58944E; verde*/
+    /* background-color: #422D6C; violeta*/
+
 
 a {
     text-decoration: none;
@@ -73,7 +73,6 @@ a {
     width: 400px;
     overflow: hidden;
 }
-
 .tarjeta {
     width: 300px !important;
 }
