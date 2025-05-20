@@ -1,5 +1,7 @@
 body {
     background-color: #FEC224;
+    /* background-color: #E55648; */
+    /* background-color: #58944E; */
 }
 
 a {
@@ -14,10 +16,10 @@ a {
 }
 
 #boton-hamburguesa:hover, #a-carrito:hover {
-    color: red !important;
+    color: white !important;
 }
 
-.menu, .productos {
+.menu-chico, .productos-chico {
     background-color: black !important;
 }
 
@@ -43,18 +45,33 @@ a {
     color: black;
 }
 
-.dropdown-item, .productos {
+.dropdown-chico, .productos-chico, .menu-grande-item:hover, .dropdown-productos-grande {
     color: white !important;
 }
 
-.dropdown-productos {
+.dropdown-productos-chico {
     color: black;
     padding: 6px;
 }
 
-.dropdown-item:hover, .productos:hover, .dropdown-productos:hover {
-    background-color:#E55648 !important;
-    color: white !important;
+.dropdown-chico:hover, .productos-chico:hover, .dropdown-productos-chico:hover, .dropdown-productos-grande:hover {
+    background-color:white !important;
+    color: black !important;
+}
+
+.menu-grande-item {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: black;
+}
+
+.menu-grande-li {
+    margin: 0 3%;
+}
+
+.sub-menu-grande {
+    width: 400px;
+    overflow: hidden;
 }
 
 .tarjeta {
@@ -63,4 +80,15 @@ a {
 
 .sombra {
     box-shadow: 0 2px 5px grey;
+}
+
+.agregar:hover {
+    background-color: #E55648 !important;
+}
+
+@media (min-width: 768px) {
+    #a-carrito::before {
+        content: 'Carrito';
+    }
+    
 }
