@@ -72,22 +72,32 @@
     <main>
         <div class="tarjetas d-flex flex-wrap" style="justify-content: center;">
             <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
-                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga2.jpg" alt="">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga2.jpg" title="Ver" style="cursor: pointer;">
                 <div class="descripcion text-center pe-3">
                     <h5>La Renga #2</h5>
                     <h4 class="text-info">$20.000</h4>
-                    <button class="agregar btn btn-dark">Agregar <b>+</b></button>
+                    <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
                 </div>
             </div>
             <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
-                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga3.jpg" alt="">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga3.jpg" title="Ver" style="cursor: pointer;">
                 <div class="descripcion text-center pe-3">
                     <h4>La Renga #3</h4>
                     <h4 class="text-info">$20.000</h4>
-                    <button class="agregar btn btn-dark">Agregar <b>+</b></button>
+                    <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
+                </div>
+            </div>    
+        </div>
+
+        <div class="overlay">
+            <div id="div-verProducto" class="container border rounded-2">
+                <h2 class="text-center text-white mb-3 pt-2">Nombre de producto</h2>
+                <img src="" alt="">
+                <div class="text-center">
+                    <h3 class="text-info">Precio</h3>
+                <button class="agregar btn btn-dark mb-3 mt-1" title="Agregar al carrito" style="width: 200px;">Agregar al carrito <i class="fa-solid fa-cart-plus"></i></button>
                 </div>
             </div>
-            
         </div>
     </main>
 

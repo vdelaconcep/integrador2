@@ -1,24 +1,33 @@
 
-
+/* Reseteo de aspecto de vínculos */
 a {
     text-decoration: none;
     display: block;
 }
 
+/* Visibles del header */
 #boton-hamburguesa, #boton-carrito {
     border: none !important;
     color: black !important;
     font-size: 1.3em;
 }
 
-#boton-hamburguesa:hover, #a-carrito:hover {
+#boton-hamburguesa:hover, #a-carrito:hover,
+.menu-grande-item:hover {
     color: white !important;
 }
 
-.menu-chico, .productos-chico {
-    background-color: black !important;
+.menu-grande-item {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: black;
 }
 
+.menu-grande-li {
+    margin: 0 3%;
+}
+
+/* Barra de búsqueda */
 .search-container {
     margin-top: 5px;
     position: relative;
@@ -41,7 +50,14 @@ a {
     color: black;
 }
 
-.dropdown-chico, .productos-chico, .menu-grande-item:hover, .dropdown-productos-grande {
+
+/* Desplegables */
+.menu-chico,
+.productos-chico {
+    background-color: black !important;
+}
+
+.dropdown-chico, .productos-chico, .dropdown-productos-grande {
     color: white !important;
 }
 
@@ -55,20 +71,12 @@ a {
     color: black !important;
 }
 
-.menu-grande-item {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: black;
-}
-
-.menu-grande-li {
-    margin: 0 3%;
-}
-
 .sub-menu-grande {
     width: 400px;
     overflow: hidden;
 }
+
+/* Tarjetas */
 .tarjeta {
     width: 300px !important;
 }
@@ -77,13 +85,48 @@ a {
     box-shadow: 0 2px 5px grey;
 }
 
+/* Botones */
 .agregar:hover {
-    background-color: #E55648 !important;
+    background-color: #58944E;
 }
 
+.vaciar:hover {
+    background-color: #E55648;
+}
+
+.pagar:hover {
+    background-color: #794fa0;
+}
+
+.enviar:hover {
+    background-color: #1899D2;
+}
+
+/* Agregado de "carrito" en pantallas grandes */
 @media (min-width: 768px) {
     #a-carrito::before {
         content: 'Carrito';
     }
     
+}
+
+/* Ver producto */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    display: none;
+}
+
+#div-verProducto {
+    max-width: 600px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
 }
