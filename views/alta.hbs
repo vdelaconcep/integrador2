@@ -1,0 +1,48 @@
+
+<div style="background-color: #E55648;">
+    {{{>header}}}
+    <main>
+        <form class="text-white">
+        <div class="container d-flex flex-column" style="max-width: 500px;">
+            <h1 class="text-white text-center">
+                Alta de producto
+            </h1>
+        
+            <label for="producto-tipo" class="form-label ps-2 mt-3">Tipo de producto:</label>
+            <select class="form-select" name="producto-tipo" id="producto-tipo">
+                <option value="" disabled selected>Seleccionar</option>
+                <option value="remera">Remera</option>
+                <option value="buzo">Buzo</option>
+                <option value="mochila">Mochila</option>
+            </select>
+            
+            <label for="banda" class="form-label ps-2 mt-3">Artista / Banda:</label>
+            <input class="form-control" type="text" name="banda">
+
+            <div class="hstack gap-1">
+
+                <div>
+                    <label for="stock" class="form-label ps-2 mt-3">Stock:</label>
+                    <input class="form-control" type="number" name="stock">
+                </div>
+                <div class="ms-auto">
+                    <label for="precio" class="form-label ps-2 mt-3">Precio (ARS):</label>
+                    <input class="form-control" type="number" name="precio">
+                </div>
+
+            </div>
+
+            <label for="imagen" class="form-label ps-2 mt-3">Imagen:</label>
+            <input class="form-control" type="file" name="imagen">
+        </div>
+        <div class="text-center m-5">
+            <button class="enviar btn btn-dark" style="width: 90px;">
+            Enviar <i class="fa-solid fa-share"></i>
+            </button>
+            <button class="cancelar btn btn-dark" style="width: 107px;">
+            Cancelar <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        </form>
+    </main>
+</div>

@@ -78,7 +78,7 @@ a {
 
 /* Tarjetas */
 .tarjeta {
-    width: 300px !important;
+    width: 310px !important;
 }
 
 .sombra {
@@ -100,6 +100,10 @@ a {
 
 .enviar:hover {
     background-color: #1899D2;
+}
+
+.cancelar:hover {
+    background-color: #FEC224;
 }
 
 /* Agregado de "carrito" en pantallas grandes */

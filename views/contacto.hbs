@@ -1,0 +1,30 @@
+
+<div style="background-color: #794fa0;">
+    {{{>header}}}
+    <main>
+        <div class="container d-flex flex-column" style="max-width: 500px;">
+            <h1 class="text-white text-center">
+                Dejanos tu mensaje
+            </h1>
+            <form class="text-white">
+                <label for="nombre" class="form-label ps-2 mt-3">Nombre:</label>
+                <input class="form-control" type="text" name="nombre">
+                
+                <label for="email" class="form-label ps-2 mt-3">E-mail:</label>
+                <input class="form-control" type="text" name="email">
+                
+                <label for="mensaje" class="form-label ps-2 mt-3">Mensaje:</label>
+                <textarea class="form-control" name="mensaje"></textarea>
+
+                <div class="text-center m-5">
+                <button class="enviar btn btn-dark" style="width: 90px;">
+                    Enviar <i class="fa-solid fa-paper-plane"></i>
+                </button>
+                <button class="vaciar btn btn-dark" style="width: 110px;">
+                    Cancelar <i class="fa-solid fa-xmark"></i>
+                </button>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>

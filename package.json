@@ -1,0 +1,28 @@
+{
+  "name": "integrador2",
+  "version": "1.0.0",
+  "main": "server.js",
+  "start": "dev",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vdelaconcep/integrador2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vdelaconcep/integrador2/issues"
+  },
+  "homepage": "https://github.com/vdelaconcep/integrador2#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "hbs": "^4.2.0",
+    "mongoose": "^8.15.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7"
+  }
+}

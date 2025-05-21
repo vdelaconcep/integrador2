@@ -1,0 +1,37 @@
+
+<div style="background-color: #58944E;">
+    {{{>header}}}
+    <main>
+        <div class="container d-flex flex-column" style="max-width: 700px;">
+            <h1 class="text-white text-center">
+                Carrito de compras
+            </h1>
+            <table class="table table-bordered table-striped table-hover text-center table-secondary">
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                </tr>
+                <tr>
+                    <td>x</td>
+                    <td>x</td>
+                    <td>x</td>
+                </tr>
+                <tr>
+                    <th class="text-end pe-4" colspan="2">Total</th>
+                    <th>x</th>
+                </tr>
+            </table>
+            <div class="text-end pe-2 mb-5">
+                <button class="vaciar btn btn-dark">Vaciar carrito <i class="fa-solid fa-xmark"></i></button>
+                <button class="pagar btn btn-dark">Ir a pagar <i class="fa-solid fa-handshake-simple"></i></button>
+            </div>
+        </div>
+        <div class="overlay">
+            <div id="div-verProducto" class="text-center">
+                {{{>detalle}}}
+                <button class="vaciar btn btn-danger mt-3 mb-3" style="width: 110px;" title="Quitar del carrito">Eliminar <i class="fa-solid fa-trash"></i></button>
+            </div>
+        </div>
+    </main>
+</div>

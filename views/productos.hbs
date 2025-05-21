@@ -1,0 +1,31 @@
+
+<div style="background-color: #FEC224;">
+    {{{>header}}}
+    <main>
+        <div class="tarjetas d-flex flex-wrap" style="justify-content: center;">
+            <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga2.jpg" title="Ver" style="cursor: pointer;">
+                <div class="descripcion text-center pe-3">
+                    <h5>La Renga #2</h5>
+                    <h4 class="text-info">$20.000</h4>
+                    <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
+                </div>
+            </div>
+            <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
+                <img class="card-img w-50 rounded p-2" src="./assets/img/larenga3.jpg" title="Ver" style="cursor: pointer;">
+                <div class="descripcion text-center pe-3">
+                    <h4>La Renga #3</h4>
+                    <h4 class="text-info">$20.000</h4>
+                    <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
+                </div>
+            </div>    
+        </div>
+
+        <div class="overlay">
+            <div id="div-verProducto" class="text-center">
+                {{{>detalle}}}
+                <button class="vaciar btn btn-danger mt-3 mb-3" style="width: 110px;" title="Quitar del carrito">Cancelar <i class="fa-solid fa-xmark"></i></button>
+            </div>
+        </div>
+    </main>
+</div>
