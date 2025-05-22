@@ -1,12 +1,12 @@
 <header>
-    <div class="hstack">
-        <div id="hamburguesa" class="d-md-none">
+    <div id="div-superior" class="hstack">
+        <div id="hamburguesa" class="d-lg-none">
             <nav class="dropdown">
                 <button id="boton-hamburguesa" class="btn dropdown-toggle" data-bs-toggle="dropdown">
                     <b>☰</b> <span class="caret"></span>
                 </button>
-                <ul class="menu-chico list-unstyled text-center dropdown-menu" style="width: 100vw;">
-                    <div class="search-container ps-3 pe-3 pt-0 pb-2">
+                <ul class="menu-chico list-unstyled text-center dropdown-menu">
+                    <div class="search-container ps-3 pe-3 pt-0 pb-2 d-md-none">
                         <input class="form-control search-input" type="text" placeholder="Buscá por banda...">
                         <i class="fas fa-search search-icon"></i>
                     </div>
@@ -26,14 +26,16 @@
                 </ul>
             </nav>
         </div>
-        <div id="menu-lineal" class="d-none d-md-block mt-3 ps-3">
+        <div class="ps-3 d-none d-sm-block">
+            <a href="/"><h1 class="text-white">LNR **</h1></a>
+        </div>
+        <div id="menu-lineal" class="d-none d-lg-block mt-3 ms-auto">
             <nav>
                 <ul class="menu-grande list-unstyled text-center hstack">
                     <li class="dropdown menu-grande-li"><a href="#productos"
                             class="productos-grande dropdown-toggle menu-grande-item"
                             data-bs-toggle="dropdown">Productos <span class="caret"></span></a>
-                        <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="productos"
-                            style="border: 2px solid white !important;">
+                        <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="productos">
                             <li><a href="" class="dropdown-item dropdown-productos-grande">Remeras</a></li>
                             <li><a href="" class="dropdown-item dropdown-productos-grande">Buzos</a></li>
                             <li><a href="" class="dropdown-item dropdown-productos-grande">Mochilas</a></li>
@@ -50,13 +52,20 @@
             <input class="form-control search-input" type="text" placeholder="Buscá por banda...">
             <i class="fas fa-search search-icon"></i>
         </div>
-        <div class="ms-auto pe-2">
-            <button id="boton-carrito" class="btn">
-                <a style="color: black;" id="a-carrito" href="carrito"><i
-                        class="fa-solid fa-cart-shopping"></i></a>
+        <div class="pe-2 ms-auto ms-lg-0">
+            <button id="boton-ingresar" class="btn">
+                <a id="a-ingreso" href=""><i class="fa-solid fa-user-large"></i></a>
             </button>
         </div>
+        <div class="pe-2">
+            <button id="boton-carrito" class="btn">
+                <a id="a-carrito" href="carrito"><i class="fa-solid fa-cart-shopping"></i></a>
+            </button>
+        </div>
+        
     </div>
-    <a href="productos"><img class="w-100 mt-0 mb-0 p-0" src="./assets/img/banner2.png" alt="banner"></a>
-    <p class="text-end mt-0 pt-0 pe-3"><b>REMERAS - BUZOS - MOCHILAS</b></p>
+    <div class="d-sm-none">
+        <a href="/"><img class="w-100 mt-0 mb-0 p-0" src="./assets/img/banner2.png" alt="banner"></a>
+        <p class="text-end mt-0 pt-0 pe-3"><b>REMERAS - BUZOS - MOCHILAS</b></p>
+    </div>
 </header>

@@ -1,6 +1,10 @@
 
-<div style="background-color: #FEC224;">
-    {{{>header}}}
+<div class="mb-0" style="background-color: #FEC224;">
+    {{> header}}
+    <div class="d-none d-sm-block">
+        <a href="/"><img class="w-100 mt-0 mb-0 p-0" src="./assets/img/banner2.png" alt="banner"></a>
+        <p class="text-end mt-0 pt-0 pe-3"><b>REMERAS - BUZOS - MOCHILAS</b></p>
+    </div>
     <main>
         <div class="tarjetas d-flex flex-wrap" style="justify-content: center;">
             <div class="tarjeta bg-light sombra rounded m-2 hstack" style="justify-content: space-between;">
@@ -23,7 +27,7 @@
 
         <div class="overlay">
             <div id="div-verProducto" class="text-center">
-                {{{>detalle}}}
+                {{> detalle}}
                 <button class="vaciar btn btn-danger mt-3 mb-3" style="width: 110px;" title="Quitar del carrito">Cancelar <i class="fa-solid fa-xmark"></i></button>
             </div>
         </div>

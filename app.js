@@ -15,6 +15,7 @@ app.use(express.json());
 // Utilizar las vistas de handlebars
 app.set('view engine', 'hbs');
 app.set('views', path.join(__dirname, 'views'));
+hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Rutas
 app.use('/', router)

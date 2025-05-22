@@ -1,12 +1,18 @@
 const {
-    productosApp
+    renderIndexApp,
+    renderApp
 } = require('../controller/controlRouter');
 
 
 const router = require('express').Router();
 
-// Página principal
-router.get('/', productosApp);
+// Páginas (get)
+router.get('/', renderIndexApp);
+router.get('/contacto', renderApp);
+router.get('/nosotros', renderApp);
+router.get('/alta', renderApp);
+router.get('/carrito', renderApp);
+
 
 
 // Exportar el enrutador

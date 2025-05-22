@@ -6,25 +6,28 @@ a {
 }
 
 /* Visibles del header */
-#boton-hamburguesa, #boton-carrito {
-    border: none !important;
-    color: black !important;
+#boton-hamburguesa, #a-ingreso, #a-carrito {
+    border: none;
+    color: black;
     font-size: 1.3em;
 }
 
-#boton-hamburguesa:hover, #a-carrito:hover,
-.menu-grande-item:hover {
-    color: white !important;
+#boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover {
+    color: white;
 }
 
 .menu-grande-item {
     font-weight: bold;
-    font-size: 1.2em;
-    color: black;
+    font-size: 1.1em;
+    color: white;
+}
+
+.menu-grande-item:hover {
+    color: #FEC224;
 }
 
 .menu-grande-li {
-    margin: 0 3%;
+    margin: 0 2%;
 }
 
 /* Barra de búsqueda */
@@ -52,6 +55,14 @@ a {
 
 
 /* Desplegables */
+.menu-chico {
+    width: 100vw;
+}
+
+.menu-chico, .sub-menu-grande {
+    border: 2px solid white !important
+}
+
 .menu-chico,
 .productos-chico {
     background-color: black !important;
@@ -74,6 +85,7 @@ a {
 .sub-menu-grande {
     width: 400px;
     overflow: hidden;
+    top: 12px !important;
 }
 
 /* Tarjetas */
@@ -106,12 +118,34 @@ a {
     background-color: #FEC224;
 }
 
-/* Agregado de "carrito" en pantallas grandes */
-@media (min-width: 768px) {
-    #a-carrito::before {
-        content: 'Carrito';
+/* Modificaciones en pantallas grandes */
+
+@media (min-width: 576px) {
+    #a-ingreso::before {
+            content: 'Ingresá ';
     }
     
+        #a-carrito::before {
+            content: 'Carrito ';
+    }
+
+    #div-superior {
+        background-color: black;
+        margin-bottom: 20px;
+        padding-bottom: 1px;
+    }
+
+    #boton-hamburguesa, #a-ingreso, #a-carrito {
+        color: white !important;
+    }
+
+    #boton-hamburguesa:hover, #a-ingreso:hover ,#a-carrito:hover {
+        color: #FEC224 !important;
+    }
+
+    .menu-chico {
+        width: 70vw;
+    }
 }
 
 /* Ver producto */
@@ -133,4 +167,18 @@ a {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1000;
+}
+
+/* Footer */
+.a-footer {
+    color: white;
+    font-size: 2em;
+    margin: 0 1%;
+}
+
+footer {
+    background: url('./assets/img/publico.jpg');
+    background-repeat: no-repeat;
+    background-position: top;
+    background-size: cover;
 }
