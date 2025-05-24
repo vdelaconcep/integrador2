@@ -1,6 +1,78 @@
+// Acción necesaria para el menú hamburguesa
 const item = document.querySelectorAll('.dropdown-item');
 
 item.forEach(element => {
-    element.addEventListener('click', (event) => 
-    event.stopPropagation());
-})
+    element.addEventListener('click', (event) =>
+        event.stopPropagation());
+});
+
+// Para cargar un producto nuevo en la base de datos desde "alta"
+const alta = document.getElementById('alta');
+if (alta) {
+
+    // Evento al presionar el botón "enviar" desde alta
+    document.getElementById('btn-enviar-alta').addEventListener('click', async (e) => {
+        e.preventDefault();
+
+        const productoTipo = document.getElementById('producto-tipo');
+        const productoBanda = document.getElementById('producto-banda');
+        const productoStock = document.getElementById('producto-stock');
+        const productoPrecio = document.getElementById('producto-precio');
+
+        const productoModelo = 1;
+
+        // Subir imagen a Imgur
+        const fileInput = document.getElementById('imagen-producto');
+        const file = fileInput.files[0];
+        const formData = new FormData();
+        formData.append("image", file);
+
+        let productoImagen = '';
+
+        try {
+            const res = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const json = await res.json();
+
+            if (!res.ok) {
+                alert(`Imgur rechazó la imagen: ${json.data?.error || 'Error desconocido'}`);
+                return;
+            }
+
+            productoImagen = json.link;
+            console.log(productoImagen);
+
+        } catch (err) {
+            alert(`No se ha podido enviar la imagen: ${err.message}`);
+        }
+
+        // Enviar datos a la base de datos
+        const datos = {
+            tipo: productoTipo.value,
+            banda: productoBanda.value,
+            modelo: productoModelo,
+            stock: productoStock.value,
+            precio: productoPrecio.value,
+            imagen: `i.${productoImagen}.jpeg`
+        };
+
+        try {
+            const res = await fetch('/api/productos', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json; charset=utf-8' },
+                body: JSON.stringify(datos)
+            });
+            if (res.status === 200) {
+                alert('Se guardó el nuevo producto');
+                window.location.replace('/alta');
+            } else {
+                alert('No se han podido guardar los datos');
+            }
+        } catch (err) {
+            alert(`Error en la petición - ${err.message}`);
+        }
+    });
+};

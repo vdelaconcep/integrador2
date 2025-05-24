@@ -19,10 +19,14 @@
   "homepage": "https://github.com/vdelaconcep/integrador2#readme",
   "description": "",
   "dependencies": {
+    "axios": "^1.9.0",
     "express": "^5.1.0",
+    "form-data": "^4.0.2",
     "hbs": "^4.2.0",
     "mongoose": "^8.15.0",
     "morgan": "^1.10.0",
+    "multer": "^2.0.0",
+    "node-fetch": "^3.3.2",
     "path": "^0.12.7"
   }
 }

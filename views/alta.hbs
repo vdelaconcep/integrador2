@@ -1,5 +1,5 @@
 
-<div class="mb-0" style="background-color: #E55648;">
+<div class="mb-0" style="background-color: #E55648;" id="alta">
     {{> header}}
     <main>
         <form class="text-white">
@@ -17,26 +17,26 @@
             </select>
             
             <label for="banda" class="form-label ps-2 mt-3">Artista / Banda:</label>
-            <input class="form-control" type="text" name="banda">
+            <input class="form-control" type="text" name="banda" id="producto-banda">
 
             <div class="hstack gap-1">
 
                 <div>
                     <label for="stock" class="form-label ps-2 mt-3">Stock:</label>
-                    <input class="form-control" type="number" name="stock">
+                    <input class="form-control" type="number" name="stock" id="producto-stock">
                 </div>
                 <div class="ms-auto">
                     <label for="precio" class="form-label ps-2 mt-3">Precio (ARS):</label>
-                    <input class="form-control" type="number" name="precio">
+                    <input class="form-control" type="number" name="precio" id="producto-precio">
                 </div>
 
             </div>
 
             <label for="imagen" class="form-label ps-2 mt-3">Imagen:</label>
-            <input class="form-control" type="file" name="imagen">
+            <input class="form-control" type="file"  id="imagen-producto" name="imagen">
         </div>
         <div class="text-center m-5">
-            <button class="enviar btn btn-dark" style="width: 90px;">
+            <button class="enviar btn btn-dark" id="btn-enviar-alta" style="width: 90px;">
             Enviar <i class="fa-solid fa-share"></i>
             </button>
             <button class="cancelar btn btn-dark" style="width: 107px;">
