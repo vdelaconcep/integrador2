@@ -27,7 +27,7 @@ a {
 }
 
 .menu-grande-li {
-    margin: 0 2%;
+    margin: 0 3%;
 }
 
 /* Barra de búsqueda */
@@ -90,7 +90,7 @@ a {
 
 /* Tarjetas */
 .tarjeta {
-    width: 310px !important;
+    max-width: 310px !important;
 }
 
 .sombra {
