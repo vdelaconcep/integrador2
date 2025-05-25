@@ -6,7 +6,70 @@ item.forEach(element => {
         event.stopPropagation());
 });
 
-// Para cargar un producto nuevo en la base de datos desde "alta"
+// Función para traer productos de la base de datos
+const obtenerDatos = async () => {
+    const res = await fetch('/api/productos', {
+        method: 'GET'
+    });
+    return res.json()
+};
+
+// Función para buscar productos
+const buscarProducto = async (buscarPor, parametro) => {
+    const dataCompleta = await obtenerDatos();
+    let resultados = [];
+
+    dataCompleta.forEach(elemento => {
+        if (buscarPor === 'banda') {
+            const bandaGuardada = elemento.banda.trim().toLowerCase();
+            const mismaBanda = bandaGuardada.includes(parametro.trim().toLowerCase());
+            if (mismaBanda) {
+                resultados.push(elemento);
+            } else return null;
+
+        } else if (buscarPor === 'tipo') {
+            const mismoTipo = (elemento.tipo == parametro);
+            if (mismoTipo) {
+                resultados.push(elemento);
+            } else return null;
+
+        }
+    });
+
+    if (buscarPor === 'id') {
+        const mismoId = dataCompleta.find(element => element._id == parametro);
+        if (mismoId) {
+            resultados.push(elemento);
+        } else return null;
+    }
+
+    if (buscarPor === 'todos') resultados = dataCompleta;
+
+    return resultados;
+}
+
+// Función para definir modelo
+const modelo = async (banda, tipoDeProducto) => {
+    const modelosAnteriores = await buscarProducto('banda', banda);
+    let a = 0;
+    let modeloActual = 0;
+    if (modelosAnteriores) {
+        modelosAnteriores.forEach(elemento => {
+            if (elemento.tipo === tipoDeProducto) a++;
+        });
+        modeloActual = a + 1;
+    }
+    return modeloActual;
+};
+
+// Función para cargar tarjetas
+const cargarTarjetas = async (cargarPor, parametro) => {
+    const data = await buscarProducto(cargarPor, parametro);
+    const fragmento = document.createDocumentFragment();
+    
+}
+
+// Desde la página "alta"
 const alta = document.getElementById('alta');
 if (alta) {
 
@@ -19,7 +82,13 @@ if (alta) {
         const productoStock = document.getElementById('producto-stock');
         const productoPrecio = document.getElementById('producto-precio');
 
-        const productoModelo = 1;
+        let productoModelo;
+        try {
+            productoModelo = await modelo(productoBanda.value, productoTipo.value);
+        } catch (err) {
+            alert(`Error al obtener datos: ${err.message}`);
+        };
+        
 
         // Subir imagen a Imgur
         const fileInput = document.getElementById('imagen-producto');
@@ -56,7 +125,7 @@ if (alta) {
             modelo: productoModelo,
             stock: productoStock.value,
             precio: productoPrecio.value,
-            imagen: `i.${productoImagen}.jpeg`
+            imagen: productoImagen
         };
 
         try {
@@ -76,3 +145,6 @@ if (alta) {
         }
     });
 };
+
+// Para cargar tarjetas en las diferentes páginas
+

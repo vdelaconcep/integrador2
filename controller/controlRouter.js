@@ -67,11 +67,22 @@ const ingresarProducto = async (req, res) => {
     }
 };
 
+// Obtener productos
+const obtenerProductos = async (req, res) => {
+    try {
+        const productos = await (Producto.find());
+        res.status(200).json(productos);
+    } catch (error) {
+        res.status(500).json({ mensaje: 'Error al obtener los prodcutos' });
+    }
+}
+
 
 module.exports = {
     renderIndexApp,
     renderApp,
     renderAltaApp,
     subirImagen,
-    ingresarProducto
+    ingresarProducto,
+    obtenerProductos
 }
