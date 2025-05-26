@@ -201,3 +201,15 @@ if (paginaProductos) {
     }
 };
 
+// Función de búsqueda
+const botonesBusqueda = document.querySelectorAll('.boton-busqueda');
+botonesBusqueda.forEach(element => {
+    element.addEventListener('click', () => {
+        let inputBusqueda;
+        if (element.id === 'btn-busqueda-menu-chico') {
+            inputBusqueda = document.getElementById('input-busqueda-menu-chico');
+        } else if (element.id === 'btn-busqueda-menu-grande') {
+            inputBusqueda = document.getElementById('input-busqueda-menu-grande');
+        }
+    });
+});

@@ -26,6 +26,7 @@ router.get('/productos', renderProductosApp);
 router.get('/remeras', renderProductosApp);
 router.get('/buzos', renderProductosApp);
 router.get('/mochilas', renderProductosApp);
+router.get('/busqueda', renderProductosApp);
 
 // Subir imagen
 router.post('/api/upload', upload.single('image'), subirImagen);

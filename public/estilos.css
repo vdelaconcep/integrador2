@@ -45,11 +45,11 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.search-icon {
+.boton-busqueda {
     position: absolute;
     top: 50%;
-    left: 30px;
-    transform: translateY(-80%);
+    left: 25px;
+    transform: translateY(-65%);
     color: black;
 }
 

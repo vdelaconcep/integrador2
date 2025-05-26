@@ -7,8 +7,10 @@
                 </button>
                 <ul class="menu-chico list-unstyled text-center dropdown-menu">
                     <div class="search-container ps-3 pe-3 pt-0 pb-2 d-md-none">
-                        <input class="form-control search-input" type="text" placeholder="Buscá por banda...">
-                        <i class="fas fa-search search-icon"></i>
+                        <form>
+                            <input class="form-control search-input" id="input-busqueda-menu-chico" type="text" placeholder="Buscá por banda...">
+                            <button type="button" id="btn-busqueda-menu-chico" class="boton-busqueda" style="background-color: transparent; border: none"><i class="fas fa-search search-icon"></i></button>
+                        </form>
                     </div>
                     <li class="dropdown"><a href="#productos-chico"
                             class="productos-chico dropdown-item dropdown-toggle dropdown-chico"
@@ -49,8 +51,10 @@
             </nav>
         </div>
         <div class="search-container ps-3 pe-3 pt-0 pb-2 d-none d-md-block ms-auto mt-2 w-25">
-            <input class="form-control search-input" type="text" placeholder="Buscá por banda...">
-            <i class="fas fa-search search-icon"></i>
+            <form>
+            <input class="form-control search-input" id="input-busqueda-menu-grande" type="text" placeholder="Buscá por banda...">
+            <button type="button" id="btn-busqueda-menu-grande" class="boton-busqueda" style="background-color: transparent; border: none"><i class="fas fa-search search-icon"></i></button>
+            </form>
         </div>
         <div class="pe-2 ms-auto ms-lg-0">
             <button id="boton-ingresar" class="btn">
