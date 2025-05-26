@@ -1,10 +1,6 @@
-// Acción necesaria para el menú hamburguesa
-const item = document.querySelectorAll('.dropdown-item');
-
-item.forEach(element => {
-    element.addEventListener('click', (event) =>
-        event.stopPropagation());
-});
+// Declaración de variables
+const paginaAlta = document.getElementById('alta');
+const dropdownItem = document.querySelectorAll('.dropdown-item');
 
 // Función para traer productos de la base de datos
 const obtenerDatos = async () => {
@@ -62,10 +58,14 @@ const modelo = async (banda, tipoDeProducto) => {
     return modeloActual;
 };
 
+// Acción necesaria para el menú hamburguesa
+dropdownItem.forEach(element => {
+    element.addEventListener('click', (event) =>
+        event.stopPropagation());
+});
 
 // Cargar un producto nuevo en la base de datos desde la página "alta"
-const alta = document.getElementById('alta');
-if (alta) {
+if (paginaAlta) {
 
     // Evento al presionar el botón "enviar" desde alta
     document.getElementById('btn-enviar-alta').addEventListener('click', async (e) => {
@@ -82,7 +82,6 @@ if (alta) {
         } catch (err) {
             alert(`Error al obtener datos: ${err.message}`);
         };
-        
 
         // Subir imagen a Imgur
         const fileInput = document.getElementById('imagen-producto');
