@@ -18,7 +18,7 @@ app.set('views', path.join(__dirname, 'views'));
 hbs.registerPartials(path.join(__dirname, 'views', 'partials'));
 
 // Helper de comparación
-hbs.registerHelper('esIgual', (a, b, options) => {
+hbs.registerHelper('esIgual', function (a, b, options) {
     if (a === b) {
         return options.fn(this);
     } else {

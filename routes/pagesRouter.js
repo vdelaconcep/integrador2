@@ -7,7 +7,9 @@ const {
     renderProductosApp,
     subirImagen,
     ingresarProducto,
-    obtenerProductos
+    obtenerProductos,
+    modificarProducto,
+    eliminarProducto
 } = require('../controller/controlRouter');
 
 
@@ -35,7 +37,13 @@ router.post('/api/upload', upload.single('image'), subirImagen);
 router.post('/api/productos', ingresarProducto);
 
 // Obtener productos
-router.get('/api/productos', obtenerProductos)
+router.get('/api/productos', obtenerProductos);
+
+// Eliminar producto
+router.delete('/api/productos/:id', eliminarProducto)
+
+// Modificar producto
+router.put('/api/productos/:id', modificarProducto);
 
 
 

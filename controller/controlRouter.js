@@ -103,10 +103,53 @@ const obtenerProductos = async (req, res) => {
     try {
         const productos = await (Producto.find());
         res.status(200).json(productos);
-    } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener los productos' });
+    } catch (err) {
+        res.status(500).send(`Error al obtener productos de la base de datos: ${err.message}`);
     }
 }
+
+// Eliminar producto
+const eliminarProducto = async (req, res) => {
+    try {
+        const baja = await Producto.findByIdAndDelete(req.params.id);
+        if (!baja) {
+            res.status(404).send(`Producto no encontrado`);
+        }
+        res.status(204).send();
+    } catch (err) {
+        res.status(500).send(`Error al eliminar el producto: ${err.message}`);
+    }
+};
+
+// Modificar producto
+const modificarProducto = async (req, res) => {
+
+    if (req.body.stock === 0) {
+        try {
+            await eliminarProducto(req, res);
+            return;
+        } catch (err) {
+            res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+        }
+    }
+
+    const buscaPorID = { _id: req.params.id };
+
+    const productoModificado = {
+        stock: req.body.stock
+    };
+    
+    try {
+        const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
+
+        if (!actualizacion) {
+            return res.status(404).send(`Producto no encontrado`);
+        }
+        res.status(200).json(actualizacion);
+        } catch (err) {
+        res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+    }
+};
 
 
 module.exports = {
@@ -116,5 +159,7 @@ module.exports = {
     renderProductosApp,
     subirImagen,
     ingresarProducto,
-    obtenerProductos
+    obtenerProductos,
+    eliminarProducto,
+    modificarProducto
 }
