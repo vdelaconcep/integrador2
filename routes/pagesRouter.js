@@ -4,6 +4,7 @@ const {
     renderIndexApp,
     renderApp,
     renderAltaApp,
+    renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos
@@ -21,6 +22,10 @@ router.get('/contacto', renderApp);
 router.get('/nosotros', renderApp);
 router.get('/alta', renderAltaApp);
 router.get('/carrito', renderApp);
+router.get('/productos', renderProductosApp);
+router.get('/remeras', renderProductosApp);
+router.get('/buzos', renderProductosApp);
+router.get('/mochilas', renderProductosApp);
 
 // Subir imagen
 router.post('/api/upload', upload.single('image'), subirImagen);

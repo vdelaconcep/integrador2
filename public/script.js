@@ -15,7 +15,7 @@ const obtenerDatos = async () => {
 };
 
 // Función para buscar productos
-const buscarProducto = async (buscarPor, parametro) => {
+const buscarProducto = async (buscarPor, parametro = null) => {
     const dataCompleta = await obtenerDatos();
     let resultados = [];
 
@@ -66,7 +66,37 @@ const modelo = async (banda, tipoDeProducto) => {
 const cargarTarjetas = async (cargarPor, parametro) => {
     const data = await buscarProducto(cargarPor, parametro);
     const fragmento = document.createDocumentFragment();
-    
+    const divTarjetas = document.getElementById('div-tarjetas');
+
+    data.forEach(elemento => {
+        const tipo = elemento.tipo[0].toUpperCase() + elemento.tipo.slice(1);
+
+        const tarjeta = document.createElement('div');
+        tarjeta.innerHTML +=
+            `<div title="Ver" style="cursor: pointer;">
+                <img class="card-img rounded p-2 pb-0 w-100" src="${elemento.imagen}">
+                <div class="text-center">
+                <h2>${tipo} ${elemento.banda} #${elemento.modelo}</h2>
+                <h3 class="text-info">$${elemento.precio}</h3>
+                </div>
+            </div>
+            <div class="hstack mb-3" style="justify-content: center;">
+                <div class="hstack pe-2">
+                    <label for="cantidad" class="form-label pe-2 pt-1">Cantidad:</label>
+                    <select name="cantidad"id="cantidad"class="form-select me-2"style="width: 60px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
+            </div>`;
+        tarjeta.classList.add("tarjeta", "bg-white", "sombra", "rounded", "m-2");
+        fragmento.appendChild(tarjeta);
+    });
+    divTarjetas.appendChild(fragmento);
 }
 
 // Desde la página "alta"
@@ -146,5 +176,28 @@ if (alta) {
     });
 };
 
+// Función para definir título en las páginas "productos"
+const titulo = (tipoProducto) => {
+    const titulo = document.getElementById('titulo-productos');
+    const tipo = tipoProducto[0].toUpperCase() + tipoProducto.slice(1) + "s";
+    titulo.innerHTML += tipo;
+    return;
+}
+
 // Para cargar tarjetas en las diferentes páginas
+const paginaIndex = document.getElementById('index');
+const paginaProductos = document.getElementsByClassName('productos')[0];
+
+if (paginaIndex) cargarTarjetas('todos');
+
+if (paginaProductos) {
+    const tipoDeProducto = paginaProductos.id.slice(0,-1);
+    if (tipoDeProducto === 'producto') {
+        titulo('todos los producto');
+        cargarTarjetas('todos')
+    } else {
+        titulo(tipoDeProducto);
+        cargarTarjetas('tipo', tipoDeProducto);
+    }
+};
 

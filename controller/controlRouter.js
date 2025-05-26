@@ -4,7 +4,7 @@ const axios = require('axios')
 
 // Mostrar página principal
 const renderIndexApp = (req, res) => {
-    res.render(`index`, {title:''});
+    res.render('index', {title:''});
 };
 
 // Mostrar páginas secundarias
@@ -14,9 +14,20 @@ const renderApp = (req, res) => {
     res.render(pagina, { title: `- ${paginaConMayuscula}` });
 };
 
+// Mostrar página alta de producto
 const renderAltaApp = (req, res) => {
     res.render('alta', { title: '- Alta' });
 }
+
+// Mostrar página productos
+const renderProductosApp = (req, res) => {
+    const pagina = `${req.url.slice(1)}`;
+    const paginaConMayuscula = pagina[0].toUpperCase() + pagina.slice(1);
+    res.render('productos', {
+        title: `- ${paginaConMayuscula}`,
+        tipoProducto: `${pagina}`
+    });
+};
 
 // Subir imagen a Imgur
 const subirImagen = async (req, res) => {
@@ -73,7 +84,7 @@ const obtenerProductos = async (req, res) => {
         const productos = await (Producto.find());
         res.status(200).json(productos);
     } catch (error) {
-        res.status(500).json({ mensaje: 'Error al obtener los prodcutos' });
+        res.status(500).json({ mensaje: 'Error al obtener los productos' });
     }
 }
 
@@ -82,6 +93,7 @@ module.exports = {
     renderIndexApp,
     renderApp,
     renderAltaApp,
+    renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos
