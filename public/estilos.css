@@ -182,3 +182,15 @@ footer {
     background-position: top;
     background-size: cover;
 }
+
+/* Div de notificación cuando se agrega un producto al carrito*/
+
+#boton-carrito {
+    position: relative;
+}
+
+#notificacion-carrito {
+    position: absolute;
+    bottom: 7px;
+    right: -2px;
+}

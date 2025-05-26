@@ -1,7 +1,10 @@
 // Declaración de variables
+const paginaIndex = document.getElementById('index');
+const paginaProductos = document.getElementById('pagina-productos');
 const paginaAlta = document.getElementById('alta');
 const paginaCarrito = document.getElementById('carrito');
 const divCarrito = document.getElementById('tabla-botones-carrito');
+const notificacionCarrito = document.getElementById('notificacion-carrito');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
 
 // Función para traer productos de la base de datos
@@ -89,6 +92,22 @@ const vaciarCarrito = () => {
     localStorage.clear();
     location.reload();
 };
+
+// Función para setear las notificaciones del carrito
+const setCarrito = () => {
+    if (localStorage.length === 0) {
+        notificacionCarrito.style.display = 'none';
+    } else {
+        let contador = 0;
+        const objetos = datosLocalStorage();
+        objetos.forEach(elemento => {
+            elementoObjeto = JSON.parse(elemento);
+            contador += elementoObjeto.cantidad;
+        });
+        notificacionCarrito.innerText = contador;
+    }
+    return;
+}
 
 // Función para simular el pago de la compra
 const pagarCompra = async () => {
@@ -245,6 +264,28 @@ if (paginaAlta) {
     });
 };
 
+// Agregar ítems al carrito
+if (paginaIndex || paginaProductos) {
+    const divTarjetas = document.getElementById('div-tarjetas');
+    divTarjetas.addEventListener('click', async (evento) => {
+        if (evento.target.classList.contains("agregar")) {
+            const id = evento.target.id;
+            const inputCantidad = document.getElementById(`cantidad-${id}`);
+            const cantidad = parseInt(inputCantidad.value);
+
+            try {
+                await agregarAlCarrito(id, cantidad);
+                alert('Se agregó el producto al carrito');
+                location.reload();
+            } catch (err) {
+                alert(`No se pudo agregar el producto al carrito: ${err.message}`)
+            }
+        };
+    });
+};
+
+// Mostrar ítems del carrito cuando se carga la página
 if (paginaCarrito) {
     mostrarCarrito();
-};
+} else setCarrito();
+
