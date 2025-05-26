@@ -3,8 +3,17 @@ const FormData = require('form-data');
 const axios = require('axios')
 
 // Mostrar página principal
-const renderIndexApp = (req, res) => {
-    res.render('index', {title:''});
+const renderIndexApp = async (req, res) => {
+    try {
+        const productos = await Producto.find();
+        res.render('index', {
+            title: '',
+            productos: productos
+        });
+    } catch (err) {
+        res.status(500).send(`Error al obtener productos: ${err.message}`)
+    }
+    
 };
 
 // Mostrar páginas secundarias
@@ -20,13 +29,24 @@ const renderAltaApp = (req, res) => {
 }
 
 // Mostrar página productos
-const renderProductosApp = (req, res) => {
+const renderProductosApp = async (req, res) => {
     const pagina = `${req.url.slice(1)}`;
     const paginaConMayuscula = pagina[0].toUpperCase() + pagina.slice(1);
-    res.render('productos', {
-        title: `- ${paginaConMayuscula}`,
-        tipoProducto: `${pagina}`
-    });
+    try {
+        let productos;
+        if (pagina === 'productos') {
+            productos = await Producto.find();
+        } else {
+            productos = await Producto.find({ tipo: `${paginaConMayuscula.slice(0,-1)}` });
+        }
+        res.render('productos', {
+            title: `- ${paginaConMayuscula}`,
+            tipoProducto: `${paginaConMayuscula}`,
+            productos: productos
+        });
+    } catch (err) {
+        res.status(500).send(`Error al obtener productos: ${err.message}`)
+    }
 };
 
 // Subir imagen a Imgur

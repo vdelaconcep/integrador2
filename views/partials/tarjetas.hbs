@@ -1,0 +1,30 @@
+{{#if productos}}
+    {{#each productos}}
+        <div class="tarjeta bg-white sombra rounded m-2" style="justify-content: center;">
+            <div title="Ver" style="cursor: pointer;">
+                <img class="card-img rounded p-2 pb-0 w-100" src="{{this.imagen}}">
+                <div class="text-center">
+                    <h2>{{this.tipo}} {{this.banda}} #{{this.modelo}}</h2>
+                    <h3 class="text-info">${{this.precio}}</h3>
+                </div>
+            </div>
+            <div class="hstack mb-3" style="justify-content: center;">
+                <div class="hstack pe-2">
+                    <label for="cantidad" class="form-label pe-2 pt-1">Cantidad:</label>
+                    <select name="cantidad" id="cantidad" class="form-select me-2" style="width: 60px;">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <button class="agregar btn btn-dark" title="Agregar al carrito">Agregar <i class="fa-solid fa-cart-plus"></i></button>
+            </div>
+        </div>
+    {{/each}}
+{{else}}
+    <h1 class="text-white text-center">
+        No hay productos para mostrar
+    </h1>
+{{/if}}
