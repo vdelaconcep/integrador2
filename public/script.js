@@ -9,10 +9,14 @@ const dropdownItem = document.querySelectorAll('.dropdown-item');
 
 // Función para traer productos de la base de datos
 const obtenerDatos = async () => {
-    const res = await fetch('/api/productos', {
-        method: 'GET'
-    });
-    return res.json()
+    try {
+        const res = await fetch('/api/productos', {
+            method: 'GET'
+        });
+        return res.json()
+    } catch (err) {
+        alert(`Error al obtener los datos: ${err.message}`)
+    }
 };
 
 // Función para buscar productos
@@ -65,13 +69,12 @@ const modelo = async (banda, tipoDeProducto) => {
 // Función para agregar un producto al carrito
 const agregarAlCarrito = async (id, cantidad) => {
     const producto = await buscarProducto('id', id);
-    let objeto = producto[0];
-    if (objeto.stock < cantidad) {
+    if (producto.stock < cantidad) {
         alert('La cantidad agregada al carrito no puede ser mayor al stock disponible');
         return;
     }
-    objeto.cantidad = cantidad;
-    const productoAgregado = JSON.stringify(objeto);
+    producto.cantidad = cantidad;
+    const productoAgregado = JSON.stringify(producto);
     localStorage.setItem(id, productoAgregado);
     return;
 }
@@ -89,8 +92,12 @@ const datosLocalStorage = () => {
 
 // Función para vaciar carrito
 const vaciarCarrito = () => {
-    localStorage.clear();
-    location.reload();
+    const confirmación = confirm('¿Desea eliminar todos los productos del carrito de compras?')
+    if (confirm) {
+        localStorage.clear();
+        location.reload();
+    }
+    return
 };
 
 // Función para setear las notificaciones del carrito
@@ -190,7 +197,7 @@ dropdownItem.forEach(element => {
         event.stopPropagation());
 });
 
-// Cargar un producto nuevo en la base de datos desde la página "alta"
+// Acciones desde la página "alta"
 if (paginaAlta) {
 
     // Evento al presionar el botón "enviar" desde alta
@@ -303,7 +310,7 @@ if (paginaIndex || paginaProductos) {
                     divOverlay.style.display = 'none';
                 })
             } catch (err) {
-                alert(`No se mostrar el detalle del producto: ${err.message}`);
+                alert(`No se puede mostrar el detalle del producto: ${err.message}`);
             };
         };
 
