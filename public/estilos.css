@@ -194,3 +194,7 @@ footer {
     bottom: 7px;
     right: -2px;
 }
+
+td {
+    cursor: pointer;
+}

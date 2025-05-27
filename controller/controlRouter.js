@@ -49,7 +49,7 @@ const renderProductosApp = async (req, res) => {
             const bandaBuscada = req.bandaBuscada;
             const regex = new RegExp(bandaBuscada.trim().replace(/\s+/g, '.*'), 'i');
             productos = await Producto.find({ banda: regex });
-            tipoDeProducto = `Resultados para ${bandaBuscada}`;
+            tipoDeProducto = `Resultados para "${bandaBuscada}"`;
 
         } else {
             productos = await Producto.find({ tipo: `${paginaConMayuscula.slice(0, -1)}` });

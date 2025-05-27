@@ -173,7 +173,8 @@ const mostrarCarrito = () => {
         objetos.forEach(producto => {
             const objetoProducto = JSON.parse(producto);
             total += (objetoProducto.cantidad * objetoProducto.precio);
-            const fila = document.createElement('tr')
+            const fila = document.createElement('tr');
+            fila.id = `f${objetoProducto._id}`
             fila.innerHTML += `
                     <td>${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}</td>
                     <td>${objetoProducto.cantidad}</td>
@@ -323,9 +324,52 @@ if (paginaIndex || paginaProductos) {
     });
 };
 
-// Mostrar ítems del carrito cuando se carga la página
+// Acciones sobre página "carrito"
 if (paginaCarrito) {
     mostrarCarrito();
+
+    // Modificar cantidad o eliminar producto del carrito
+    divCarrito.addEventListener('click', async (evento) => {
+        const abrirDetalleCarrito = evento.target.closest('td');
+
+        if (!abrirDetalleCarrito) return;
+
+        const divOverlay = document.querySelector('.overlay');
+        const botonCerrar = document.getElementById('btn-cerrar-producto-carrito');
+        const imagenProductoCarrito = document.getElementById('imagen-producto-carrito');
+        const tituloProductoCarrito = document.getElementById('titulo-producto-carrito');
+
+
+        const idTarget = abrirDetalleCarrito.parentNode.id.slice(1);
+        const objetos = datosLocalStorage();
+        const productoCarrito = objetos.find(elemento => JSON.parse(elemento)._id === idTarget);
+
+        const productoCarritoJson = JSON.parse(productoCarrito);
+
+        try {
+            const producto = await buscarProducto('id', idTarget);
+            const stockProducto = producto.stock;
+            if (stockProducto < 5) document.getElementById('cinco').disabled = true;
+            if (stockProducto < 4) document.getElementById('cuatro').disabled = true;
+            if (stockProducto < 3) document.getElementById('tres').disabled = true;
+            if (stockProducto < 2) document.getElementById('dos').disabled = true;
+        } catch (err) {
+            return alert(`No se puede acceder al producto solicitado: ${err.message}`);
+        };
+
+
+        imagenProductoCarrito.src = productoCarritoJson.imagen;
+        tituloProductoCarrito.innerText = `${productoCarritoJson.tipo} ${productoCarritoJson.banda} #${productoCarritoJson.modelo}`;
+        divOverlay.style.display = 'block';
+
+        botonCerrar.addEventListener('click', () => {
+            divOverlay.style.display = 'none';
+        });
+
+
+
+    })
+
 } else setCarrito();
 
 
