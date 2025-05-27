@@ -9,11 +9,6 @@
         <div class="tarjetas d-flex flex-wrap" style="justify-content: center;" id="div-tarjetas">
             {{> tarjetas}}
         </div>
-        <div class="overlay">
-            <div id="div-verProducto" class="text-center">
-                {{> detalle}}
-                <button class="vaciar btn btn-danger mt-3 mb-3" style="width: 110px;" title="Quitar del carrito">Cancelar <i class="fa-solid fa-xmark"></i></button>
-            </div>
-        </div>
+        {{> detalle}}
     </main>
 </div>

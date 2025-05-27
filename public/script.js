@@ -39,7 +39,7 @@ const buscarProducto = async (buscarPor, parametro = null) => {
     if (buscarPor === 'id') {
         const mismoId = dataCompleta.find(elemento => elemento._id == parametro);
         if (mismoId) {
-            resultados.push(mismoId);
+            return mismoId;
         } else return null;
     }
 
@@ -264,10 +264,13 @@ if (paginaAlta) {
     });
 };
 
-// Agregar ítems al carrito
+// Acciones en páginas donde se muestran productos
 if (paginaIndex || paginaProductos) {
+
     const divTarjetas = document.getElementById('div-tarjetas');
     divTarjetas.addEventListener('click', async (evento) => {
+
+        // Agregar ítem al carrito
         if (evento.target.classList.contains("agregar")) {
             const id = evento.target.id;
             const inputCantidad = document.getElementById(`cantidad-${id}`);
@@ -278,9 +281,32 @@ if (paginaIndex || paginaProductos) {
                 alert('Se agregó el producto al carrito');
                 location.reload();
             } catch (err) {
-                alert(`No se pudo agregar el producto al carrito: ${err.message}`)
-            }
+                alert(`No se pudo agregar el producto al carrito: ${err.message}`);
+            };
         };
+
+        // Mostrar detalle de producto al hacer click en el título o la imagen
+        const abrirDetalle = evento.target.closest('.abrir-detalle');
+        if (abrirDetalle) {
+            const id = abrirDetalle.id.slice(1);
+            const divOverlay = document.querySelector('.overlay')
+            const botonCerrar = document.getElementById('btn-cerrar-detalle');
+            const imagenDetalle = document.getElementById('imagen-detalle');
+            const tituloDetalle = document.getElementById('titulo-detalle');
+
+            try {
+                const productoDetalle = await buscarProducto('id', id);
+                imagenDetalle.src = productoDetalle.imagen;
+                tituloDetalle.innerText = `${productoDetalle.tipo} ${productoDetalle.banda} #${productoDetalle.modelo}`;
+                divOverlay.style.display = 'block';
+                botonCerrar.addEventListener('click', () => {
+                    divOverlay.style.display = 'none';
+                })
+            } catch (err) {
+                alert(`No se mostrar el detalle del producto: ${err.message}`);
+            };
+        };
+
     });
 };
 
@@ -288,4 +314,7 @@ if (paginaIndex || paginaProductos) {
 if (paginaCarrito) {
     mostrarCarrito();
 } else setCarrito();
+
+
+
 

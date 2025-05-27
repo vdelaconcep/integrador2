@@ -161,7 +161,7 @@ a {
 }
 
 #div-verProducto {
-    max-width: 600px;
+    /* max-width: 600px; */
     position: absolute;
     top: 50%;
     left: 50%;
