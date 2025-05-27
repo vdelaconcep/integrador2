@@ -4,11 +4,12 @@ const {
     renderIndexApp,
     renderApp,
     renderAltaApp,
+    obtenerBandaBuscada,
     renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos,
-    modificarProducto,
+    modificarStockProducto,
     eliminarProducto
 } = require('../controller/controlRouter');
 
@@ -28,7 +29,7 @@ router.get('/productos', renderProductosApp);
 router.get('/remeras', renderProductosApp);
 router.get('/buzos', renderProductosApp);
 router.get('/mochilas', renderProductosApp);
-router.get('/busqueda', renderProductosApp);
+router.post('/busqueda', obtenerBandaBuscada, renderProductosApp);
 
 // Subir imagen
 router.post('/api/upload', upload.single('image'), subirImagen);
@@ -43,7 +44,7 @@ router.get('/api/productos', obtenerProductos);
 router.delete('/api/productos/:id', eliminarProducto)
 
 // Modificar producto
-router.put('/api/productos/:id', modificarProducto);
+router.put('/api/productos/:id', modificarStockProducto);
 
 
 

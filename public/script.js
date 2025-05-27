@@ -6,6 +6,7 @@ const paginaCarrito = document.getElementById('carrito');
 const divCarrito = document.getElementById('tabla-botones-carrito');
 const notificacionCarrito = document.getElementById('notificacion-carrito');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
+const divsBusqueda = document.querySelectorAll('.search-container');
 
 // Función para traer productos de la base de datos
 const obtenerDatos = async () => {
@@ -92,8 +93,8 @@ const datosLocalStorage = () => {
 
 // Función para vaciar carrito
 const vaciarCarrito = () => {
-    const confirmación = confirm('¿Desea eliminar todos los productos del carrito de compras?')
-    if (confirm) {
+    const confirmacion = confirm('¿Desea eliminar todos los productos del carrito de compras?')
+    if (confirmacion) {
         localStorage.clear();
         location.reload();
     }
@@ -125,21 +126,26 @@ const pagarCompra = async () => {
     try {
         objetos.forEach(async (producto) => {
             const objetoProducto = JSON.parse(producto);
-            const stockActualizado = objetoProducto.stock - objetoProducto.cantidad;
+            const cantidadProducto = objetoProducto.cantidad;
             const datos = {
-                stock: stockActualizado
+                cantidad: cantidadProducto
             };
             const res = await fetch(`/api/productos/${objetoProducto._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
                 body: JSON.stringify(datos)
             });
+            if (!res.ok) {
+                const mensaje = await res.text();
+                alert(`Error al comprar ${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}: ${mensaje}`)
+            }
         });
+        localStorage.clear();
+        window.location.replace('/');
+        alert('Su compra se ha realizado con éxito')
     } catch (err) {
-        alert(`Error al modificar el stock: ${err.message}`);
+        alert(`Error al pagar la compra: ${err.message}`);
     };
-    localStorage.clear();
-    window.location.replace('/');
 };
 
 // Función para mostrar carrito con productos agregados
@@ -321,6 +327,8 @@ if (paginaIndex || paginaProductos) {
 if (paginaCarrito) {
     mostrarCarrito();
 } else setCarrito();
+
+
 
 
 

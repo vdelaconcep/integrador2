@@ -28,24 +28,41 @@ const renderAltaApp = (req, res) => {
     res.render('alta', { title: '- Alta' });
 }
 
+// Obtener banda buscada
+const obtenerBandaBuscada = (req, res, next) => {
+    req.bandaBuscada = req.body.banda;
+    next();
+};
+
 // Mostrar página productos
 const renderProductosApp = async (req, res) => {
-    const pagina = `${req.url.slice(1)}`;
-    const paginaConMayuscula = pagina[0].toUpperCase() + pagina.slice(1);
     try {
+        const pagina = `${req.url.slice(1)}`;
+        const paginaConMayuscula = pagina[0].toUpperCase() + pagina.slice(1);
+        let tipoDeProducto;
         let productos;
         if (pagina === 'productos') {
             productos = await Producto.find();
+            tipoDeProducto = 'Todos los productos';
+
+        } else if (pagina === 'busqueda') {
+            const bandaBuscada = req.bandaBuscada;
+            const regex = new RegExp(bandaBuscada.trim().replace(/\s+/g, '.*'), 'i');
+            productos = await Producto.find({ banda: regex });
+            tipoDeProducto = `Resultados para ${bandaBuscada}`;
+
         } else {
-            productos = await Producto.find({ tipo: `${paginaConMayuscula.slice(0,-1)}` });
+            productos = await Producto.find({ tipo: `${paginaConMayuscula.slice(0, -1)}` });
+            tipoDeProducto = paginaConMayuscula
         }
-        res.render('productos', {
+
+        return res.status(200).render('productos', {
             title: `- ${paginaConMayuscula}`,
-            tipoProducto: `${paginaConMayuscula}`,
+            tipoProducto: tipoDeProducto,
             productos: productos
         });
     } catch (err) {
-        res.status(500).send(`Error al obtener productos: ${err.message}`)
+        return res.status(500).send(`Error al obtener productos: ${err.message}`)
     }
 };
 
@@ -113,41 +130,54 @@ const eliminarProducto = async (req, res) => {
     try {
         const baja = await Producto.findByIdAndDelete(req.params.id);
         if (!baja) {
-            res.status(404).send(`Producto no encontrado`);
+            return res.status(404).send(`Producto no encontrado`);
         }
-        res.status(204).send();
+        return res.status(204).send();
     } catch (err) {
-        res.status(500).send(`Error al eliminar el producto: ${err.message}`);
+        return res.status(500).send(`Error al eliminar el producto: ${err.message}`);
     }
 };
 
 // Modificar producto
-const modificarProducto = async (req, res) => {
+const modificarStockProducto = async (req, res) => {
+    let nuevoStock;
+    const buscaPorID = { _id: req.params.id };
 
-    if (req.body.stock === 0) {
+    try {
+        const productoAModificar = await Producto.findById(buscaPorID);
+
+        if (!productoAModificar) return res.status(404).send('Producto no encontrado');
+        
+        const stockActual = productoAModificar.stock;
+        const cantidadComprada = req.body.cantidad;
+        nuevoStock = stockActual - cantidadComprada;
+
+        if (nuevoStock < 0) return res.status(400).send('La cantidad pedida supera el stock')
+        
+    } catch (err) {
+        return res.status(500).send(`Error al buscar producto: ${err.message}`)
+    }
+
+    if (nuevoStock === 0) {
         try {
             await eliminarProducto(req, res);
             return;
         } catch (err) {
-            res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+            return res.status(500).send(`Error al eliminar producto de la base de datos: ${err.message}`);
         }
-    }
+    } else {
+        try {
+            const productoModificado = {
+                stock: nuevoStock
+            };
+            const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
 
-    const buscaPorID = { _id: req.params.id };
+            if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
 
-    const productoModificado = {
-        stock: req.body.stock
-    };
-    
-    try {
-        const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
-
-        if (!actualizacion) {
-            return res.status(404).send(`Producto no encontrado`);
-        }
-        res.status(200).json(actualizacion);
+            return res.status(200).json(actualizacion);
         } catch (err) {
-        res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+            return res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+        }
     }
 };
 
@@ -156,10 +186,11 @@ module.exports = {
     renderIndexApp,
     renderApp,
     renderAltaApp,
+    obtenerBandaBuscada,
     renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    modificarProducto
+    modificarStockProducto
 }
