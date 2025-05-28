@@ -168,6 +168,47 @@ const pagarCompra = async () => {
     };
 };
 
+// Función para actualizar carrito
+const actualizarCarrito = async () => {
+    let modificacion = false;
+    const cantidadProductos = productosCarrito();
+    if (cantidadProductos === 0) return;
+
+    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+
+    for (const productoCarrito of carrito.slice()) {
+        const producto = await buscarPor('id', productoCarrito._id);
+        const index = carrito.findIndex(elemento => elemento._id === productoCarrito._id);
+
+        if (index !== -1) {
+            if (!producto || producto.stock === 0) {
+                carrito.splice(index, 1);
+                modificacion = true;
+                continue;
+            }
+            if (productoCarrito.cantidad > producto.stock) {
+                carrito[index].cantidad = producto.stock;
+                modificacion = true;
+            }
+            if (carrito[index].precio !== producto.precio) {
+                carrito[index].precio = producto.precio;
+                modificacion = true;
+            }
+        }
+    }
+
+    if (modificacion) {
+        let totalAPagar = 0;
+        carrito.forEach(elemento => {
+            totalAPagar += elemento.cantidad * elemento.precio;
+        });
+
+        localStorage.setItem('carrito', JSON.stringify(carrito));
+        localStorage.setItem('total', totalAPagar.toString());
+        alert('Se ha modificado el carrito por cambios en precio y/o stock');
+    }
+};
+
 // Función para mostrar carrito con productos agregados
 const mostrarCarrito = () => {
     const cantidadProductos = productosCarrito();
@@ -350,6 +391,7 @@ if (paginaIndex || paginaProductos) {
 
 // Acciones sobre página "carrito"
 if (paginaCarrito) {
+    actualizarCarrito();
     mostrarCarrito();
 
     //Al hacer click en un producto del carrito
