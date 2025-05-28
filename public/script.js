@@ -7,6 +7,7 @@ const divCarrito = document.getElementById('tabla-botones-carrito');
 const notificacionCarrito = document.getElementById('notificacion-carrito');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
 const divsBusqueda = document.querySelectorAll('.search-container');
+let total = 0;
 
 // Función para traer productos de la base de datos
 const obtenerDatos = async () => {
@@ -159,32 +160,33 @@ const mostrarCarrito = () => {
     } else {
         const objetos = datosLocalStorage();
 
-        let total = 0;
-
         const tabla = document.createElement('table');
-        tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-secondary")
+        tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-secondary");
         tabla.innerHTML = `
             <tr>
                 <th>Producto</th>
                 <th>Cantidad</th>
                 <th>Precio</th>
+                <th></th>
             </tr> `;
         
         objetos.forEach(producto => {
             const objetoProducto = JSON.parse(producto);
             total += (objetoProducto.cantidad * objetoProducto.precio);
             const fila = document.createElement('tr');
-            fila.id = `f${objetoProducto._id}`
+            fila.id = `F${objetoProducto._id}`
             fila.innerHTML += `
-                    <td>${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}</td>
-                    <td>${objetoProducto.cantidad}</td>
-                    <td>$${objetoProducto.cantidad * objetoProducto.precio}</td>`;
+                    <td style="text-decoration: underline;" id="D${objetoProducto._id}" class="abrir-detalle-producto">${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}</td>
+                    <td><span class="menos pe-3" id="L${objetoProducto._id}"> - </span><span id="C${objetoProducto._id}">${objetoProducto.cantidad}</span><span class="mas ps-3" id="U${objetoProducto._id}"> + </span></td>
+                    <td id="P${objetoProducto._id}">$${objetoProducto.cantidad * objetoProducto.precio}</td>
+                    <td> X </td>`;
             tabla.appendChild(fila)
         });
         const ultimaFila = document.createElement('tr');
         ultimaFila.innerHTML = `
                     <th class="text-end pe-4" colspan="2">Total</th>
-                    <th>$${total}</th>`
+                    <th id="celda-total">$${total}</th>
+                    <th></th>`
         tabla.appendChild(ultimaFila);
         divGenerado.appendChild(tabla);
 
@@ -196,6 +198,29 @@ const mostrarCarrito = () => {
     }
     fragmento.appendChild(divGenerado);
     divCarrito.appendChild(fragmento);
+}
+
+// Función para mostrar detalle del producto
+const mostarDetalle = async (id) => {
+    const divOverlay = document.querySelector('.overlay');
+    const botonCerrar = document.getElementById('btn-cerrar-detalle');
+    const imagenDetalle = document.getElementById('imagen-detalle');
+    const tituloDetalle = document.getElementById('titulo-detalle');
+
+    try {
+        const productoDetalle = await buscarProducto('id', id);
+        imagenDetalle.src = productoDetalle.imagen;
+        tituloDetalle.innerText = `${productoDetalle.tipo} ${productoDetalle.banda} #${productoDetalle.modelo}`;
+        divOverlay.style.display = 'block';
+        botonCerrar.addEventListener('click', () => {
+            divOverlay.style.display = 'none';
+        });
+    } catch (err) {
+        alert(`No se puede mostrar el detalle del producto: ${err.message}`);
+    };
+    botonCerrar.addEventListener('click', () => {
+        divOverlay.style.display = 'none';
+    });
 }
 
 // Acción necesaria para el menú hamburguesa
@@ -303,22 +328,7 @@ if (paginaIndex || paginaProductos) {
         const abrirDetalle = evento.target.closest('.abrir-detalle');
         if (abrirDetalle) {
             const id = abrirDetalle.id.slice(1);
-            const divOverlay = document.querySelector('.overlay')
-            const botonCerrar = document.getElementById('btn-cerrar-detalle');
-            const imagenDetalle = document.getElementById('imagen-detalle');
-            const tituloDetalle = document.getElementById('titulo-detalle');
-
-            try {
-                const productoDetalle = await buscarProducto('id', id);
-                imagenDetalle.src = productoDetalle.imagen;
-                tituloDetalle.innerText = `${productoDetalle.tipo} ${productoDetalle.banda} #${productoDetalle.modelo}`;
-                divOverlay.style.display = 'block';
-                botonCerrar.addEventListener('click', () => {
-                    divOverlay.style.display = 'none';
-                })
-            } catch (err) {
-                alert(`No se puede mostrar el detalle del producto: ${err.message}`);
-            };
+            mostarDetalle(id);
         };
 
     });
@@ -329,45 +339,45 @@ if (paginaCarrito) {
     mostrarCarrito();
 
     // Modificar cantidad o eliminar producto del carrito
-    divCarrito.addEventListener('click', async (evento) => {
-        const abrirDetalleCarrito = evento.target.closest('td');
+    const detalleProductoCarrito = document.querySelector('.abrir-detalle-producto'); 
+    detalleProductoCarrito.addEventListener('click', async (evento) => {
+        const idProducto = evento.target.id.slice(1);
 
-        if (!abrirDetalleCarrito) return;
+        if (!idProducto) return;
 
-        const divOverlay = document.querySelector('.overlay');
-        const botonCerrar = document.getElementById('btn-cerrar-producto-carrito');
-        const imagenProductoCarrito = document.getElementById('imagen-producto-carrito');
-        const tituloProductoCarrito = document.getElementById('titulo-producto-carrito');
+        mostarDetalle(idProducto);
+    });
 
+    divCarrito.addEventListener('click', (evento) => {
+        if (evento.target.classList.contains('menos')) {
+            const idProducto = evento.target.id.slice(1);
+            const objetos = datosLocalStorage();
 
-        const idTarget = abrirDetalleCarrito.parentNode.id.slice(1);
-        const objetos = datosLocalStorage();
-        const productoCarrito = objetos.find(elemento => JSON.parse(elemento)._id === idTarget);
+            const productoCarrito = objetos.find(elemento => JSON.parse(elemento)._id === idProducto);
+            const productoCarritoJson = JSON.parse(productoCarrito);
+            const cantidadActual = productoCarritoJson.cantidad;
+            const precio = productoCarritoJson.precio;
 
-        const productoCarritoJson = JSON.parse(productoCarrito);
-
-        try {
-            const producto = await buscarProducto('id', idTarget);
-            const stockProducto = producto.stock;
-            if (stockProducto < 5) document.getElementById('cinco').disabled = true;
-            if (stockProducto < 4) document.getElementById('cuatro').disabled = true;
-            if (stockProducto < 3) document.getElementById('tres').disabled = true;
-            if (stockProducto < 2) document.getElementById('dos').disabled = true;
-        } catch (err) {
-            return alert(`No se puede acceder al producto solicitado: ${err.message}`);
-        };
-
-
-        imagenProductoCarrito.src = productoCarritoJson.imagen;
-        tituloProductoCarrito.innerText = `${productoCarritoJson.tipo} ${productoCarritoJson.banda} #${productoCarritoJson.modelo}`;
-        divOverlay.style.display = 'block';
-
-        botonCerrar.addEventListener('click', () => {
-            divOverlay.style.display = 'none';
-        });
-
-
-
+            if (cantidadActual === 1) {
+                const confirmacion = confirm('¿Desea eliminar el producto del carrito?');
+                if (confirmacion) {
+                    const filaProducto = document.getElementById(`F${idProducto}`);
+                    filaProducto.style.display = 'none';
+                    localStorage.removeItem(`${idProducto}`);
+                    total = total - precio;
+                    document.getElementById('celda-total').innerHTML = `$${total}`;
+                } else return
+            } else {
+                const cantidadNueva = cantidadActual - 1;
+                productoCarritoJson.cantidad = cantidadNueva;
+                const productoCarritoString = JSON.stringify(productoCarritoJson);
+                localStorage.setItem(idProducto, productoCarritoString);
+                document.getElementById(`C${idProducto}`).innerHTML = cantidadNueva;
+                document.getElementById(`P${idProducto}`).innerHTML = cantidadNueva * precio;
+                total = total - precio;
+                document.getElementById('celda-total').innerHTML = `$${total}`;
+            }
+        }
     })
 
 } else setCarrito();

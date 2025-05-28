@@ -10,32 +10,7 @@
 
             </div>
         </div>
-        <div class="overlay">
-            <div id="div-verProducto">
-                <div class="text-end">
-                    <button type="button" id="btn-cerrar-producto-carrito" style="background-color: transparent; border: none"
-                        class="text-white fs-2"><i class="fa-solid fa-x"></i></button>
-                </div>
-                <h2 id="titulo-producto-carrito" class="text-center text-white mb-3 pt-2"></h2>
-                
-                <div class="d-flex" style="justify-content: center;">
-                    <img id="imagen-producto-carrito" class="w-50" style="min-width: 300px !important;">
-                </div>
-                <div class="hstack mb-3 mt-3" style="justify-content: center;">
-                    <div class="hstack pe-2">
-                        <label for="cantidad" class="form-label pe-2 pt-1 text-white">Modificar cantidad:</label>
-                        <select name="cantidad" id="cantidad-modificada" class="form-select me-2" style="width: 60px;">
-                            <option id="uno" value="1">1</option>
-                            <option id="dos" value="2">2</option>
-                            <option id="tres" value="3">3</option>
-                            <option id="cuatro" value="4">4</option>
-                            <option id="cinco" value="5">5</option>
-                        </select>
-                    </div>
-                    <button class="vaciar btn btn-dark" title="Quitar del carrito">Eliminar <i class="fa-solid fa-x"></i></button>
-                </div>
-            </div>
-        </div>
+        {{> detalle}}
     </main>
 </div>
 {{> footer}}
