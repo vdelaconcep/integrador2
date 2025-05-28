@@ -140,45 +140,31 @@ const eliminarProducto = async (req, res) => {
 
 // Modificar producto
 const modificarStockProducto = async (req, res) => {
-    let nuevoStock;
-    const buscaPorID = { _id: req.params.id };
-
     try {
+        const buscaPorID = { _id: req.params.id };
+        
         const productoAModificar = await Producto.findById(buscaPorID);
 
         if (!productoAModificar) return res.status(404).send('Producto no encontrado');
         
         const stockActual = productoAModificar.stock;
-        const cantidadComprada = req.body.cantidad;
-        nuevoStock = stockActual - cantidadComprada;
+        const cantidadRequerida = req.body.cantidad;
+        const nuevoStock = stockActual - cantidadRequerida;
 
-        if (nuevoStock < 0) return res.status(400).send('La cantidad pedida supera el stock')
+        if (nuevoStock < 0) return res.status(400).send('La cantidad requerida supera el stock');
+
+        const productoModificado = {
+            stock: nuevoStock
+        };
+        const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
+
+        if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
+
+        return res.status(200).json(actualizacion);
         
     } catch (err) {
-        return res.status(500).send(`Error al buscar producto: ${err.message}`)
-    }
-
-    if (nuevoStock === 0) {
-        try {
-            await eliminarProducto(req, res);
-            return;
-        } catch (err) {
-            return res.status(500).send(`Error al eliminar producto de la base de datos: ${err.message}`);
-        }
-    } else {
-        try {
-            const productoModificado = {
-                stock: nuevoStock
-            };
-            const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
-
-            if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
-
-            return res.status(200).json(actualizacion);
-        } catch (err) {
-            return res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
-        }
-    }
+        return res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+    };
 };
 
 
