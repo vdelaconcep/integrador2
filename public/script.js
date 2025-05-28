@@ -176,10 +176,10 @@ const mostrarCarrito = () => {
             const fila = document.createElement('tr');
             fila.id = `F${objetoProducto._id}`
             fila.innerHTML += `
-                    <td style="text-decoration: underline;" id="D${objetoProducto._id}" class="abrir-detalle-producto">${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}</td>
-                    <td><span class="menos pe-3" id="L${objetoProducto._id}"> - </span><span id="C${objetoProducto._id}">${objetoProducto.cantidad}</span><span class="mas ps-3" id="U${objetoProducto._id}"> + </span></td>
+                    <td style="text-decoration: underline;" id="D${objetoProducto._id}" class="abrir-detalle-producto pointer">${objetoProducto.tipo} ${objetoProducto.banda} #${objetoProducto.modelo}</td>
+                    <td><span class="menos pointer pe-3" id="L${objetoProducto._id}"> - </span><span id="C${objetoProducto._id}">${objetoProducto.cantidad}</span><span class="mas pointer ps-3" id="U${objetoProducto._id}"> + </span></td>
                     <td id="P${objetoProducto._id}">$${objetoProducto.cantidad * objetoProducto.precio}</td>
-                    <td> X </td>`;
+                    <td class="pointer"> X </td>`;
             tabla.appendChild(fila)
         });
         const ultimaFila = document.createElement('tr');

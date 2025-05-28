@@ -156,6 +156,7 @@ a {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
     z-index: 999;
     display: none;
 }
@@ -195,6 +196,6 @@ footer {
     right: -2px;
 }
 
-td {
+.pointer {
     cursor: pointer;
 }
