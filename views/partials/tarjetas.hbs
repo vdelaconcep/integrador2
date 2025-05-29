@@ -3,7 +3,7 @@
         {{#esMayor this.stock 0}}
             <div class="tarjeta bg-white sombra rounded m-2" style="justify-content: center;">
                 <div title="Ver" style="cursor: pointer;" class="abrir-detalle" id="d{{this._id}}">
-                    <img class="card-img rounded p-2 pb-0 w-100" src="{{this.imagen}}">
+                    <img class="card-img rounded p-2 pb-0 w-100" src="{{this.imagen}}" onerror="this.onerror=null; this.src='./assets/img/tarjeta-alternativa.jpg';">
                     <div class="text-center">
                         <h2>{{this.tipo}} {{this.banda}} #{{this.modelo}}</h2>
                         <h3 class="text-info">${{this.precio}}</h3>

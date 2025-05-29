@@ -139,12 +139,11 @@ const pagarCompra = async () => {
         Total a abonar: $${totalAPagar}
 
         ¿Desea realizar el pago de la compra?
-
         `);
     if (!confirmacion) return;
 
     try {
-        carrito.forEach(async (producto) => {
+        for (const producto of carrito) {
             const cantidadProducto = producto.cantidad;
 
             const res = await fetch(`/api/productos/${producto._id}`, {
@@ -156,7 +155,7 @@ const pagarCompra = async () => {
                 const mensaje = await res.text();
                 alert(`No se pudo realizar la compra de ${producto.tipo} ${producto.banda} #${producto.modelo}: ${mensaje}`);
             }
-        });
+        };
 
         alert('Su compra se ha realizado con éxito');
         localStorage.removeItem('carrito');
@@ -177,7 +176,7 @@ const actualizarCarrito = async () => {
     const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
     for (const productoCarrito of carrito.slice()) {
-        const producto = await buscarPor('id', productoCarrito._id);
+        const producto = await buscarProducto('id', productoCarrito._id);
         const index = carrito.findIndex(elemento => elemento._id === productoCarrito._id);
 
         if (index !== -1) {
@@ -238,7 +237,7 @@ const mostrarCarrito = () => {
                     <td style="text-decoration: underline;" id="D${producto._id}" class="abrir-detalle-producto pointer">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
                     <td><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
                     <td id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
-                    <td id="E${producto._id}" class="pointer"> X </td>`;
+                    <td id="E${producto._id}" class="eliminar pointer"> X </td>`;
             tabla.appendChild(fila)
         });
         const ultimaFila = document.createElement('tr');
@@ -268,6 +267,19 @@ const mostrarDetalle = async (id) => {
 
     try {
         const producto = await buscarProducto('id', id);
+
+        // Por si ya no existe la url de la imagen (o no está asignado un url)
+        if (!producto.imagen || producto.imagen.trim() === '') {
+            imagenDetalle.src = './assets/img/no-disponible.jpg';
+            imagenDetalle.alt = 'Imagen no disponible';
+        } else {
+            imagenDetalle.onerror = () => {
+                imagenDetalle.onerror = null;
+                imagenDetalle.src = './assets/img/no-disponible.jpg';
+                imagenDetalle.alt = 'Imagen no disponible';
+            };
+            imagenDetalle.src = producto.imagen;
+        }
         imagenDetalle.src = producto.imagen;
         tituloDetalle.innerText = `${producto.tipo} ${producto.banda} #${producto.modelo}`;
         divOverlay.style.display = 'block';
@@ -422,14 +434,19 @@ if (paginaCarrito) {
         }
 
         // Modificar cantidad del producto
-        if (clases.contains('menos')) {
-            if (cantidadActual === 1) {
+        if (clases.contains('menos') || clases.contains('eliminar')) {
+            if (cantidadActual === 1 || clases.contains('eliminar')) {
                 const confirmacion = confirm('¿Desea eliminar el producto del carrito?');
                 if (confirmacion) {
                     // Eliminar producto del carrito y del DOM
                     carrito.splice(index, 1);
-                    totalAPagar -= producto.precio;
                     document.getElementById(`F${idProducto}`).style.display = 'none';
+                    totalAPagar = 0;
+
+                    carrito.forEach(elemento => {
+                        totalAPagar += elemento.precio * elemento.cantidad;
+                    });
+                    
 
                     // Si ya no quedan productos
                     if (carrito.length === 0) {
@@ -449,7 +466,7 @@ if (paginaCarrito) {
                 } else {
                     return;
                 }
-            } else {
+            } else if (!clases.contains('eliminar')) {
                 nuevaCantidad = cantidadActual - 1;
                 totalAPagar -= producto.precio;
             }
