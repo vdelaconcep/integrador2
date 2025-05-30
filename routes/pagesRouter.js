@@ -2,15 +2,19 @@
 
 const {
     renderIndexApp,
+    renderContactoApp,
     renderApp,
     renderAltaApp,
+    renderMensajesApp,
+    obtenerMensajes,
     obtenerBandaBuscada,
     renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos,
     modificarStockProducto,
-    eliminarProducto
+    eliminarProducto,
+    enviarMensaje
 } = require('../controller/controlRouter');
 
 
@@ -21,9 +25,10 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 // Mostrar páginas
 router.get('/', renderIndexApp);
-router.get('/contacto', renderApp);
+router.get('/contacto', renderContactoApp);
 router.get('/nosotros', renderApp);
 router.get('/alta', renderAltaApp);
+router.get('/mensajes', renderMensajesApp);
 router.get('/carrito', renderApp);
 router.get('/productos', renderProductosApp);
 router.get('/remeras', renderProductosApp);
@@ -45,6 +50,11 @@ router.delete('/api/productos/:id', eliminarProducto)
 
 // Modificar producto
 router.put('/api/productos/:id', modificarStockProducto);
+
+// Enviar mensaje
+router.post('/api/mensajes', enviarMensaje);
+
+router.get('/api/mensajes', obtenerMensajes);
 
 
 

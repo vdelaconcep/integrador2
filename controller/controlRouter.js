@@ -1,6 +1,6 @@
 const Producto = require('../models/productoMongo');
-const FormData = require('form-data');
-const axios = require('axios')
+const Mensaje = require('../models/mensajeMongo')
+const axios = require('axios');
 
 // Mostrar página principal
 const renderIndexApp = async (req, res) => {
@@ -16,6 +16,11 @@ const renderIndexApp = async (req, res) => {
     
 };
 
+// Mostrar página contacto
+const renderContactoApp = (req, res) => {
+    res.render('contacto', { title: '- Contacto' });
+}
+
 // Mostrar páginas secundarias
 const renderApp = (req, res) => {
     const pagina = `${req.url.slice(1)}`;
@@ -27,6 +32,19 @@ const renderApp = (req, res) => {
 const renderAltaApp = (req, res) => {
     res.render('alta', { title: '- Alta' });
 }
+
+const renderMensajesApp = (req, res) => {
+    res.render('Mensajes', { title: '- Mensajes' });
+}
+
+const obtenerMensajes = async (req, res) => {
+    try {
+        const mensajes = await Mensaje.find();
+        res.status(200).json(mensajes);
+    } catch (err) {
+        res.status(500).send(`Error al obtener mensajes de la base de datos: ${err.message}`);
+    }
+};
 
 // Obtener banda buscada
 const obtenerBandaBuscada = (req, res, next) => {
@@ -105,7 +123,7 @@ const ingresarProducto = async (req, res) => {
             imagen: req.body.imagen
         };
 
-        // Guardar registro en base de datos
+        // Guardar producto en base de datos
         const producto = new Producto(productoNuevo);
         const productoGuardado = await producto.save();
         res.status(200).send(productoGuardado);
@@ -167,16 +185,41 @@ const modificarStockProducto = async (req, res) => {
     };
 };
 
+const enviarMensaje = async (req, res) => {
+    try {
+        const hoy = new Date();
+        const mensajeNuevo = {
+            nombre: req.body.nombre,
+            email: req.body.email,
+            asunto: req.body.asunto,
+            fecha: hoy,
+            mensaje: req.body.mensaje
+        };
+
+        // Guardar mensaje en base de datos
+        const mensajeAGuardar = new Mensaje(mensajeNuevo);
+        const mensajeGuardado = await mensajeAGuardar.save();
+        return res.status(200).send(mensajeGuardado);
+
+    } catch (err) {
+        return res.status(500).send(`Error al enviar el mensaje: ${err.message}`);
+    };
+};
+
 
 module.exports = {
     renderIndexApp,
+    renderContactoApp,
     renderApp,
     renderAltaApp,
+    renderMensajesApp,
+    obtenerMensajes,
     obtenerBandaBuscada,
     renderProductosApp,
     subirImagen,
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    modificarStockProducto
+    modificarStockProducto,
+    enviarMensaje
 }

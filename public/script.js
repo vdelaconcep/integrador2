@@ -14,12 +14,15 @@ import {
     validarEmail,
     validarAsunto,
     validarMensaje,
-    enviarMensaje } from './js/contacto.js';
+    enviarMensaje
+} from './js/contacto.js';
+import { mostrarMensajes } from './js/mensajes.js';
 
 // Declaración de variables
 const paginaIndex = document.getElementById('index');
 const paginaProductos = document.getElementById('pagina-productos');
 const paginaAlta = document.getElementById('pagina-alta');
+const paginaMensajes = document.getElementById('pagina-mensajes');
 const paginaCarrito = document.getElementById('pagina-carrito');
 const paginaContacto = document.getElementById('pagina-contacto');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
@@ -151,7 +154,7 @@ if (paginaCarrito) {
 // Acciones sobre página "contacto"
 if (paginaContacto) {
     const btnEnviar = document.getElementById('btn-enviar');
-
+    evento.preventDefault();
     btnEnviar.addEventListener('click', (evento) => {
 
         // Variables
@@ -170,11 +173,16 @@ if (paginaContacto) {
         else if (!asunto) inputAsunto.reportValidity();
         else if (!mensaje) textoMensaje.reportValidity();
         else {
-            evento.preventDefault();
+            
             enviarMensaje(nombre, email, asunto, mensaje);
         }
     });
 };
+
+// Acciones sobre página "mensajes"
+if (paginaMensajes) {
+    mostrarMensajes();
+}
 
 
 

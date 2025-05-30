@@ -103,7 +103,7 @@ async function enviarMensaje(nombre, email, asunto, mensaje) {
         };
 
         try {
-            const res = await fetch('/api/mensaje', {
+            const res = await fetch('/api/mensajes', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
                 body: JSON.stringify(datos)

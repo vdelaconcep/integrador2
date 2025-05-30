@@ -13,16 +13,23 @@
                         </form>
                     </div>
                     <li class="dropdown"><a href="#productos-chico"
-                            class="productos-chico dropdown-item dropdown-toggle dropdown-chico"
+                            class="desplegable-chico dropdown-item dropdown-toggle dropdown-chico"
                             data-bs-toggle="collapse">Productos <span class="caret"></span></a>
                         <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="productos-chico">
-                            <li><a href="remeras" class="dropdown-productos-chico">Remeras</a></li>
-                            <li><a href="buzos" class="dropdown-productos-chico">Buzos</a></li>
-                            <li><a href="mochilas" class="dropdown-productos-chico">Mochilas</a></li>
-                            <li><a href="productos" class="dropdown-productos-chico">Ver todo</a></li>
+                            <li><a href="remeras" class="dropdown-item-chico">Remeras</a></li>
+                            <li><a href="buzos" class="dropdown-item-chico">Buzos</a></li>
+                            <li><a href="mochilas" class="dropdown-item-chico">Mochilas</a></li>
+                            <li><a href="productos" class="dropdown-item-chico">Ver todo</a></li>
                         </ul>
                     </li>
-                    <li><a href="alta" class="dropdown-item dropdown-chico">Alta</a></li>
+                    <li class="dropdown"><a href="#admin-chico"
+                            class="desplegable-chico dropdown-item dropdown-toggle dropdown-chico"
+                            data-bs-toggle="collapse">Admin <span class="caret"></span></a>
+                        <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="admin-chico">
+                            <li><a href="alta" class="dropdown-item-chico">Stock</a></li>
+                            <li><a href="mensajes" class="dropdown-item-chico">Mensajes</a></li>
+                        </ul>
+                    </li>
                     <li><a href="contacto" class="dropdown-item dropdown-chico">Contacto</a></li>
                     <li><a href="nosotros" class="dropdown-item dropdown-chico">Nosotros</a></li>
                 </ul>
@@ -38,13 +45,20 @@
                             class="productos-grande dropdown-toggle menu-grande-item"
                             data-bs-toggle="dropdown">Productos <span class="caret"></span></a>
                         <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="productos">
-                            <li><a href="remeras" class="dropdown-item dropdown-productos-grande">Remeras</a></li>
-                            <li><a href="buzos" class="dropdown-item dropdown-productos-grande">Buzos</a></li>
-                            <li><a href="mochilas" class="dropdown-item dropdown-productos-grande">Mochilas</a></li>
-                            <li><a href="productos" class="dropdown-item dropdown-productos-grande">Ver todo</a></li>
+                            <li><a href="remeras" class="dropdown-item dropdown-item-grande">Remeras</a></li>
+                            <li><a href="buzos" class="dropdown-item dropdown-item-grande">Buzos</a></li>
+                            <li><a href="mochilas" class="dropdown-item dropdown-item-grande">Mochilas</a></li>
+                            <li><a href="productos" class="dropdown-item dropdown-item-grande">Ver todo</a></li>
                         </ul>
                     </li>
-                    <li class="menu-grande-li"><a href="alta" class="menu-grande-item">Alta</a></li>
+                    <li class="dropdown menu-grande-li"><a href="#admin"
+                            class="productos-grande dropdown-toggle menu-grande-item"
+                            data-bs-toggle="dropdown">Admin <span class="caret"></span></a>
+                        <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="admin">
+                            <li><a href="alta" class="dropdown-item dropdown-item-grande">Stock</a></li>
+                            <li><a href="mensajes" class="dropdown-item dropdown-item-grande">Mensajes</a></li>
+                        </ul>
+                    </li>
                     <li class="menu-grande-li"><a href="contacto" class="menu-grande-item">Contacto</a></li>
                     <li class="menu-grande-li"><a href="nosotros" class="menu-grande-item">Nosotros</a></li>
                 </ul>

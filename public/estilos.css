@@ -9,7 +9,14 @@ a {
 #boton-hamburguesa, #a-ingreso, #a-carrito {
     border: none;
     color: black;
+}
+
+#boton-hamburguesa {
     font-size: 1.3em;
+}
+
+#a-carrito, #a-ingreso {
+    font-size: 1.1em;
 }
 
 #boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover {
@@ -64,20 +71,20 @@ a {
 }
 
 .menu-chico,
-.productos-chico {
+.desplegable-chico {
     background-color: black !important;
 }
 
-.dropdown-chico, .productos-chico, .dropdown-productos-grande {
+.dropdown-chico, .desplegable-chico, .dropdown-item-grande {
     color: white !important;
 }
 
-.dropdown-productos-chico {
+.dropdown-item-chico {
     color: black;
     padding: 6px;
 }
 
-.dropdown-chico:hover, .productos-chico:hover, .dropdown-productos-chico:hover, .dropdown-productos-grande:hover {
+.dropdown-chico:hover, .desplegable-chico:hover, .dropdown-item-chico:hover, .dropdown-item-grande:hover {
     background-color:white !important;
     color: black !important;
 }

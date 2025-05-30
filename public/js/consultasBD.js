@@ -1,5 +1,5 @@
 // Función para traer todos los productos de la base de datos
-const obtenerDatos = async () => {
+const obtenerProductos = async () => {
     try {
         const res = await fetch('/api/productos', {
             method: 'GET'
@@ -12,7 +12,7 @@ const obtenerDatos = async () => {
 
 // Función para buscar un producto en la base de datos (por banda o por ID)
 const buscarProducto = async (buscarPor, parametro = null) => {
-    const dataCompleta = await obtenerDatos();
+    const dataCompleta = await obtenerProductos();
 
     let resultados = [];
 
@@ -36,4 +36,19 @@ const buscarProducto = async (buscarPor, parametro = null) => {
     return resultados;
 };
 
-export { buscarProducto };
+// Función para obtener todos los mensajes de la base de datos
+const obtenerMensajes = async () => {
+    try {
+        const res = await fetch('/api/mensajes', {
+            method: 'GET'
+        });
+        return res.json();
+    } catch (err) {
+        return alert(`Error al obtener datos: ${err.message}`);
+    }
+}
+
+export {
+    buscarProducto,
+    obtenerMensajes
+    };
