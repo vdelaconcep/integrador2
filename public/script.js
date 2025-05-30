@@ -160,23 +160,18 @@ if (paginaContacto) {
         const inputAsunto = document.getElementById('input-asunto');
         const textoMensaje = document.getElementById('mensaje');
 
-        if (inputNombre && inputEmail && inputAsunto && textoMensaje) {
-            const nombre = validarNombre(inputNombre, 3, 30);
-            const email = validarEmail(inputEmail);
-            const asunto = validarAsunto(inputAsunto, 40);
-            const mensaje = validarMensaje(textoMensaje, 240);
+        const nombre = validarNombre(inputNombre, 3, 30);
+        const email = validarEmail(inputEmail);
+        const asunto = validarAsunto(inputAsunto, 40);
+        const mensaje = validarMensaje(textoMensaje, 240);
 
-            if (!nombre) inputNombre.reportValidity();
-            else if (!email) inputEmail.reportValidity();
-            else if (!asunto) inputAsunto.reportValidity();
-            else if (!mensaje) textoMensaje.reportValidity();
-            else {
-                evento.preventDefault();
-                enviarMensaje(nombre, email, asunto, mensaje);
-            }
-        } else {
+        if (!nombre) inputNombre.reportValidity();
+        else if (!email) inputEmail.reportValidity();
+        else if (!asunto) inputAsunto.reportValidity();
+        else if (!mensaje) textoMensaje.reportValidity();
+        else {
             evento.preventDefault();
-            console.log('estamos acá')
+            enviarMensaje(nombre, email, asunto, mensaje);
         }
     });
 };
