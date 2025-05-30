@@ -1,4 +1,4 @@
-
+// Funciones de otros módulos
 import { agregarProducto } from './js/alta.js';
 import {
     agregarAlCarrito,
@@ -7,14 +7,21 @@ import {
     productosCarrito,
     setCarrito,
     actualizarCarrito,
-    eliminarProducto } from './js/carrito.js';
+    eliminarProducto
+} from './js/carrito.js';
+import {
+    validarNombre,
+    validarEmail,
+    validarAsunto,
+    validarMensaje,
+    enviarMensaje } from './js/contacto.js';
 
 // Declaración de variables
 const paginaIndex = document.getElementById('index');
 const paginaProductos = document.getElementById('pagina-productos');
-const paginaAlta = document.getElementById('alta');
-const paginaCarrito = document.getElementById('carrito');
-const divCarrito = document.getElementById('tabla-botones-carrito');
+const paginaAlta = document.getElementById('pagina-alta');
+const paginaCarrito = document.getElementById('pagina-carrito');
+const paginaContacto = document.getElementById('pagina-contacto');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
 
 // Acción necesaria para el menú hamburguesa
@@ -69,6 +76,8 @@ if (paginaIndex || paginaProductos) {
 if (paginaCarrito) {
     await actualizarCarrito();
     mostrarCarrito();
+
+    const divCarrito = document.getElementById('tabla-botones-carrito');
 
     //Al hacer click en un producto del carrito
     divCarrito.addEventListener('click', (evento) => {
@@ -138,6 +147,40 @@ if (paginaCarrito) {
 } else {
     setCarrito();
 };
+
+// Acciones sobre página "contacto"
+if (paginaContacto) {
+    const btnEnviar = document.getElementById('btn-enviar');
+
+    btnEnviar.addEventListener('click', (evento) => {
+
+        // Variables
+        const inputNombre = document.getElementById('input-nombre');
+        const inputEmail = document.getElementById('input-email');
+        const inputAsunto = document.getElementById('input-asunto');
+        const textoMensaje = document.getElementById('mensaje');
+
+        if (inputNombre && inputEmail && inputAsunto && textoMensaje) {
+            const nombre = validarNombre(inputNombre, 3, 30);
+            const email = validarEmail(inputEmail);
+            const asunto = validarAsunto(inputAsunto, 40);
+            const mensaje = validarMensaje(textoMensaje, 240);
+
+            if (!nombre) inputNombre.reportValidity();
+            else if (!email) inputEmail.reportValidity();
+            else if (!asunto) inputAsunto.reportValidity();
+            else if (!mensaje) textoMensaje.reportValidity();
+            else {
+                evento.preventDefault();
+                enviarMensaje(nombre, email, asunto, mensaje);
+            }
+        } else {
+            evento.preventDefault();
+            console.log('estamos acá')
+        }
+    });
+};
+
 
 
 
