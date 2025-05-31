@@ -41,8 +41,7 @@ const agregarProducto = async () => {
         const json = await res.json();
 
         if (!res.ok) {
-            const mensaje = await res.text();
-            alert(`Imgur rechazó la imagen: ${mensaje}`);
+            alert(`Imgur rechazó la imagen: ${json.error}`);
             return;
         }
 
@@ -50,6 +49,7 @@ const agregarProducto = async () => {
 
     } catch (err) {
         alert(`No se ha podido enviar la imagen: ${err.message}`);
+        return;
     }
 
     // Enviar datos a la base de datos
@@ -68,11 +68,14 @@ const agregarProducto = async () => {
             headers: { 'Content-Type': 'application/json; charset=utf-8' },
             body: JSON.stringify(datos)
         });
+
+        const json = await res.json();
+
         if (res.status === 200) {
             alert('Se guardó el nuevo producto');
             window.location.replace('/alta');
         } else {
-            alert('No se han podido guardar los datos');
+            alert(`No se han podido guardar los datos: ${json.error}`);
         }
     } catch (err) {
         alert(`Error al guardar producto: ${err.message}`);

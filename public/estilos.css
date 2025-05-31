@@ -31,6 +31,7 @@ a {
 
 .menu-grande-item:hover {
     color: #FEC224;
+    padding-bottom: 3px;
 }
 
 .menu-grande-li {
@@ -140,6 +141,7 @@ a {
         background-color: black;
         margin-bottom: 20px;
         padding-bottom: 1px;
+        height: 52px;
     }
 
     #boton-hamburguesa, #a-ingreso, #a-carrito {

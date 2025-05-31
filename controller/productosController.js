@@ -1,9 +1,33 @@
 const Producto = require('../models/productoMongo');
 const axios = require('axios');
+const sharp = require('sharp');
+
+// Configuración de imagen
+const CONFIG_IMAGEN = {
+    minWidth: 300,
+    minHeight: 280,
+    tolerancia: 0.3
+};
 
 // Importar configuración de dotenv
 const dotenv = require('dotenv');
 dotenv.config();
+
+// Función para verificar imagen
+const verificarImagen = (imagen) => {
+    const originalWidth = imagen.width;
+    const originalHeight = imagen.height;
+
+    const originalRatio = originalWidth / originalHeight;
+    const targetRatio = CONFIG_IMAGEN.minWidth / CONFIG_IMAGEN.minHeight;
+
+    const diferenciaRelativa = Math.abs(originalRatio - targetRatio) / targetRatio;
+
+    if (originalWidth < CONFIG_IMAGEN.minWidth || originalHeight < CONFIG_IMAGEN.minHeight || diferenciaRelativa > CONFIG_IMAGEN.tolerancia) return false;
+
+    return true;
+}
+
 
 // Subir imagen a Imgur
 const subirImagen = async (req, res) => {
@@ -13,7 +37,27 @@ const subirImagen = async (req, res) => {
             return res.status(400).json({ error: 'No se recibió ninguna imagen' });
         }
 
-        const imagenBase64 = req.file.buffer.toString('base64');
+        const metadata = await sharp(req.file.buffer).metadata();
+
+        // Verificar formato de imagen
+        if (!['jpeg', 'png'].includes(metadata.format)) return res.status(400).json({ error: 'Formato de imagen no permitido. Solo se aceptan JPG o PNG.' });
+
+        // Verificar tamaño y proporción de la imagen
+        const imagenOk = verificarImagen(metadata);
+
+        if (!imagenOk) {
+            return res.status(400).json({
+                error: `La imagen debe tener un tamaño mínimo de ${CONFIG_IMAGEN.minWidth}x${CONFIG_IMAGEN.minHeight} y la proporción debe ser cercana a 1:1`
+            });
+        }
+
+        // Redimensionar y enviar a Imgur
+        const imagenRedimensionada = await sharp(req.file.buffer)
+            .resize(300, 280)
+            .jpeg({ quality: 80 })
+            .toBuffer();
+
+        const imagenBase64 = imagenRedimensionada.toString('base64');
 
         const response = await axios.post('https://api.imgur.com/3/image', {
             image: imagenBase64,
@@ -28,7 +72,7 @@ const subirImagen = async (req, res) => {
 
     } catch (err) {
         console.error(err.response?.data || err.message);
-        res.status(500).json({ error: err.response?.data || err.message });
+        res.status(500).json({ error: `Error al recibir/ procesar la imagen: ${err.message}` });
     }
 };
 
@@ -44,13 +88,38 @@ const ingresarProducto = async (req, res) => {
             imagen: req.body.imagen
         };
 
+        if (!productoNuevo.imagen) return res.status(400).json({ error: `No se ha recibido imagen` });
+
+        // Si la imagen es externa (no Imgur), verificar
+        if (!productoNuevo.imagen.includes('imgur')) {
+            const response = await axios.get(productoNuevo.imagen, {
+                responseType: 'arraybuffer'
+            });
+            console.log('pasé por acá')
+
+            const buffer = Buffer.from(response.data, 'binary');
+            const metadata = await sharp(buffer).metadata();
+
+            // Verificar formato de imagen
+            if (!['jpeg', 'png'].includes(metadata.format)) return res.status(400).json({ error: 'Formato de imagen no permitido. Solo se aceptan JPG o PNG.' });
+
+            // Verificar tamaño y proporción de la imagen
+            const imagenOk = verificarImagen(metadata);
+
+            if (!imagenOk) {
+                return res.status(400).json({
+                    error: `La imagen debe tener al menos ${CONFIG_IMAGEN.minWidth}x${CONFIG_IMAGEN.minHeight} y una proporción cercana a 1:1`
+                });
+            }
+        }
+
         // Guardar producto en base de datos
         const producto = new Producto(productoNuevo);
         const productoGuardado = await producto.save();
         res.status(200).send(productoGuardado);
 
     } catch (err) {
-        console.log(err.message);
+        res.status(500).send(err.message);
     }
 };
 
