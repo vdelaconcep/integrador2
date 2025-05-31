@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 // Creación de esquema de contacto
 const mensajeSchema = new mongoose.Schema({
+    fecha: {
+        type: String,
+        require: true
+    },
     nombre: {
         type: String,
         require: true
@@ -11,10 +15,6 @@ const mensajeSchema = new mongoose.Schema({
         require: true
     },
     asunto: {
-        type: String,
-        require: true
-    },
-    fecha: {
         type: String,
         require: true
     },

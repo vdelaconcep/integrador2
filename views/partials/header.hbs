@@ -12,22 +12,21 @@
                             <button type="button" id="btn-busqueda-menu-chico" class="boton-busqueda" style="background-color: transparent; border: none"><i class="fas fa-search search-icon"></i></button>
                         </form>
                     </div>
-                    <li class="dropdown"><a href="#productos-chico"
-                            class="desplegable-chico dropdown-item dropdown-toggle dropdown-chico"
-                            data-bs-toggle="collapse">Productos <span class="caret"></span></a>
-                        <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="productos-chico">
-                            <li><a href="remeras" class="dropdown-item-chico">Remeras</a></li>
-                            <li><a href="buzos" class="dropdown-item-chico">Buzos</a></li>
-                            <li><a href="mochilas" class="dropdown-item-chico">Mochilas</a></li>
-                            <li><a href="productos" class="dropdown-item-chico">Ver todo</a></li>
-                        </ul>
-                    </li>
                     <li class="dropdown"><a href="#admin-chico"
                             class="desplegable-chico dropdown-item dropdown-toggle dropdown-chico"
                             data-bs-toggle="collapse">Admin <span class="caret"></span></a>
                         <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="admin-chico">
                             <li><a href="alta" class="dropdown-item-chico">Stock</a></li>
                             <li><a href="mensajes" class="dropdown-item-chico">Mensajes</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a href="#productos-chico" class="desplegable-chico dropdown-item dropdown-toggle dropdown-chico"
+                            data-bs-toggle="collapse">Productos <span class="caret"></span></a>
+                        <ul class="sub-menu list-unstyled bg-info-subtle collapse" id="productos-chico">
+                            <li><a href="remeras" class="dropdown-item-chico">Remeras</a></li>
+                            <li><a href="buzos" class="dropdown-item-chico">Buzos</a></li>
+                            <li><a href="mochilas" class="dropdown-item-chico">Mochilas</a></li>
+                            <li><a href="productos" class="dropdown-item-chico">Ver todo</a></li>
                         </ul>
                     </li>
                     <li><a href="contacto" class="dropdown-item dropdown-chico">Contacto</a></li>
@@ -41,6 +40,13 @@
         <div id="menu-lineal" class="d-none d-lg-block mt-3 ps-4 ps-xl-0 ms-xl-auto">
             <nav>
                 <ul class="menu-grande list-unstyled text-center hstack">
+                    <li class="dropdown menu-grande-li"><a href="#admin" class="productos-grande dropdown-toggle menu-grande-item"
+                            data-bs-toggle="dropdown">Admin <span class="caret"></span></a>
+                        <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="admin">
+                            <li><a href="alta" class="dropdown-item dropdown-item-grande">Stock</a></li>
+                            <li><a href="mensajes" class="dropdown-item dropdown-item-grande">Mensajes</a></li>
+                        </ul>
+                    </li>
                     <li class="dropdown menu-grande-li"><a href="#productos"
                             class="productos-grande dropdown-toggle menu-grande-item"
                             data-bs-toggle="dropdown">Productos <span class="caret"></span></a>
@@ -49,14 +55,6 @@
                             <li><a href="buzos" class="dropdown-item dropdown-item-grande">Buzos</a></li>
                             <li><a href="mochilas" class="dropdown-item dropdown-item-grande">Mochilas</a></li>
                             <li><a href="productos" class="dropdown-item dropdown-item-grande">Ver todo</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown menu-grande-li"><a href="#admin"
-                            class="productos-grande dropdown-toggle menu-grande-item"
-                            data-bs-toggle="dropdown">Admin <span class="caret"></span></a>
-                        <ul class="sub-menu-grande list-unstyled bg-black dropdown-menu text-center" id="admin">
-                            <li><a href="alta" class="dropdown-item dropdown-item-grande">Stock</a></li>
-                            <li><a href="mensajes" class="dropdown-item dropdown-item-grande">Mensajes</a></li>
                         </ul>
                     </li>
                     <li class="menu-grande-li"><a href="contacto" class="menu-grande-item">Contacto</a></li>

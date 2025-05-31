@@ -12,6 +12,8 @@ const mostrarMensajes = async () => {
         if (cantidadMensajes === 0) {
             divGenerado.innerHTML += '<h1 class="text-center text-white">No hay mensajes para mostrar</h1>';
         } else {
+            divGenerado.innerHTML += '<h3 class="text-center text-white">Hacé click en "asunto" para ver el mensaje</h3>';
+            
         const tabla = document.createElement('table');
         tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-secondary");
         tabla.innerHTML = `

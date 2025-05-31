@@ -2,7 +2,9 @@ const express = require('express');
 const path = require('path');
 const hbs = require('hbs');
 const morgan = require('morgan');
-const router = require('./routes/pagesRouter');
+const pagesRouter = require('./routes/pagesRouter');
+const productosRouter = require('./routes/productosRouter');
+const mensajesRouter = require('./routes/mensajesRouter')
 
 // Servidor
 const app = express();
@@ -28,7 +30,9 @@ hbs.registerHelper('esMayor', function (a, b, options) {
 });
 
 // Rutas
-app.use('/', router)
+app.use('/', pagesRouter);
+app.use('/api/productos', productosRouter);
+app.use('/api/mensajes', mensajesRouter);
 
 // Exportar la configuración del servidor
 module.exports = app;

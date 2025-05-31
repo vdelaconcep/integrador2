@@ -33,7 +33,7 @@ const agregarProducto = async () => {
     let productoImagen = '';
 
     try {
-        const res = await fetch('/api/upload', {
+        const res = await fetch('/api/productos/upload', {
             method: 'POST',
             body: formData
         });
