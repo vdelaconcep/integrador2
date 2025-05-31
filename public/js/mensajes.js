@@ -20,7 +20,6 @@ const mostrarMensajes = async () => {
             <tr>
                 <th>Fecha y hora</th>
                 <th>Nombre</th>
-                <th>E-mail</th>
                 <th>Asunto</th>
                 <th></th>
             </tr> `;
@@ -31,7 +30,6 @@ const mostrarMensajes = async () => {
             fila.innerHTML += `
                     <td>${mensaje.fecha.slice(4, 21)}</td>
                     <td>${mensaje.nombre}</td>
-                    <td>${mensaje.email}</td>
                     <td class="hoveru">${mensaje.asunto}</td>
                     <td class="hoverb"> X </td>`;
             tabla.appendChild(fila);
