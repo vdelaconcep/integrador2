@@ -206,3 +206,13 @@ footer {
 .pointer {
     cursor: pointer;
 }
+
+.hoveru:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.hoverb:hover {
+    font-weight: bold;
+    cursor: pointer;
+}

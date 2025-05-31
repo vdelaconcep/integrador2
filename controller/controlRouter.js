@@ -2,6 +2,10 @@ const Producto = require('../models/productoMongo');
 const Mensaje = require('../models/mensajeMongo')
 const axios = require('axios');
 
+// Importar configuración de dotenv
+const dotenv = require('dotenv');
+dotenv.config();
+
 // Mostrar página principal
 const renderIndexApp = async (req, res) => {
     try {
@@ -99,7 +103,7 @@ const subirImagen = async (req, res) => {
             type: 'base64'
         }, {
             headers: {
-                Authorization: 'Client-ID 1efa57656d99a9b'
+                Authorization: process.env.IMGUR_ID
             }
         });
 

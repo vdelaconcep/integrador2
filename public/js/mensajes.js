@@ -1,4 +1,4 @@
-import { obtenerMensajes } from "./consultasBD";
+import { obtenerMensajes } from "./consultasBD.js";
 
 // Función para obtener mensajes de la base de datos
 const mostrarMensajes = async () => {
@@ -16,10 +16,10 @@ const mostrarMensajes = async () => {
         tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-secondary");
         tabla.innerHTML = `
             <tr>
+                <th>Fecha y hora</th>
                 <th>Nombre</th>
                 <th>E-mail</th>
                 <th>Asunto</th>
-                <th>Fecha y hora</th>
                 <th></th>
             </tr> `;
 
@@ -27,11 +27,11 @@ const mostrarMensajes = async () => {
             const fila = document.createElement('tr');
             fila.id = `F${mensaje._id}`;
             fila.innerHTML += `
+                    <td>${mensaje.fecha.slice(4, 21)}</td>
                     <td>${mensaje.nombre}</td>
                     <td>${mensaje.email}</td>
-                    <td>${mensaje.asunto}</td>
-                    <td>${mensaje.fecha}</td>
-                    <td> X </td>`;
+                    <td class="hoveru">${mensaje.asunto}</td>
+                    <td class="hoverb"> X </td>`;
             tabla.appendChild(fila);
         });
         divGenerado.appendChild(tabla);

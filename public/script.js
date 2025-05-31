@@ -154,7 +154,7 @@ if (paginaCarrito) {
 // Acciones sobre página "contacto"
 if (paginaContacto) {
     const btnEnviar = document.getElementById('btn-enviar');
-    evento.preventDefault();
+    
     btnEnviar.addEventListener('click', (evento) => {
 
         // Variables
@@ -173,7 +173,7 @@ if (paginaContacto) {
         else if (!asunto) inputAsunto.reportValidity();
         else if (!mensaje) textoMensaje.reportValidity();
         else {
-            
+            evento.preventDefault();
             enviarMensaje(nombre, email, asunto, mensaje);
         }
     });
