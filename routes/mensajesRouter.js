@@ -6,7 +6,7 @@ const {
 
 const { reglasValidacionMensajes } = require('../helpers/mensajesValidatorHelpers');
 
-const {validarMensajes} = require('../middlewares/mensajesValidator')
+const {validarMensajes} = require('../middlewares/validators')
 
 const mensajesRouter = require('express').Router();
 

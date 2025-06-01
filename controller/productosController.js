@@ -2,61 +2,33 @@ const Producto = require('../models/productoMongo');
 const axios = require('axios');
 const sharp = require('sharp');
 
-// Configuración de imagen
-const CONFIG_IMAGEN = {
-    minWidth: 300,
-    minHeight: 280,
-    tolerancia: 0.3
-};
-
 // Importar configuración de dotenv
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Función para verificar imagen
-const verificarImagen = (imagen) => {
-    const originalWidth = imagen.width;
-    const originalHeight = imagen.height;
+// Ingresar nuevo producto en la base de datos
+const ingresarProducto = async (req, res) => {
 
-    const originalRatio = originalWidth / originalHeight;
-    const targetRatio = CONFIG_IMAGEN.minWidth / CONFIG_IMAGEN.minHeight;
+    // Verificar proporción de imagen
+    let imagen = req.file
 
-    const diferenciaRelativa = Math.abs(originalRatio - targetRatio) / targetRatio;
+    const metadata = await sharp(req.file.buffer).metadata();
+    const ratio = metadata.width / metadata.height;
+    const diferenciaRelativa = Math.abs(ratio - 1);
+    
+    if (diferenciaRelativa > 0.2) {
+        return res.status(400).json({error: "La relación de aspecto de la imagen debe ser cercana a 1:1 para evitar distorsiones"})
+    }
 
-    if (originalWidth < CONFIG_IMAGEN.minWidth || originalHeight < CONFIG_IMAGEN.minHeight || diferenciaRelativa > CONFIG_IMAGEN.tolerancia) return false;
+    // Redimensionar imagen y enviar a Imgur
+    const imagenRedimensionada = await sharp(req.file.buffer)
+        .resize(300, 280)
+        .jpeg({ quality: 80 })
+        .toBuffer();
 
-    return true;
-}
-
-// Subir imagen a Imgur
-const subirImagen = async (req, res) => {
+    const imagenBase64 = imagenRedimensionada.toString('base64');
 
     try {
-        if (!req.file) {
-            return res.status(400).json({ error: 'No se recibió ninguna imagen' });
-        }
-
-        const metadata = await sharp(req.file.buffer).metadata();
-
-        // Verificar formato de imagen
-        if (!['jpeg', 'png'].includes(metadata.format)) return res.status(400).json({ error: 'Formato de imagen no permitido. Solo se aceptan JPG o PNG.' });
-
-        // Verificar tamaño y proporción de la imagen
-        const imagenOk = verificarImagen(metadata);
-
-        if (!imagenOk) {
-            return res.status(400).json({
-                error: `La imagen debe tener un tamaño mínimo de ${CONFIG_IMAGEN.minWidth}x${CONFIG_IMAGEN.minHeight} y la proporción debe ser cercana a 1:1`
-            });
-        }
-
-        // Redimensionar y enviar a Imgur
-        const imagenRedimensionada = await sharp(req.file.buffer)
-            .resize(300, 280)
-            .jpeg({ quality: 80 })
-            .toBuffer();
-
-        const imagenBase64 = imagenRedimensionada.toString('base64');
 
         const response = await axios.post('https://api.imgur.com/3/image', {
             image: imagenBase64,
@@ -67,58 +39,49 @@ const subirImagen = async (req, res) => {
             }
         });
 
-        res.json({ link: response.data.data.link });
+        imagen = response.data.data.link;
 
     } catch (err) {
-        console.error(err.response?.data || err.message);
-        res.status(500).json({ error: `Error al recibir/ procesar la imagen: ${err.message}` });
+        return res.status(500).json({ error: `Error al enviar la imagen a Imgur: ${err.message}`});
     }
-};
+    
+    // Asignar modelo de producto
+    const banda = req.body.banda;
+    const tipo = req.body.tipo;
+    let modelo;
 
-// Ingresar nuevo producto en la base de datos
-const ingresarProducto = async (req, res) => {
     try {
-        const productoNuevo = {
-            tipo: req.body.tipo,
-            banda: req.body.banda,
-            modelo: req.body.modelo,
-            stock: req.body.stock,
-            precio: req.body.precio,
-            imagen: req.body.imagen
-        };
+        const productos = await Producto.find();
+        let resultado = [];
+        productos.forEach(elemento => {
+            const buscaPorBanda = elemento.banda.trim().toLowerCase();
+            const buscaPorTipo = elemento.tipo.trim().toLocaleLowerCase();
+            const coincide = (buscaPorBanda.includes(banda.trim().toLowerCase()) && buscaPorTipo.includes(tipo.trim().toLowerCase()));
+            if (coincide) {
+                resultado.push(elemento);
+            };
+        });
+        modelo = resultado.length + 1;
+    } catch (err) {
+        return res.status(500).json({ error: `Error al recuperar productos de la base de datos: ${err.message}` });
+    };
 
-        if (!productoNuevo.imagen) return res.status(400).json({ error: `No se ha recibido imagen` });
+    // Guardar producto en la base de datos
+    const productoNuevo = {
+        tipo: tipo,
+        banda: banda,
+        modelo: modelo,
+        stock: req.body.stock,
+        precio: req.body.precio,
+        imagen: imagen
+    };
 
-        // Si la imagen es externa (no Imgur), verificar
-        if (!productoNuevo.imagen.includes('imgur')) {
-            const response = await axios.get(productoNuevo.imagen, {
-                responseType: 'arraybuffer'
-            });
-            console.log('pasé por acá')
-
-            const buffer = Buffer.from(response.data, 'binary');
-            const metadata = await sharp(buffer).metadata();
-
-            // Verificar formato de imagen
-            if (!['jpeg', 'png'].includes(metadata.format)) return res.status(400).json({ error: 'Formato de imagen no permitido. Solo se aceptan JPG o PNG.' });
-
-            // Verificar tamaño y proporción de la imagen
-            const imagenOk = verificarImagen(metadata);
-
-            if (!imagenOk) {
-                return res.status(400).json({
-                    error: `La imagen debe tener al menos ${CONFIG_IMAGEN.minWidth}x${CONFIG_IMAGEN.minHeight} y una proporción cercana a 1:1`
-                });
-            }
-        }
-
-        // Guardar producto en base de datos
+    try {
         const producto = new Producto(productoNuevo);
         const productoGuardado = await producto.save();
         res.status(200).send(productoGuardado);
-
     } catch (err) {
-        res.status(500).json({error: `El producto no pudo ingresarse: ${err.message}`});
+        res.status(500).json({error: `El producto no pudo ingresarse en la base de datos: ${err.message}`});
     }
 };
 
@@ -175,7 +138,6 @@ const modificarStockProducto = async (req, res) => {
 };
 
 module.exports = {
-    subirImagen,
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,

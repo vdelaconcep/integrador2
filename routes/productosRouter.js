@@ -1,21 +1,22 @@
 const {
-    subirImagen,
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
     modificarStockProducto
 } = require('../controller/productosController');
 
+const { reglasValidacionAlta } = require('../helpers/altaValidatorHelper');
+
+const {validarAlta} = require('../middlewares/validators')
+
 const productosRouter = require('express').Router();
 
-// Subir imagen
+// Para subir imagen
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
-productosRouter.post('/upload', upload.single('image'), subirImagen);
-
 // Ingresar productos
-productosRouter.post('/', ingresarProducto);
+productosRouter.post('/', upload.single('image'), reglasValidacionAlta, validarAlta, ingresarProducto);
 
 // Obtener productos
 productosRouter.get('/', obtenerProductos);
