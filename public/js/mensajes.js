@@ -1,6 +1,6 @@
 import { obtenerMensajes } from "./consultasBD.js";
 
-// Función para obtener mensajes de la base de datos
+// Función para mostrar mensajes en una tabla
 const mostrarMensajes = async () => {
     const divMensajes = document.getElementById('tabla-mensajes');
     const mensajes = await obtenerMensajes();
@@ -28,7 +28,7 @@ const mostrarMensajes = async () => {
                     <th>Nombre</th>
                     <th>E-mail</th>
                     <th>Asunto</th>
-                    <th><i class="fa-solid fa-trash"></i></th>
+                    <th></th>
                 </tr>
             </thead>`;
 
@@ -43,7 +43,7 @@ const mostrarMensajes = async () => {
                     <td class="align-middle">${mensaje.nombre}</td>
                     <td class="align-middle">${mensaje.email}</td>
                     <td class="hoveru align-middle">${mensaje.asunto}</td>
-                    <td class="hoverb align-middle"><i class="fa-solid fa-xmark"></i></td>
+                    <td class="align-middle eliminar pointer"> X </td>
                 `;
 
             tbody.appendChild(fila);
@@ -57,6 +57,35 @@ const mostrarMensajes = async () => {
     }
     fragmento.appendChild(divGenerado);
     divMensajes.appendChild(fragmento);
+    return;
 };
 
-export { mostrarMensajes };
+// Función para eliminar mensaje
+const eliminarMensaje = async (id) => {
+    const fila = document.getElementById(`F${id}`)
+    const confirmacion = confirm('¿Desea eliminar el mensaje?');
+    if (confirmacion) {
+        try {
+            const res = await fetch(`/api/mensajes/${id}`, {
+                method: 'DELETE'
+            });
+
+            const mensajeError = await res.text()
+
+            if (!res.ok) {
+                alert(`No se ha podido eliminar el mensaje: ${mensajeError}`);
+                return;
+            };
+            alert('El mensaje se ha eliminado');
+            fila.style.display = 'none';
+
+        } catch (err) {
+            alert(`No se ha podido eliminar el mensaje: ${err.message}`)
+        };
+    }
+}
+
+export {
+    mostrarMensajes,
+    eliminarMensaje
+};

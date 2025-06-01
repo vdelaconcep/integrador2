@@ -4,9 +4,17 @@ const obtenerProductos = async () => {
         const res = await fetch('/api/productos', {
             method: 'GET'
         });
-        return res.json();
+
+        const datos = res.json()
+
+        if (!res.ok) {
+            alert(`No se pueden obtener los productos de la base de datos: ${datos}`);
+            return;
+        };
+
+        return datos;
     } catch (err) {
-        return alert(`Error al obtener datos: ${err.message}`);
+        return alert(`Error al obtener productos de la base de datos: ${err.message}`);
     }
 };
 
@@ -42,9 +50,18 @@ const obtenerMensajes = async () => {
         const res = await fetch('/api/mensajes', {
             method: 'GET'
         });
-        return res.json();
+
+        const datos = res.json();
+
+        if (!res.ok) {
+            alert(`No se pueden obtener los mensajes de la base de datos: ${datos}`);
+            return;
+        };
+
+        return datos;
+        
     } catch (err) {
-        return alert(`Error al obtener datos: ${err.message}`);
+        return alert(`Error al obtener mensajes de la base de datos: ${err.message}`);
     }
 }
 

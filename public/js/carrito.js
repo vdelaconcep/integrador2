@@ -131,21 +131,27 @@ const mostrarCarrito = () => {
     carrito.forEach(elemento => cantidadProductos += elemento.cantidad);
     const fragmento = document.createDocumentFragment();
     const divGenerado = document.createElement('div');
+    const tabla = document.createElement('table');
 
     if (cantidadProductos === 0) {
         divGenerado.innerHTML += '<h1 class="text-center text-white">No hay ítems para mostrar</h1>';
     } else {
         const totalAPagar = parseInt(localStorage.getItem('total')) || '0';
 
-        const tabla = document.createElement('table');
-        tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-secondary");
+        const divTabla = document.createElement('div');
+        divTabla.style.borderRadius = "10px";
+        divTabla.style.overflow = "hidden";
+        divTabla.style.paddingBottom = "0";
+        
         tabla.innerHTML = `
-            <tr>
-                <th>Producto</th>
-                <th>Cantidad</th>
-                <th>Precio</th>
-                <th></th>
-            </tr> `;
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th></th>
+                </tr>
+            </thead> `;
 
         carrito.forEach(producto => {
             const fila = document.createElement('tr');
@@ -163,7 +169,9 @@ const mostrarCarrito = () => {
                     <th id="celda-total">$${totalAPagar}</th>
                     <th></th>`;
         tabla.appendChild(ultimaFila);
-        divGenerado.appendChild(tabla);
+        tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-dark");
+        divTabla.appendChild(tabla);
+        divGenerado.appendChild(divTabla);
 
         divGenerado.innerHTML += `
             <div class="text-end pe-2 mb-5">

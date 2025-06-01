@@ -16,7 +16,10 @@ import {
     validarMensaje,
     enviarMensaje
 } from './js/contacto.js';
-import { mostrarMensajes } from './js/mensajes.js';
+import {
+    mostrarMensajes,
+    eliminarMensaje
+} from './js/mensajes.js';
 
 // Declaración de variables
 const paginaIndex = document.getElementById('index');
@@ -182,7 +185,16 @@ if (paginaContacto) {
 // Acciones sobre página "mensajes"
 if (paginaMensajes) {
     mostrarMensajes();
-}
+
+    const tabla = document.getElementById('tabla-mensajes');
+
+    tabla.addEventListener('click', (evento) => {
+        if (evento.target.classList.contains('eliminar')) {
+            const id = evento.target.parentNode.id.slice(1);
+            eliminarMensaje(id);
+        }
+    })
+};
 
 
 

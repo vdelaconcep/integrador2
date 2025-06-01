@@ -28,7 +28,6 @@ const verificarImagen = (imagen) => {
     return true;
 }
 
-
 // Subir imagen a Imgur
 const subirImagen = async (req, res) => {
 
@@ -119,7 +118,7 @@ const ingresarProducto = async (req, res) => {
         res.status(200).send(productoGuardado);
 
     } catch (err) {
-        res.status(500).send(err.message);
+        res.status(500).json({error: `El producto no pudo ingresarse: ${err.message}`});
     }
 };
 
@@ -129,7 +128,7 @@ const obtenerProductos = async (req, res) => {
         const productos = await (Producto.find());
         res.status(200).json(productos);
     } catch (err) {
-        res.status(500).send(`Error al obtener productos de la base de datos: ${err.message}`);
+        res.status(500).json({ error: `Error al obtener productos de la base de datos: ${err.message}`});
     }
 };
 
@@ -142,11 +141,11 @@ const eliminarProducto = async (req, res) => {
         }
         return res.status(204).send();
     } catch (err) {
-        return res.status(500).send(`Error al eliminar el producto: ${err.message}`);
+        return res.status(500).json({ error: `Error al eliminar el producto: ${err.message}` });
     }
 };
 
-// Modificar producto
+// Modificar stock del producto (compra)
 const modificarStockProducto = async (req, res) => {
     try {
         const buscaPorID = { _id: req.params.id };
@@ -171,7 +170,7 @@ const modificarStockProducto = async (req, res) => {
         return res.status(200).json(actualizacion);
 
     } catch (err) {
-        return res.status(500).send(`Error al modificar el producto en la base de datos: ${err.message}`);
+        return res.status(500).json({error: `Error al modificar stock del producto en la base de datos: ${err.message}`});
     };
 };
 

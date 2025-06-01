@@ -4,7 +4,8 @@ const hbs = require('hbs');
 const morgan = require('morgan');
 const pagesRouter = require('./routes/pagesRouter');
 const productosRouter = require('./routes/productosRouter');
-const mensajesRouter = require('./routes/mensajesRouter')
+const mensajesRouter = require('./routes/mensajesRouter');
+const { title } = require('process');
 
 // Servidor
 const app = express();
@@ -33,6 +34,21 @@ hbs.registerHelper('esMayor', function (a, b, options) {
 app.use('/', pagesRouter);
 app.use('/api/productos', productosRouter);
 app.use('/api/mensajes', mensajesRouter);
+
+// Página no encontrada (404)
+app.use((req, res, next) => {
+    res.status(404).render('error', {
+        title: '404',
+        mensaje: 'Página no encontrada'
+    });
+});
+
+app.use((err, req, res, next) => {
+    res.status(500).render('error', {
+        title: '500',
+        mensaje: `Error interno del servidor: ${err}`
+    })
+})
 
 // Exportar la configuración del servidor
 module.exports = app;
