@@ -21,9 +21,10 @@ import {
 const paginaIndex = document.getElementById('index');
 const paginaProductos = document.getElementById('pagina-productos');
 const paginaAlta = document.getElementById('pagina-alta');
-const paginaMensajes = document.getElementById('pagina-mensajes');
+/* const paginaMensajes = document.getElementById('pagina-mensajes'); */
 const paginaCarrito = document.getElementById('pagina-carrito');
 const paginaContacto = document.getElementById('pagina-contacto');
+const paginaAdmin = document.getElementById('panel-administrador');
 const dropdownItem = document.querySelectorAll('.dropdown-item');
 
 // Acción necesaria para el menú hamburguesa
@@ -147,7 +148,7 @@ if (paginaCarrito) {
         localStorage.setItem('total', totalAPagar.toString());
     });
 } else {
-    setCarrito();
+    if (!paginaAdmin) setCarrito();
 };
 
 // Acciones sobre página "contacto"

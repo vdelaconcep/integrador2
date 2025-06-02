@@ -170,7 +170,7 @@ a {
     display: none;
 }
 
-#div-verProducto {
+#div-verProducto, #div-modificar {
     /* max-width: 600px; */
     position: absolute;
     top: 50%;
