@@ -1,26 +1,12 @@
 const { validationResult } = require('express-validator');
 
-const validarAlta = (req, res, next) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return res.status(400).json({
-            error: "Error en la validación de los datos"
-        });
+const validar = (req, res, next) => {
+    const errores = validationResult(req);
+    if (!errores.isEmpty()) {
+        const mensajes = errores.array().map(err => err.msg);
+        return res.status(400).json({ error: mensajes });
     }
     next();
 };
 
-const validarMensajes = (req, res, next) => {
-    const error = validationResult(req);
-    if (!error.isEmpty()) {
-        return res.status(400).json({
-            error: "Error en la validación de los datos"
-        });
-    }
-    next();
-};
-
-module.exports = {
-    validarAlta,
-    validarMensajes
-};
+module.exports = { validar };

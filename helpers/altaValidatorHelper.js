@@ -3,32 +3,28 @@ const { check } = require('express-validator');
 const reglasValidacionAlta = [
     check("tipo")
         .escape()
-        .notEmpty()
-        .withMessage("Debe indicar el tipo de producto")
+        .notEmpty().withMessage("Debe indicar el tipo de producto")
         .bail()
-        .isIn(["Remera", "Buzo", "Mochila"])
-        .withMessage("El tipo de producto debe ser 'Remera', 'Buzo' o 'Mochila'"),
+        .isIn(["Remera", "Buzo", "Mochila"]).withMessage("El tipo de producto debe ser 'Remera', 'Buzo' o 'Mochila'"),
+    
     check("banda")
         .escape()
-        .notEmpty()
-        .withMessage("Debe indicar el nombre del artista/ banda")
+        .notEmpty().withMessage("Debe indicar el nombre del artista/ banda")
         .bail()
-        .isLength({ max: 40 })
-        .withMessage("El nombre del artista/ banda no debe superar los 40 caracteres"),
+        .isLength({ max: 40 }).withMessage("El nombre del artista/ banda no debe superar los 40 caracteres"),
+    
     check("stock")
         .escape()
-        .notEmpty()
-        .withMessage("Debe ingresar el stock disponible")
+        .notEmpty().withMessage("Debe ingresar el stock disponible")
         .bail()
-        .isInt({ min: 1, max: 10000 })
-        .withMessage("El stock debe ser un número entre 1 y 10.000"),
+        .isInt({ min: 1, max: 10000 }).withMessage("El stock debe ser un número entre 1 y 10.000"),
+    
     check("precio")
         .escape()
-        .notEmpty()
-        .withMessage("Debe ingresar un precio")
+        .notEmpty().withMessage("Debe ingresar un precio")
         .bail()
-        .isInt({ min: 1 })
-        .withMessage("El precio ingresado debe ser mayor que 0"),
+        .isInt({ min: 1 }).withMessage("El precio ingresado debe ser mayor que 0"),
+    
     check("imagen")
         .custom((value, { req }) => {
             if (!req.file) {

@@ -6,7 +6,7 @@ const sharp = require('sharp');
 const dotenv = require('dotenv');
 dotenv.config();
 
-// Ingresar nuevo producto en la base de datos
+// Ingresar nuevo producto en la base de datos (administrador)
 const ingresarProducto = async (req, res) => {
 
     // Verificar proporción de imagen
@@ -95,14 +95,14 @@ const obtenerProductos = async (req, res) => {
     }
 };
 
-// Eliminar producto
+// Eliminar producto (administrador)
 const eliminarProducto = async (req, res) => {
     try {
         const baja = await Producto.findByIdAndDelete(req.params.id);
         if (!baja) {
             return res.status(404).send(`Producto no encontrado`);
         }
-        return res.status(204).send();
+        return res.status(200).send(`Producto eliminado: ${baja}`);
     } catch (err) {
         return res.status(500).json({ error: `Error al eliminar el producto: ${err.message}` });
     }
@@ -130,10 +130,41 @@ const comprarProducto = async (req, res) => {
 
         if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
 
-        return res.status(200).json(actualizacion);
+        return res.status(200).json(`Compra realizada con éxito: ${JSON.stringify(actualizacion)}`);
 
     } catch (err) {
         return res.status(500).json({error: `Error al modificar stock del producto en la base de datos: ${err.message}`});
+    };
+};
+
+// Actualizar stock y precio de un producto (administrador)
+const actualizarProducto = async (req, res) => {
+    try {
+        const buscaPorID = { _id: req.params.id };
+
+        const productoAActualizar = await Producto.findById(buscaPorID);
+
+        if (!productoAActualizar) return res.status(404).send('Producto no encontrado');
+
+        const stockActual = Number(productoAActualizar.stock);
+        const stockAgregado = Number(req.body.agregado) || 0;
+        let stockActualizado = stockActual + stockAgregado;
+
+        const precioActualizado = req.body.precio || productoAActualizar.precio;
+
+        const productoActualizado = {
+            stock: stockActualizado,
+            precio: precioActualizado
+        };
+
+        const actualizacion = await Producto.updateOne(buscaPorID, productoActualizado);
+
+        if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
+
+        return res.status(200).json(`El producto ha sido actualizado: ${JSON.stringify(actualizacion)}`);
+
+    } catch (err) {
+        return res.status(500).json({ error: `Error al actualizar datos del producto: ${err.message}` });
     };
 };
 
@@ -141,5 +172,6 @@ module.exports = {
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    comprarProducto
+    comprarProducto,
+    actualizarProducto
 }

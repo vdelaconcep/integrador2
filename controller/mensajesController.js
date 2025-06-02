@@ -18,7 +18,7 @@ const eliminarMensaje = async (req, res) => {
         if (!mensajeAEliminar) {
             return res.status(404).json({ error: `Mensaje no encontrado`});
         }
-        return res.status(200).send(mensajeAEliminar);
+        return res.status(200).send(`Mensaje eliminado: ${mensajeAEliminar}`);
     } catch (err) {
         return res.status(500).json({ error: `Error al eliminar el mensaje: ${err.message}` });
     }

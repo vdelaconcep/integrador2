@@ -6,12 +6,12 @@ const {
 
 const { reglasValidacionMensajes } = require('../helpers/mensajesValidatorHelpers');
 
-const {validarMensajes} = require('../middlewares/validators')
+const {validar} = require('../middlewares/validators')
 
 const mensajesRouter = require('express').Router();
 
 // Enviar mensaje
-mensajesRouter.post('/', reglasValidacionMensajes, validarMensajes, enviarMensaje);
+mensajesRouter.post('/', reglasValidacionMensajes, validar, enviarMensaje);
 
 // Eliminar mensaje
 mensajesRouter.delete('/:id', eliminarMensaje);
