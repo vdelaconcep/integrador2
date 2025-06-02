@@ -96,7 +96,7 @@ const pagarCompra = async () => {
         for (const producto of carrito) {
             const cantidadProducto = producto.cantidad;
 
-            const res = await fetch(`/api/productos/${producto._id}`, {
+            const res = await fetch(`/api/productos/comprar/${producto._id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
                 body: JSON.stringify({ cantidad: cantidadProducto })
@@ -132,6 +132,7 @@ const mostrarCarrito = () => {
     const fragmento = document.createDocumentFragment();
     const divGenerado = document.createElement('div');
     const tabla = document.createElement('table');
+    tabla.style.margin = "0";
 
     if (cantidadProductos === 0) {
         divGenerado.innerHTML += '<h1 class="text-center text-white">No hay ítems para mostrar</h1>';
@@ -141,7 +142,8 @@ const mostrarCarrito = () => {
         const divTabla = document.createElement('div');
         divTabla.style.borderRadius = "10px";
         divTabla.style.overflow = "hidden";
-        divTabla.style.paddingBottom = "0";
+        divTabla.style.padding = "0";
+        divTabla.style.margin = "5% 0";
         
         tabla.innerHTML = `
             <thead>
@@ -157,24 +159,25 @@ const mostrarCarrito = () => {
             const fila = document.createElement('tr');
             fila.id = `F${producto._id}`;
             fila.innerHTML += `
-                    <td style="text-decoration: underline;" id="D${producto._id}" class="abrir-detalle-producto pointer">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
-                    <td><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
-                    <td id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
-                    <td id="E${producto._id}" class="eliminar pointer"> X </td>`;
+                    <td style="text-decoration: underline;" id="D${producto._id}" class="abrir-detalle-producto pointer align-middle">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
+                    <td class="align-middle"><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
+                    <td class="align-middle" id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
+                    <td id="E${producto._id}" class="eliminar pointer align-middle"> X </td>`;
             tabla.appendChild(fila);
         });
         const ultimaFila = document.createElement('tr');
+        ultimaFila.style.marginBottom = '0';
         ultimaFila.innerHTML = `
                     <th class="text-end pe-4" colspan="2">Total</th>
                     <th id="celda-total">$${totalAPagar}</th>
                     <th></th>`;
         tabla.appendChild(ultimaFila);
-        tabla.classList.add("table", "table-bordered", "table-striped", "table-hover", "text-center", "table-dark");
+        tabla.classList.add("table", "table-bordered", "table-striped", "table-responsive", "text-center", "table-dark");
         divTabla.appendChild(tabla);
         divGenerado.appendChild(divTabla);
 
         divGenerado.innerHTML += `
-            <div class="text-end pe-2 mb-5">
+            <div class="text-center text-md-end pe-md-5 mb-5">
                 <button class="vaciar btn btn-dark" onclick="vaciarCarrito()">Vaciar carrito <i class="fa-solid fa-xmark"></i></button>
                 <button class="pagar btn btn-dark" onclick="pagarCompra()">Ir a pagar <i class="fa-solid fa-handshake-simple"></i></button>
             </div>`;

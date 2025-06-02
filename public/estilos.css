@@ -6,7 +6,7 @@ a {
 }
 
 /* Visibles del header */
-#boton-hamburguesa, #a-ingreso, #a-carrito {
+#boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir {
     border: none;
     color: black;
 }
@@ -15,11 +15,11 @@ a {
     font-size: 1.3em;
 }
 
-#a-carrito, #a-ingreso {
+#a-carrito, #a-ingreso, #a-admin-salir {
     font-size: 1.1em;
 }
 
-#boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover {
+#boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover, #a-admin-salir:hover {
     color: white;
 }
 
@@ -35,7 +35,7 @@ a {
 }
 
 .menu-grande-li {
-    margin: 0 2%;
+    margin: 0 4%;
 }
 
 /* Barra de búsqueda */
@@ -129,11 +129,11 @@ a {
 /* Modificaciones en pantallas grandes */
 
 @media (min-width: 576px) {
-    #a-ingreso::before {
+    /* #a-ingreso::before {
             content: 'Ingresá ';
-    }
+    } */
     
-        #a-carrito::before {
+#a-carrito::before {
             content: 'Carrito ';
     }
 
@@ -144,11 +144,11 @@ a {
         height: 52px;
     }
 
-    #boton-hamburguesa, #a-ingreso, #a-carrito {
+    #boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir {
         color: white !important;
     }
 
-    #boton-hamburguesa:hover, #a-ingreso:hover ,#a-carrito:hover {
+    #boton-hamburguesa:hover, #a-ingreso:hover ,#a-carrito:hover, #a-admin-salir:hover {
         color: #FEC224 !important;
     }
 

@@ -1,4 +1,5 @@
 const Producto = require('../models/productoMongo');
+const Mensaje = require('../models/mensajeMongo')
 
 // Mostrar página principal
 const renderIndexApp = async (req, res) => {
@@ -31,10 +32,21 @@ const renderAltaApp = (req, res) => {
     res.render('alta', { title: '- Alta' });
 }
 
-// Mostrar página de mensajes recibidos
-const renderMensajesApp = (req, res) => {
-    res.render('Mensajes', { title: '- Mensajes' });
-}
+// Mostrar página de mensajes
+const renderMensajesApp = async (req, res) => {
+    try {
+        const mensajes = await Mensaje.find();
+        mensajes.forEach(elemento => {
+            elemento.fecha = elemento.fecha.slice(4, 24);
+        });
+        return res.status(200).render('mensajes', {
+            title: '- Mensajes',
+            mensajes: mensajes
+        });
+    } catch (err) {
+        return res.status(500).json({ error: `Error al obtener mensajes: ${err.message}` });
+    };
+};
 
 // Mostrar página productos
 const renderProductosApp = async (req, res) => {
@@ -55,7 +67,7 @@ const renderProductosApp = async (req, res) => {
 
         } else {
             productos = await Producto.find({ tipo: `${paginaConMayuscula.slice(0, -1)}` });
-            tipoDeProducto = paginaConMayuscula
+            tipoDeProducto = paginaConMayuscula;
         }
 
         return res.status(200).render('productos', {
@@ -64,12 +76,23 @@ const renderProductosApp = async (req, res) => {
             productos: productos
         });
     } catch (err) {
-        return res.status(500).send(`Error al obtener productos: ${err.message}`)
+        return res.status(500).json({ error: `Error al obtener productos: ${err.message}` });
     }
 };
 
+// Mostrar panel de administrador
+const renderAdminApp = async (req, res) => {
+    try {
+        const productos = await Producto.find();
 
-
+        return res.status(200).render('admin', {
+            title: 'Panel de administrador',
+            productos: productos
+        })
+    } catch (err) {
+        return res.status(500).json({ error: `Error al obtener productos: ${err.message}` });
+    }
+}
 
 
 module.exports = {
@@ -78,5 +101,6 @@ module.exports = {
     renderApp,
     renderAltaApp,
     renderMensajesApp,
-    renderProductosApp
+    renderProductosApp,
+    renderAdminApp
 }

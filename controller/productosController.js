@@ -109,7 +109,7 @@ const eliminarProducto = async (req, res) => {
 };
 
 // Modificar stock del producto (compra)
-const modificarStockProducto = async (req, res) => {
+const comprarProducto = async (req, res) => {
     try {
         const buscaPorID = { _id: req.params.id };
 
@@ -141,5 +141,5 @@ module.exports = {
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    modificarStockProducto
+    comprarProducto
 }

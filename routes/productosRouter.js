@@ -2,7 +2,7 @@ const {
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    modificarStockProducto
+    comprarProducto
 } = require('../controller/productosController');
 
 const { reglasValidacionAlta } = require('../helpers/altaValidatorHelper');
@@ -25,7 +25,7 @@ productosRouter.get('/', obtenerProductos);
 productosRouter.delete('/:id', eliminarProducto);
 
 // Modificar producto
-productosRouter.put('/:id', modificarStockProducto);
+productosRouter.put('/comprar/:id', comprarProducto);
 
 // Exportar el enrutador
 module.exports = productosRouter;
