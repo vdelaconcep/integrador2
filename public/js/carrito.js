@@ -135,7 +135,8 @@ const mostrarCarrito = () => {
     tabla.style.margin = "0";
 
     if (cantidadProductos === 0) {
-        divGenerado.innerHTML += '<h1 class="text-center text-white">No hay ítems para mostrar</h1>';
+        divGenerado.innerHTML += `<h3 class="text-center text-white mt-5 mb-2">Todavía no hay ítems para mostrar</h3>
+        <h5 class="text-center text-white mb-5">Te esperamos en nuestra sección "productos"</h5>`;
     } else {
         const totalAPagar = parseInt(localStorage.getItem('total')) || '0';
 

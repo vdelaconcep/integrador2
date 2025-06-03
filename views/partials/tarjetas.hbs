@@ -1,15 +1,15 @@
 {{#if productos}}
     {{#each productos}}
         {{#esMayor this.stock 0}}
-            <div class="tarjeta bg-white sombra rounded m-2" style="justify-content: center;">
+            <div class="tarjeta bg-white sombra rounded m-2">
                 <div title="Ver" style="cursor: pointer;" class="abrir-detalle" id="d{{this._id}}">
-                    <img class="card-img rounded p-2 pb-0 w-100" src="{{this.imagen}}" onerror="this.onerror=null; this.src='./assets/img/tarjeta-alternativa.jpg';">
-                    <div class="text-center">
-                        <h3>{{this.tipo}} {{this.banda}} #{{this.modelo}}</h3>
-                        <h3 class="text-info">${{this.precio}}</h3>
+                    <img class="card-img w-100" src="{{this.imagen}}" onerror="this.onerror=null; this.src='./assets/img/tarjeta-alternativa.jpg';">
+                    <div class="titulo-tarjeta ps-2 pe-2">
+                        <h4 class="text-center">{{this.tipo}} {{this.banda}} #{{this.modelo}}</h4>
                     </div>
                 </div>
-                <div class="hstack mb-3" style="justify-content: center;">
+                <h3 class="text-info text-center">${{this.precio}}</h3>
+                <div class="hstack mb-2" style="justify-content: center;">
                     <div class="hstack pe-2">
                         <label for="cantidad" class="form-label pe-2 pt-1">Cantidad:</label>
                         <select name="cantidad" id="cantidad-{{this._id}}" class="form-select me-2" style="width: 60px;">

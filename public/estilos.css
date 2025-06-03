@@ -100,11 +100,19 @@ a {
 
 /* Tarjetas */
 .tarjeta {
-    max-width: 310px !important;
+    width: 310px !important;
+    overflow: hidden;
 }
 
 .sombra {
     box-shadow: 0 2px 5px grey;
+}
+
+.titulo-tarjeta {
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 /* Botones */

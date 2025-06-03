@@ -22,7 +22,7 @@ const ingresarProducto = async (req, res) => {
 
     // Redimensionar imagen y enviar a Imgur
     const imagenRedimensionada = await sharp(req.file.buffer)
-        .resize(300, 280)
+        .resize(310, 300)
         .jpeg({ quality: 80 })
         .toBuffer();
 
