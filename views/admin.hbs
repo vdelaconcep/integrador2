@@ -1,24 +1,19 @@
-<div class="m-0 p-0" style="background-color: #957d96;" id="panel-administrador">
+<div class="m-0 p-0" style="background-color: #794fa0;" id="panel-administrador">
     {{> headerAdmin}}
     <main>
-        <div class="container-md d-flex flex-column" style="max-width: 900px;">
-            <h1 class="text-white text-center">
+        <div class="container-md d-flex flex-column" style="max-width: 700px;">
+            <h1 class="text-white text-center mb-3 mt-3">
                 Panel de administrador
             </h1>
-            <div class="d-md-flex flex-row">
-                <button class="btn btn-dark"><a href="alta">Ingresar producto +</a></button>
-                <button class="btn btn-dark"><a href="mensajes">Ver mensajes</a></button>
-                <form class="hstack">
-                    <input class="form-control" type="search" placeholder="Buscar productos">
-                    <button class="btn btn-dark ms-2" type="submit">Buscar</button>
-                </form>
+            <div class="d-md-flex flex-row justify-content-end">
+                <button class="btn btn-dark me-2 enviar"><a href="mensajes" class="text-white">Ver mensajes</a></button>
+                <button class="btn btn-dark agregar"><a href="alta" class="text-white">Ingresar producto +</a></button>
             </div>
             <div id="tabla-administrador" class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden">
                 <table class="table table-dark table-striped table-responsive text-center m-0">
                     <thead>
                         <tr>
-                            <th>tipo</th>
-                            <th>banda / modelo</th>
+                            <th>producto</th>
                             <th>precio</th>
                             <th>stock</th>
                             <th>-</th>
@@ -27,8 +22,7 @@
                     {{#if productos}}
                     {{#each productos}}
                     <tr>
-                        <td>{{this.tipo}}</td>
-                        <td class="hoveru">{{this.banda}} / #{{this.modelo}}</td>
+                        <td class="hoveru text-start">{{this.tipo}} {{this.banda}} #{{this.modelo}}</td>
                         <td>{{this.precio}} <i class="editar fa-solid fa-pencil pointer" title="modificar"></i></td>
                         <td>{{this.stock}}<span class="pointer" title="agregar"> + </span></td>
                         <td><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
@@ -40,19 +34,4 @@
             </div>
         </div>
     </main>
-</div>
-{{!-- <div class="overlay">
-    <div id="div-modificar" class="bg-dark text-white text-center p-3 p-md-4 pb-2">
-        <h3>Remera Viejas Locas #1</h3>
-        <div class="hstack ms-2">
-            <p class="pt-4">Modificar precio:</p><input class="modificar form-control bg-dark border-0 border-bottom rounded-0 text-white ms-3" style="width: 100px;" type="number">
-        </div>
-        <div class="hstack ms-2">
-            <p class="pt-4">Añadir stock:</p><input class="modificar form-control w-25 bg-dark border-0 border-bottom rounded-0 text-white ms-3" style="width: 100px;" type="number">
-        </div>
-        
-        <div class="text-end mt-3 me-4">
-            <button type="button" class="btn btn-secondary">OK</button>
-        </div>
-    </div>
-</div> --}}
+{{> detalle}}

@@ -162,7 +162,7 @@ const mostrarCarrito = () => {
                     <td style="text-decoration: underline;" id="D${producto._id}" class="abrir-detalle-producto pointer align-middle">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
                     <td class="align-middle"><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
                     <td class="align-middle" id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
-                    <td id="E${producto._id}" class="eliminar pointer align-middle"> X </td>`;
+                    <td id="E${producto._id}" class="eliminar pointer align-middle" title="eliminar"> X </td>`;
             tabla.appendChild(fila);
         });
         const ultimaFila = document.createElement('tr');

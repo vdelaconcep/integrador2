@@ -1,41 +1,41 @@
 
-<div class="m-0 p-0" style="background-color: #957d96;" id="pagina-alta">
+<div class="m-0 p-0" style="background-color: #794fa0; " id="pagina-alta">
     {{> headerAdmin}}
     <main>
         <form class="text-white">
-        <div class="container d-flex flex-column" style="max-width: 500px;">
-            <h1 class="text-white text-center">
-                Alta de producto
-            </h1>
         
-            <label for="producto-tipo" class="form-label ps-2 mt-3">Tipo de producto:</label>
-            <select class="form-select" name="producto-tipo" id="producto-tipo">
+        <h1 class="text-white text-center mt-3 pt-3">
+            Alta de producto
+        </h1>
+        <div class="container d-flex flex-column bg-dark rounded-3 p-3 mt-4 pb-4" style="max-width: 500px;">
+            <label for="producto-tipo" class="form-label ps-2 mt-2 mb-0">Tipo de producto:</label>
+            <select class="form-select bg-secondary-subtle" name="producto-tipo" id="producto-tipo">
                 <option value="" disabled selected>Seleccionar</option>
                 <option value="Remera">Remera</option>
                 <option value="Buzo">Buzo</option>
                 <option value="Mochila">Mochila</option>
             </select>
             
-            <label for="banda" class="form-label ps-2 mt-3">Artista / Banda:</label>
-            <input class="form-control" type="text" name="banda" id="producto-banda">
+            <label for="banda" class="form-label ps-2 mt-2 mb-0">Artista / Banda:</label>
+            <input class="form-control bg-secondary-subtle" type="text" name="banda" id="producto-banda">
 
             <div class="hstack gap-1">
 
                 <div>
-                    <label for="stock" class="form-label ps-2 mt-3">Stock:</label>
-                    <input class="form-control" type="number" name="stock" id="producto-stock">
+                    <label for="stock" class="form-label ps-2 mt-2 mb-0">Stock:</label>
+                    <input class="form-control bg-secondary-subtle" type="number" name="stock" id="producto-stock">
                 </div>
                 <div class="ms-auto">
-                    <label for="precio" class="form-label ps-2 mt-3">Precio (ARS):</label>
-                    <input class="form-control" type="number" name="precio" id="producto-precio">
+                    <label for="precio" class="form-label ps-2 mt-2 mb-0">Precio (ARS):</label>
+                    <input class="form-control bg-secondary-subtle" type="number" name="precio" id="producto-precio">
                 </div>
 
             </div>
 
-            <label for="imagen" class="form-label ps-2 mt-3">Imagen:</label>
-            <input class="form-control" type="file"  id="imagen-producto" name="imagen">
+            <label for="imagen" class="form-label ps-2 mt-2 mb-0">Imagen:</label>
+            <input class="form-control bg-secondary-subtle" type="file"  id="imagen-producto" name="imagen">
         </div>
-        <div class="text-center m-5">
+        <div class="text-center p-5">
             <button type="button" class="enviar btn btn-dark" id="btn-enviar-alta" style="width: 90px;">
             Enviar <i class="fa-solid fa-share"></i>
             </button>
@@ -45,5 +45,4 @@
         </div>
         </form>
     </main>
-    {{> footer}}
 </div>

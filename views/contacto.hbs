@@ -1,24 +1,25 @@
 
-<div class="mb-0" style="background-color: #794fa0;" id="pagina-contacto">
+<div class="mb-0" style="background-color: #EA7720;" id="pagina-contacto">
     {{> header}}
     <main>
         <div class="container d-flex flex-column" style="max-width: 500px;">
-            <h1 class="text-white text-center">
+            <h1 class="text-white text-center mt-3">
                 Dejanos tu mensaje
             </h1>
             <form class="text-white">
-                <label for="nombre" class="form-label ps-2 mt-3">Nombre:</label>
-                <input class="form-control" id="input-nombre" type="text" name="nombre">
-                
-                <label for="email" class="form-label ps-2 mt-3">E-mail:</label>
-                <input class="form-control" id="input-email" type="text" name="email">
+                <div class="container d-flex flex-column bg-dark rounded-3 p-3 mt-4 pb-4">
+                    <label for="nombre" class="form-label ps-2 mt-2 mb-0">Nombre:</label>
+                    <input class="form-control bg-secondary-subtle" id="input-nombre" type="text" name="nombre">
+                    
+                    <label for="email" class="form-label ps-2 mt-2 mb-0">E-mail:</label>
+                    <input class="form-control bg-secondary-subtle" id="input-email" type="text" name="email">
 
-                <label for="asunto" class="form-label ps-2 mt-3">Asunto:</label>
-                <input class="form-control" id="input-asunto" type="text" name="asunto">
-                
-                <label for="mensaje" class="form-label ps-2 mt-3">Mensaje:</label>
-                <textarea class="form-control" id="mensaje" name="mensaje"></textarea>
-
+                    <label for="asunto" class="form-label ps-2 mt-2 mb-0">Asunto:</label>
+                    <input class="form-control bg-secondary-subtle" id="input-asunto" type="text" name="asunto">
+                    
+                    <label for="mensaje" class="form-label ps-2 mt-2 mb-0">Mensaje:</label>
+                    <textarea class="form-control bg-secondary-subtle" id="mensaje" name="mensaje"></textarea>
+                </div>
                 <div class="text-center m-5">
                 <button type="submit" id="btn-enviar" class="enviar btn btn-dark" style="width: 90px;">
                     Enviar <i class="fa-solid fa-paper-plane"></i>

@@ -37,7 +37,7 @@ const renderMensajesApp = async (req, res) => {
     try {
         const mensajes = await Mensaje.find();
         mensajes.forEach(elemento => {
-            elemento.fecha = elemento.fecha.slice(4, 24);
+            elemento.fecha = elemento.fecha.slice(4, 21);
         });
         return res.status(200).render('mensajes', {
             title: '- Mensajes',

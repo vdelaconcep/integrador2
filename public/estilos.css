@@ -15,11 +15,11 @@ a {
     font-size: 1.3em;
 }
 
-#a-carrito, #a-ingreso, #a-admin-salir {
+#a-carrito, #a-ingreso, #a-admin-salir, #a-admin-atras {
     font-size: 1.1em;
 }
 
-#boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover, #a-admin-salir:hover {
+#boton-hamburguesa:hover, #a-ingreso:hover, #a-carrito:hover, #a-admin-salir:hover, #a-admin-atras:hover {
     color: white;
 }
 
@@ -31,7 +31,6 @@ a {
 
 .menu-grande-item:hover {
     color: #FEC224;
-    padding-bottom: 3px;
 }
 
 .menu-grande-li {
@@ -65,10 +64,11 @@ a {
 /* Desplegables */
 .menu-chico {
     width: 100vw;
+    top: 2px !important;
 }
 
 .menu-chico, .sub-menu-grande {
-    border: 2px solid white !important
+    border: 2px solid grey !important
 }
 
 .menu-chico,
@@ -91,9 +91,11 @@ a {
 }
 
 .sub-menu-grande {
+    padding-top: 0;
+    padding-bottom: 0;
     width: 400px;
     overflow: hidden;
-    top: 12px !important;
+    top: 11px !important;
 }
 
 /* Tarjetas */
@@ -110,7 +112,7 @@ a {
     background-color: #58944E;
 }
 
-.vaciar:hover {
+.vaciar:hover, .cancelar:hover {
     background-color: #E55648;
 }
 
@@ -122,18 +124,11 @@ a {
     background-color: #1899D2;
 }
 
-.cancelar:hover {
-    background-color: #FEC224;
-}
-
 /* Modificaciones en pantallas grandes */
 
 @media (min-width: 576px) {
-    /* #a-ingreso::before {
-            content: 'Ingresá ';
-    } */
     
-#a-carrito::before {
+    #a-carrito::before {
             content: 'Carrito ';
     }
 
@@ -144,11 +139,11 @@ a {
         height: 52px;
     }
 
-    #boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir {
+    #boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir, #a-admin-atras {
         color: white !important;
     }
 
-    #boton-hamburguesa:hover, #a-ingreso:hover ,#a-carrito:hover, #a-admin-salir:hover {
+    #boton-hamburguesa:hover, #a-ingreso:hover ,#a-carrito:hover, #a-admin-salir:hover, #a-admin-atras:hover {
         color: #FEC224 !important;
     }
 

@@ -1,40 +1,38 @@
-<div class="m-0 p-0" style="background-color: #957d96;" id="pagina-mensajes">
+<div class="m-0 p-0 text-white" style="background-color: #794fa0;" id="pagina-mensajes">
     {{> headerAdmin}}
     <main>
-        <div class="container d-flex flex-column">
+        <div class="container d-flex flex-column text-center">
         {{#if mensajes}}
-            <h1 class="text-white text-center">
+            <h1 class="mb-3 mt-3">
                 Mensajes
             </h1>
-        {{else}}
-            <h1 class="text-center text-white">No hay mensajes para mostrar</h1>
-        {{/if}}
+        <p>Hacé click en el asunto para ver el contenido del mensaje</p>
             <div id="tabla-mensajes" class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden">
-                <table class="table table-dark table-striped table-responsive m-0 text-center">
+                <table class="table table-dark table-striped m-0 text-center">
                     <thead>
                         <tr class="text-center">
                             <th>fecha</th>
                             <th>nombre</th>
                             <th>e-mail</th>
                             <th>asunto</th>
-                            <th>Acción</th>
+                            <th>-</th>
                         </tr>
                     </thead>
-                {{#if mensajes}}
                 {{#each mensajes}}
                 <tr>
                     <td>{{this.fecha}}</td>
                     <td>{{this.nombre}}</td>
                     <td>{{this.email}}</td>
-                    <td>{{this.asunto}}</td>
-                    <td>Acción</td>
+                    <td class="hoveru">{{this.asunto}}</td>
+                    <td><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
                 </tr>
                 {{/each}}
-                {{/if}}
                 </table>
             </div>
+        {{else}}
+        <h1 class="mb-3 mt-3">No hay mensajes para mostrar</h1>
+        {{/if}}
         </div>
         {{> detalle}}
     </main>
 </div>
-{{> footer}}
