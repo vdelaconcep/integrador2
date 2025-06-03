@@ -241,7 +241,7 @@ const actualizarCarrito = async () => {
     }
 };
 
-const eliminarProducto = (carrito, index) => {
+const eliminarProductoCarrito = (carrito, index) => {
     const id = carrito[index]._id;
     carrito.splice(index, 1);
     document.getElementById(`F${id}`).style.display = 'none';
@@ -277,5 +277,5 @@ export {
     productosCarrito,
     setCarrito,
     actualizarCarrito,
-    eliminarProducto
+    eliminarProductoCarrito
 };

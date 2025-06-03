@@ -10,7 +10,7 @@
                 <button class="btn btn-dark agregar"><a href="alta" class="text-white">Ingresar producto +</a></button>
             </div>
             <div id="tabla-administrador" class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden">
-                <table class="table table-dark table-striped table-responsive text-center m-0">
+                <table id="tabla-admin" class="table table-dark table-striped table-responsive text-center m-0">
                     <thead>
                         <tr>
                             <th>producto</th>
@@ -21,11 +21,11 @@
                     </thead>
                     {{#if productos}}
                     {{#each productos}}
-                    <tr>
-                        <td class="hoveru text-start">{{this.tipo}} {{this.banda}} #{{this.modelo}}</td>
-                        <td>{{this.precio}} <i class="editar fa-solid fa-pencil pointer" title="modificar"></i></td>
-                        <td>{{this.stock}}<span class="pointer" title="agregar"> + </span></td>
-                        <td><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
+                    <tr id="F{{this._id}}">
+                        <td class="hoveru text-start detalle" id="D{{this._id}}">{{this.tipo}} {{this.banda}} #{{this.modelo}}</td>
+                        <td id="P{{this._id}}">{{this.precio}} <i class="cambiar-precio fa-solid fa-pencil pointer" title="cambiar"></i></td>
+                        <td class="agregar-stock" id="S{{this._id}}">{{this.stock}}<span class="agregar-stock pointer" title="agregar"> + </span></td>
+                        <td class="eliminar" id="E{{this._id}}"><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
                     </tr>
                     {{/each}}
                     {{/if}}

@@ -124,6 +124,10 @@ a {
     background-color: #1899D2;
 }
 
+#btn-cerrar-mensaje:hover {
+    color: aqua !important;
+}
+
 /* Modificaciones en pantallas grandes */
 
 @media (min-width: 576px) {
@@ -165,7 +169,7 @@ a {
     display: none;
 }
 
-#div-verProducto, #div-modificar {
+#div-verProducto, #div-verMensaje {
     /* max-width: 600px; */
     position: absolute;
     top: 50%;

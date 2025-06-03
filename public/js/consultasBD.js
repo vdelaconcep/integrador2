@@ -5,7 +5,7 @@ const obtenerProductos = async () => {
             method: 'GET'
         });
 
-        const datos = res.json()
+        const datos = await res.json()
 
         if (!res.ok) {
             alert(`No se pueden obtener los productos de la base de datos: ${datos}`);

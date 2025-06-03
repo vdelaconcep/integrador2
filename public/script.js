@@ -1,4 +1,9 @@
 // Funciones de otros módulos
+import {
+    bajaProducto,
+    agregarStock,
+    modificarPrecio
+} from './js/admin.js';
 import { agregarProducto } from './js/alta.js';
 import {
     agregarAlCarrito,
@@ -7,7 +12,7 @@ import {
     productosCarrito,
     setCarrito,
     actualizarCarrito,
-    eliminarProducto
+    eliminarProductoCarrito
 } from './js/carrito.js';
 import {
     validarNombre,
@@ -16,12 +21,16 @@ import {
     validarMensaje,
     enviarMensaje
 } from './js/contacto.js';
+import {
+    eliminarMensaje,
+    mostrarMensaje
+} from './js/mensajes.js';
 
 // Declaración de variables
 const paginaIndex = document.getElementById('index');
 const paginaProductos = document.getElementById('pagina-productos');
 const paginaAlta = document.getElementById('pagina-alta');
-/* const paginaMensajes = document.getElementById('pagina-mensajes'); */
+const paginaMensajes = document.getElementById('pagina-mensajes');
 const paginaCarrito = document.getElementById('pagina-carrito');
 const paginaContacto = document.getElementById('pagina-contacto');
 const paginaAdmin = document.getElementById('panel-administrador');
@@ -114,7 +123,7 @@ if (paginaCarrito) {
                 const confirmacion = confirm('¿Desea eliminar el producto del carrito?');
                 if (confirmacion) {
                     // Eliminar producto del carrito y del DOM
-                    eliminarProducto(carrito, index, divCarrito);
+                    eliminarProductoCarrito(carrito, index);
                     return;
                 } else {
                     return;
@@ -148,7 +157,7 @@ if (paginaCarrito) {
         localStorage.setItem('total', totalAPagar.toString());
     });
 } else {
-    if (!paginaAdmin) setCarrito();
+    if (!paginaAdmin && !paginaMensajes && !paginaAlta) setCarrito();
 };
 
 // Acciones sobre página "contacto"
@@ -178,6 +187,46 @@ if (paginaContacto) {
         }
     });
 };
+
+// Acciones en panel de administrador
+if (paginaAdmin) {
+    const btnAtrasAdmin = document.getElementById('a-admin-atras');
+    btnAtrasAdmin.style.display = 'none';
+
+    const tablaAdmin = document.getElementById('tabla-admin');
+    tablaAdmin.addEventListener('click', (evento) => {
+        const clases = evento.target.classList;
+        const id = evento.target.parentNode.id.slice(1);
+
+        // Eliminar producto de la base de datos (baja)
+        if (clases.contains('eliminar')) {
+            bajaProducto(id);
+        } else if (clases.contains('agregar-stock')) {
+            agregarStock(id);
+        } else if (clases.contains('cambiar-precio')) {
+            modificarPrecio(id);
+        } else if (clases.contains('detalle')) {
+            mostrarDetalle(id);
+        };
+    })
+};
+
+// Acciones en página mensajes
+if (paginaMensajes) {
+    const tablaMensajes = document.getElementById('tabla-mensajes');
+    const divOverlay = document.querySelector('.overlay');
+
+    tablaMensajes.addEventListener('click', (evento) => {
+        const clases = evento.target.classList;
+        const id = evento.target.parentNode.id.slice(1);
+
+        if (clases.contains('eliminar')) {
+            eliminarMensaje(id);
+        } else if (clases.contains('asunto')) {
+            mostrarMensaje(id)
+        }
+    })
+}
 
 
 

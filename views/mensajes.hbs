@@ -19,12 +19,12 @@
                         </tr>
                     </thead>
                 {{#each mensajes}}
-                <tr>
+                <tr id="F{{this._id}}">
                     <td>{{this.fecha}}</td>
                     <td>{{this.nombre}}</td>
                     <td>{{this.email}}</td>
-                    <td class="hoveru">{{this.asunto}}</td>
-                    <td><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
+                    <td class="hoveru asunto" id="A{{this._id}}">{{this.asunto}}</td>
+                    <td id="E{{this._id}}" class="eliminar"><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
                 </tr>
                 {{/each}}
                 </table>
@@ -33,6 +33,23 @@
         <h1 class="mb-3 mt-3">No hay mensajes para mostrar</h1>
         {{/if}}
         </div>
-        {{> detalle}}
+        <div class="overlay">
+            
+            <div id="div-verMensaje" class="bg-black text-white p-3 rounded-4" style="min-width: 300px; max-width: 500px;">
+                <div class="hstack pb-1">
+                    <h3 class="ms-auto">Mensaje</h3>
+                    <div class="ms-auto">
+                        <button type="button" id="btn-cerrar-mensaje" style="background-color: transparent; border: none" class="text-white fs-5"><i class="fa-solid fa-x"></i></button>
+                    </div>
+                </div>
+                
+                <div style="border-bottom: 1px solid white;" class="ps-3 pe-3">
+                    <p>De: <span id="de-mensaje" class="ms-2"></span></p>
+                    <p>Asunto: <span id="asunto-mensaje" class="ms-2"></span></p>
+                    <p>Enviado: <span id="fecha-mensaje" class="ms-2"></span></p>
+                </div>
+                <p id="mensaje" class="p-3 pb-0">Mensaje Lorem ipsum dolor sit amet consectetur adipisicing elit. Error, cum dolore. Quasi quibusdam libero vero, enim necessitatibus hic deserunt, quas ipsum perferendis aspernatur mollitia, sapiente quam nam ad cupiditate natus.</p>
+            </div>
+        </div>
     </main>
 </div>
