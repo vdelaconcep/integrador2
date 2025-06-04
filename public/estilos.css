@@ -1,3 +1,9 @@
+/* Reseteo general */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
 /* Reseteo de aspecto de vínculos */
 a {
@@ -42,6 +48,17 @@ a {
     min-height: calc(100vh - 232px);
 }
 
+@media (max-width: 768px) {
+    #index,
+        #pagina-productos,
+        #pagina-carrito,
+        #pagina-contacto,
+        #pagina-error,
+        #pagina-nosotros {
+            min-height: calc(100vh - 270px);
+    }
+}
+
 #panel-administrador, #pagina-alta, #pagina-mensajes {
         min-height: 100vh;
 }
@@ -51,9 +68,14 @@ a {
 }
 
 /* Visibles del header */
-#boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir {
+#boton-hamburguesa, #a-ingreso, #a-carrito {
     border: none;
     color: black;
+}
+
+#a-admin-salir, #a-admin-atras {
+    border: none;
+    color: white;
 }
 
 #boton-hamburguesa {
@@ -104,7 +126,6 @@ a {
     transform: translateY(-65%);
     color: black;
 }
-
 
 /* Desplegables */
 .menu-chico {
@@ -196,7 +217,7 @@ a {
         height: 52px;
     }
 
-    #boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir, #a-admin-atras {
+    #boton-hamburguesa, #a-ingreso, #a-carrito {
         color: white !important;
     }
 
@@ -238,25 +259,99 @@ a {
 }
 
 footer {
-    background: url('./assets/img/publico.jpg');
+    background: url('./assets/img/footer_sm.jpg');
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
     height: 232px;
 }
 
-/* Div de notificación cuando se agrega un producto al carrito*/
+@media (max-width: 768px) {
+    footer {
+        height: 270px;
+    }
+}
 
+/* Div de notificación cuando se agrega un producto al carrito*/
 #boton-carrito {
     position: relative;
 }
 
 #notificacion-carrito {
     position: absolute;
-    bottom: 7px;
+    bottom: 5px;
     right: -2px;
 }
 
+/* Responsive para tablas */
+@media (max-width: 425px) {
+    #tabla-carrito tr {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 4px;
+    }
+
+    #tabla-carrito tr:last-of-type {
+        margin-bottom: 0px;
+    }
+
+    #tabla-carrito thead {
+        display: none;
+    }
+
+    #tabla-carrito td {
+        border: none !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    #tabla-carrito td[data-titulo]::before {
+        content: attr(data-titulo);
+        width: 90px;
+    }
+
+    #ultimo-th-1, #ultimo-th-2 {
+        display: none;
+    }
+
+    #celda-total::before {
+        content: "Total:  ";
+    }
+}
+
+@media (max-width: 768px) {
+    #tabla-mensajes tr {
+        display: flex !important;
+        flex-direction: column !important;
+        margin-bottom: 4px;
+    }
+
+    #tabla-mensajes tr:last-of-type {
+        margin-bottom: 0px;
+    }
+
+    #tabla-mensajes thead {
+        display: none;
+    }
+
+    #tabla-mensajes td {
+        border: none !important;
+        display: flex;
+        justify-content: start;
+        padding: 2%;
+    }
+
+    #tabla-mensajes td[data-titulo="Eliminar "] {
+        justify-content: end;
+    }
+
+    #tabla-mensajes td[data-titulo]::before {
+        content: attr(data-titulo);
+        width: 90px;
+    }
+}
+
+/* Cursores y hovers */
 .pointer {
     cursor: pointer;
 }

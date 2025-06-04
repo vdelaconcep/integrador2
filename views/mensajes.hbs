@@ -7,8 +7,9 @@
                 Mensajes
             </h1>
         <p>Hacé click en el asunto para ver el contenido del mensaje</p>
-            <div id="tabla-mensajes" class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden">
-                <table class="table table-dark table-striped m-0 text-center">
+            <div style="display: flex; justify-content: center">
+            <div id="div-tabla-mensajes" class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden; max-width: 800px;">
+                <table id="tabla-mensajes" class="table table-dark table-striped m-0 text-center">
                     <thead>
                         <tr class="text-center">
                             <th>fecha</th>
@@ -20,14 +21,15 @@
                     </thead>
                 {{#each mensajes}}
                 <tr id="F{{this._id}}">
-                    <td>{{this.fecha}}</td>
-                    <td>{{this.nombre}}</td>
-                    <td>{{this.email}}</td>
-                    <td class="hoveru asunto" id="A{{this._id}}">{{this.asunto}}</td>
-                    <td id="E{{this._id}}" class="eliminar"><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
+                    <td data-titulo="Enviado: ">{{this.fecha}}</td>
+                    <td data-titulo="Nombre: ">{{this.nombre}}</td>
+                    <td data-titulo="E-mail: ">{{this.email}}</td>
+                    <td data-titulo="Asunto: " class="hoveru asunto" id="S{{this._id}}"><span style="text-decoration: underline;" id="A{{this._id}}" class="asunto">{{this.asunto}}</span></td>
+                    <td data-titulo="Eliminar " id="E{{this._id}}" class="eliminar"><i class="eliminar fa-solid fa-trash pointer pt-1" title="eliminar"></i></td>
                 </tr>
                 {{/each}}
                 </table>
+            </div>
             </div>
         {{else}}
         <h1 class="titulo-de-pagina mb-3 mt-3">No hay mensajes para mostrar</h1>

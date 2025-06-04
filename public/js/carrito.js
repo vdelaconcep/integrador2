@@ -145,7 +145,7 @@ const mostrarCarrito = () => {
         divTabla.style.margin = "5% 0";
         
         tabla.innerHTML = `
-            <thead>
+            <thead id="thead-carrito">
                 <tr>
                     <th>Producto</th>
                     <th>Cantidad</th>
@@ -153,25 +153,28 @@ const mostrarCarrito = () => {
                     <th></th>
                 </tr>
             </thead> `;
+        
+        const tbody = document.createElement('tbody');
 
         carrito.forEach(producto => {
             const fila = document.createElement('tr');
             fila.id = `F${producto._id}`;
             fila.innerHTML += `
-                    <td style="text-decoration: underline;" id="D${producto._id}" class="abrir-detalle-producto pointer align-middle">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
-                    <td class="align-middle"><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
-                    <td class="align-middle" id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
-                    <td id="E${producto._id}" class="eliminar pointer align-middle" title="eliminar"> X </td>`;
-            tabla.appendChild(fila);
+                    <td id="D${producto._id}" class="abrir-detalle-producto pointer hoveru align-middle text-decoration-underline">${producto.tipo} ${producto.banda} #${producto.modelo}</td>
+                    <td data-titulo="Cantidad" class="align-middle"><span class="menos pointer pe-3" id="L${producto._id}"> - </span><span id="C${producto._id}">${producto.cantidad}</span><span class="mas pointer ps-3" id="U${producto._id}"> + </span></td>
+                    <td data-titulo="Precio" class="align-middle" id="P${producto._id}">$${producto.cantidad * producto.precio}</td>
+                    <td data-titulo="Eliminar" id="E${producto._id}" class="eliminar pointer align-middle hoveru" title="eliminar"> X </td>`;
+            tbody.appendChild(fila);
         });
-        const ultimaFila = document.createElement('tr');
-        ultimaFila.style.marginBottom = '0';
-        ultimaFila.innerHTML = `
-                    <th class="text-end pe-4" colspan="2">Total</th>
+        tbody.innerHTML += `
+            <tr id="ultima-fila-carrito">
+                <th class="text-end pe-4" colspan="2" id="ultimo-th-2">Total</th>
                     <th id="celda-total">$${totalAPagar}</th>
-                    <th></th>`;
-        tabla.appendChild(ultimaFila);
+                    <th id="ultimo-th-1"></th>
+            </tr>`;
+        tabla.appendChild(tbody);
         tabla.classList.add("table", "table-bordered", "table-striped", "table-responsive", "text-center", "table-dark");
+        tabla.id = "tabla-carrito";
         divTabla.appendChild(tabla);
         divGenerado.appendChild(divTabla);
 
