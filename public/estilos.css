@@ -5,6 +5,51 @@ a {
     display: block;
 }
 
+/* Divs contenedores de paginas */
+#index, #pagina-productos {
+    background-color: #FEC224;
+}
+
+#panel-administrador {
+    background: linear-gradient(to top, #794fa0 60%, rgb(12, 12, 104));
+}
+
+#pagina-alta {
+    background-color: #794fa0;
+}
+
+#pagina-carrito {
+    background: radial-gradient(at 10% 85%, #E5E636 0%, #A6C852 30%, #80C246 50%, #279D43 80%, #259142 100%);
+}
+
+#pagina-contacto {
+    background-color: #FA7A3E;
+}
+
+#pagina-error {
+    background-color: #E5668F;
+}
+
+#pagina-mensajes {
+    background-color: #794fa0;
+}
+
+#pagina-nosotros {
+    background-color: #1899D2;
+}
+
+#index, #pagina-productos, #pagina-carrito, #pagina-contacto, #pagina-error, #pagina-nosotros {
+    min-height: calc(100vh - 232px);
+}
+
+#panel-administrador, #pagina-alta, #pagina-mensajes {
+        min-height: 100vh;
+}
+
+.titulo-de-pagina {
+    text-shadow: 1px 1px black;
+}
+
 /* Visibles del header */
 #boton-hamburguesa, #a-ingreso, #a-carrito, #a-admin-salir {
     border: none;
@@ -178,7 +223,6 @@ a {
 }
 
 #div-verProducto, #div-verMensaje {
-    /* max-width: 600px; */
     position: absolute;
     top: 50%;
     left: 50%;
@@ -198,6 +242,7 @@ footer {
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
+    height: 232px;
 }
 
 /* Div de notificación cuando se agrega un producto al carrito*/

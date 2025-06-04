@@ -1,9 +1,9 @@
-<div class="m-0 p-0 text-white" style="background-color: #794fa0;" id="pagina-mensajes">
+<div class="m-0 p-0 text-white" id="pagina-mensajes">
     {{> headerAdmin}}
     <main>
         <div class="container d-flex flex-column text-center">
         {{#if mensajes}}
-            <h1 class="mb-3 mt-3">
+            <h1 class="titulo-de-pagina mb-3 mt-3">
                 Mensajes
             </h1>
         <p>Hacé click en el asunto para ver el contenido del mensaje</p>
@@ -30,7 +30,7 @@
                 </table>
             </div>
         {{else}}
-        <h1 class="mb-3 mt-3">No hay mensajes para mostrar</h1>
+        <h1 class="titulo-de-pagina mb-3 mt-3">No hay mensajes para mostrar</h1>
         {{/if}}
         </div>
         <div class="overlay">

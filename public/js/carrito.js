@@ -36,7 +36,6 @@ const agregarAlCarrito = async (id, cantidadRequerida) => {
 // Función para mostrar detalle del producto
 const mostrarDetalle = async (id) => {
     const divOverlay = document.querySelector('.overlay');
-    const botonCerrar = document.getElementById('btn-cerrar-detalle');
     const imagenDetalle = document.getElementById('imagen-detalle');
     const tituloDetalle = document.getElementById('titulo-detalle');
 
@@ -58,14 +57,13 @@ const mostrarDetalle = async (id) => {
         imagenDetalle.src = producto.imagen;
         tituloDetalle.innerText = `${producto.tipo} ${producto.banda} #${producto.modelo}`;
         divOverlay.style.display = 'block';
-        botonCerrar.addEventListener('click', () => {
-            divOverlay.style.display = 'none';
-        });
+
     } catch (err) {
         alert(`No se puede mostrar el detalle del producto: ${err.message}`);
     };
-    botonCerrar.addEventListener('click', () => {
-        divOverlay.style.display = 'none';
+    divOverlay.addEventListener('click', (evento) => {
+        const targetId = evento.target.id;
+        if (targetId !== "imagen-detalle" && targetId !== "titulo-detalle") divOverlay.style.display = 'none';
     });
 }
 

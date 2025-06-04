@@ -1,8 +1,8 @@
-<div class="m-0 p-0" style="background: linear-gradient(to top, #794fa0 60%, rgb(12, 12, 104));" id="panel-administrador">
+<div class="m-0 p-0" id="panel-administrador">
     {{> headerAdmin}}
     <main>
         <div class="container-md d-flex flex-column" style="max-width: 700px;">
-            <h1 class="text-white text-center mb-3 mt-3">
+            <h1 class="titulo-de-pagina text-white text-center mb-3 mt-3">
                 Panel de administrador
             </h1>
             <div class="d-md-flex flex-row justify-content-end">
@@ -28,10 +28,15 @@
                         <td class="eliminar" id="E{{this._id}}"><i class="eliminar fa-solid fa-trash pointer" title="eliminar"></i></td>
                     </tr>
                     {{/each}}
+                    {{else}}
+                    <h3 class="text-white text-center mb-2 mt-5">
+                        Todavía no hay productos cargados en la base de datos
+                    </h3>
                     {{/if}}
                 </table>
 
             </div>
         </div>
     </main>
-{{> detalle}}
+    {{> detalle}}
+</div>
