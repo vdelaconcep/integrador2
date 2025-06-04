@@ -45,10 +45,10 @@ a {
 }
 
 #index, #pagina-productos, #pagina-carrito, #pagina-contacto, #pagina-error, #pagina-nosotros {
-    min-height: calc(100vh - 232px);
+    min-height: calc(100vh - 250px);
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     #index,
         #pagina-productos,
         #pagina-carrito,
@@ -57,7 +57,7 @@ a {
         #pagina-nosotros {
             min-height: calc(100vh - 270px);
     }
-}
+} */
 
 #panel-administrador, #pagina-alta, #pagina-mensajes {
         min-height: 100vh;
@@ -263,14 +263,14 @@ footer {
     background-repeat: no-repeat;
     background-position: top;
     background-size: cover;
-    height: 232px;
+    height: 250px;
 }
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     footer {
         height: 270px;
     }
-}
+} */
 
 /* Div de notificación cuando se agrega un producto al carrito*/
 #boton-carrito {

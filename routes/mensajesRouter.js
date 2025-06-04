@@ -8,16 +8,16 @@ const { reglasValidacionMensajes } = require('../helpers/mensajesValidatorHelper
 
 const {validar} = require('../middlewares/validators')
 
-const mensajesRouter = require('express').Router();
+const router = require('express').Router();
 
 // Enviar mensaje
-mensajesRouter.post('/', reglasValidacionMensajes, validar, enviarMensaje);
+router.post('/', reglasValidacionMensajes, validar, enviarMensaje);
 
 // Eliminar mensaje
-mensajesRouter.delete('/:id', eliminarMensaje);
+router.delete('/:id', eliminarMensaje);
 
 // Obtener mensajes recibidos
-mensajesRouter.get('/', obtenerMensajes);
+router.get('/', obtenerMensajes);
 
 // Exportar el enrutador
-module.exports = mensajesRouter;
+module.exports = router;

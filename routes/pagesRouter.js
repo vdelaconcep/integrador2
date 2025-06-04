@@ -8,22 +8,22 @@ const {
     renderAdminApp
 } = require('../controller/pagesController');
 
-const pagesRouter = require('express').Router();
+const router = require('express').Router();
 
 // Mostrar páginas
-pagesRouter.get('/', renderIndexApp);
-pagesRouter.get('/admin', renderAdminApp)
-pagesRouter.get('/contacto', renderContactoApp);
-pagesRouter.get('/nosotros', renderApp);
-pagesRouter.get('/alta', renderAltaApp);
-pagesRouter.get('/mensajes', renderMensajesApp);
-pagesRouter.get('/carrito', renderApp);
-pagesRouter.get('/productos', renderProductosApp);
-pagesRouter.get('/remeras', renderProductosApp);
-pagesRouter.get('/buzos', renderProductosApp);
-pagesRouter.get('/mochilas', renderProductosApp);
-pagesRouter.post('/busqueda', renderProductosApp);
+router.get('/', renderIndexApp);
+router.get('/admin', renderAdminApp)
+router.get('/contacto', renderContactoApp);
+router.get('/nosotros', renderApp);
+router.get('/alta', renderAltaApp);
+router.get('/mensajes', renderMensajesApp);
+router.get('/carrito', renderApp);
+router.get('/productos', renderProductosApp);
+router.get('/remeras', renderProductosApp);
+router.get('/buzos', renderProductosApp);
+router.get('/mochilas', renderProductosApp);
+router.post('/busqueda', renderProductosApp);
 
 
 // Exportar el enrutador
-module.exports = pagesRouter;
+module.exports = router;

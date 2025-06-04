@@ -13,26 +13,26 @@ const { reglasValidacionActualizacion } = require('../helpers/actualizacionValid
 const { validar } = require('../middlewares/validators');
 
 // Configuración del enrutador
-const productosRouter = require('express').Router();
+const router = require('express').Router();
 
 // Para subir imagen
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Ingresar productos
-productosRouter.post('/', upload.single('image'), reglasValidacionAlta, validar, ingresarProducto);
+router.post('/', upload.single('image'), reglasValidacionAlta, validar, ingresarProducto);
 
 // Obtener productos
-productosRouter.get('/', obtenerProductos);
+router.get('/', obtenerProductos);
 
 // Eliminar producto
-productosRouter.delete('/:id', eliminarProducto);
+router.delete('/:id', eliminarProducto);
 
 // Comprar producto (se modifica solamente stock)
-productosRouter.put('/comprar/:id', reglasValidacionCompra, validar, comprarProducto);
+router.put('/comprar/:id', reglasValidacionCompra, validar, comprarProducto);
 
 // Actualizar producto (agregar stock y/o modificar precio)
-productosRouter.put('/actualizar/:id', reglasValidacionActualizacion, validar, actualizarProducto);
+router.put('/actualizar/:id', reglasValidacionActualizacion, validar, actualizarProducto);
 
 // Exportar el enrutador
-module.exports = productosRouter;
+module.exports = router;
