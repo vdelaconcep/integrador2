@@ -2,71 +2,72 @@ const Producto = require('../models/productoMongo');
 const axios = require('axios');
 const sharp = require('sharp');
 
+
 // Importar configuración de dotenv
 const dotenv = require('dotenv');
 dotenv.config();
+
+// Importar la configuración de Cloudinary
+const cloudinary = require('cloudinary').v2;
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 // Ingresar nuevo producto en la base de datos (administrador)
 const ingresarProducto = async (req, res) => {
 
     // Verificar proporción de imagen
-    let imagen = req.file
+    let imagen = req.file;
 
     const metadata = await sharp(req.file.buffer).metadata();
     const ratio = metadata.width / metadata.height;
     const diferenciaRelativa = Math.abs(ratio - 1);
     
     if (diferenciaRelativa > 0.2) {
-        return res.status(400).json({error: "La relación de aspecto de la imagen debe ser cercana a 1:1 para evitar distorsiones"})
+        return res.status(400).json({ error: "La relación de aspecto de la imagen debe ser cercana a 1:1 para evitar distorsiones" });
     }
 
-    // Redimensionar imagen y enviar a Imgur
+    // Redimensionar imagen
     const imagenRedimensionada = await sharp(req.file.buffer)
         .resize(310, 300)
         .jpeg({ quality: 100 })
         .toBuffer();
-
-    const imagenBase64 = imagenRedimensionada.toString('base64');
-
+    
+    // Subir imagen a Cloudinary
     try {
+        const imagenBase64 = `data:image/jpeg;base64,${imagenRedimensionada.toString('base64')}`;
 
-        const response = await axios.post('https://api.imgur.com/3/image', {
-            image: imagenBase64,
-            type: 'base64'
-        }, {
-            headers: {
-                Authorization: process.env.IMGUR_ID
-            }
+        const result = await cloudinary.uploader.upload(imagenBase64, {
+            resource_type: "image"
         });
 
-        imagen = response.data.data.link;
+        imagen = result.secure_url;
 
     } catch (err) {
-        return res.status(500).json({ error: `Error al enviar la imagen a Imgur: ${err.message}`});
+        return res.status(500).json({ error: `Error al subir imagen a Cloudinary: ${err.message}` });
     }
-    
-    // Asignar modelo de producto
+
+    // Definir número del modelo
     const banda = req.body.banda;
     const tipo = req.body.tipo;
     let modelo;
 
     try {
         const productos = await Producto.find();
-        let resultado = [];
-        productos.forEach(elemento => {
+        let resultado = productos.filter(elemento => {
             const buscaPorBanda = elemento.banda.trim().toLowerCase();
-            const buscaPorTipo = elemento.tipo.trim().toLocaleLowerCase();
-            const coincide = (buscaPorBanda.includes(banda.trim().toLowerCase()) && buscaPorTipo.includes(tipo.trim().toLowerCase()));
-            if (coincide) {
-                resultado.push(elemento);
-            };
+            const buscaPorTipo = elemento.tipo.trim().toLowerCase();
+            return buscaPorBanda.includes(banda.trim().toLowerCase()) &&
+                buscaPorTipo.includes(tipo.trim().toLowerCase());
         });
         modelo = resultado.length + 1;
     } catch (err) {
         return res.status(500).json({ error: `Error al recuperar productos de la base de datos: ${err.message}` });
-    };
+    }
 
-    // Guardar producto en la base de datos
+    // Guardar en la base de datos (nueva entrada)
     const productoNuevo = {
         tipo: tipo,
         banda: banda,
@@ -81,7 +82,7 @@ const ingresarProducto = async (req, res) => {
         const productoGuardado = await producto.save();
         res.status(200).send(productoGuardado);
     } catch (err) {
-        res.status(500).json({error: `El producto no pudo ingresarse en la base de datos: ${err.message}`});
+        res.status(500).json({ error: `El producto no pudo ingresarse en la base de datos: ${err.message}` });
     }
 };
 
