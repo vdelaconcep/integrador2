@@ -9,6 +9,7 @@ const {
 // Helpers y middlewares de validación
 const { reglasValidacionAlta } = require('../helpers/altaValidatorHelper');
 const { reglasValidacionActualizacion } = require('../helpers/actualizacionValidatorHelper');
+const { reglasValidacionCompra } = require('../helpers/compraValidatorHelper'); 
 const { validar } = require('../middlewares/validators');
 
 // Configuración del enrutador
@@ -28,7 +29,7 @@ router.get('/', obtenerProductos);
 router.delete('/:id', eliminarProducto);
 
 // Comprar producto (se modifica stock y se registra la venta)
-router.post('/comprar/', comprarProductos);
+router.post('/comprar/', reglasValidacionCompra, validar, comprarProductos);
 
 // Actualizar producto (agregar stock y/o modificar precio)
 router.put('/actualizar/:id', reglasValidacionActualizacion, validar, actualizarProducto);

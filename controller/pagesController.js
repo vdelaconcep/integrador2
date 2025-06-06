@@ -53,17 +53,20 @@ const renderMensajesApp = async (req, res) => {
 const renderVentasApp = async (req, res) => {
     try {
         const ventas = await Venta.find();
-        const ventasConCarrito = ventas.map(venta => {
+        const ventasConCarritoYTotal = ventas.map(venta => {
             const carrito = JSON.parse(venta.carrito);
             const nuevaVenta = venta.toObject();
             nuevaVenta.fecha = venta.fecha.slice(4, 21);
             nuevaVenta.carrito = carrito;
+            let totalVenta = 0;
+            carrito.forEach(producto => totalVenta += producto.total || 0);
+            nuevaVenta.totalVenta = totalVenta;
             return nuevaVenta;
         });
 
         return res.status(200).render('ventas', {
             title: '- Ventas registradas',
-            ventas: ventasConCarrito
+            ventas: ventasConCarritoYTotal
         });
     } catch (err) {
         return res.status(500).json({ error: `Error al obtener ventas registradas: ${err.message}` });

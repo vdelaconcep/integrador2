@@ -114,9 +114,11 @@ const eliminarProducto = async (req, res) => {
 const comprarProductos = async (req, res) => {
 
     const carritoString = req.body.carrito;
+    console.log(req.body.carrito);
     const carrito = JSON.parse(carritoString);
+    let carritoAGuardar = [];
 
-    // modificar stocks en la base de datos
+    // modificar stocks en la base de datos y configurar carrito a guardar
     try {
         for (const producto of carrito) {
             const buscaPorID = { _id: producto._id };
@@ -137,7 +139,22 @@ const comprarProductos = async (req, res) => {
             const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
 
             if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
+            
+            let entrada = {
+                id: producto._id,
+                tipo: productoAModificar.tipo,
+                banda: productoAModificar.banda,
+                modelo: productoAModificar.modelo,
+                precio: productoAModificar.precio,
+                cantidad: producto.cantidad,
+                total: productoAModificar.precio * producto.cantidad,
+            }
+
+            carritoAGuardar.push(entrada);
         }
+
+        carritoAGuardar = JSON.stringify(carritoAGuardar);
+
     } catch (err) {
         return res.status(500).json({error: `Error al modificar stock del producto en la base de datos: ${err.message}`});
     };
@@ -148,7 +165,7 @@ const comprarProductos = async (req, res) => {
         const venta = {
             fecha: hoy,
             usuario: "invitado",
-            carrito: carritoString
+            carrito: carritoAGuardar
         };
 
         const ventaARegistrar = new Venta(venta);
