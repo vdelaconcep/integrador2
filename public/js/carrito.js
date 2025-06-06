@@ -80,7 +80,7 @@ const vaciarCarrito = () => {
 
 // Función para simular el pago de la compra
 const pagarCompra = async () => {
-    const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+    const carrito = localStorage.getItem('carrito') || "";
     const totalAPagar = localStorage.getItem('total') || '0';
 
     const confirmacion = confirm(`
@@ -90,20 +90,19 @@ const pagarCompra = async () => {
         `);
     if (!confirmacion) return;
 
-    try {
-        for (const producto of carrito) {
-            const cantidadProducto = producto.cantidad;
+    if (carrito === "") return alert('El carrito se encuentra vacío');
 
-            const res = await fetch(`/api/productos/comprar/${producto._id}`, {
-                method: 'PUT',
+    try {
+            const res = await fetch(`/api/productos/comprar`, {
+                method: 'POST',
                 headers: { 'Content-Type': 'application/json; charset=utf-8' },
-                body: JSON.stringify({ cantidad: cantidadProducto })
+                body: JSON.stringify({ carrito: carrito })
             });
             if (!res.ok) {
                 const mensaje = await res.text();
-                alert(`No se pudo realizar la compra de ${producto.tipo} ${producto.banda} #${producto.modelo}: ${mensaje}`);
-            }
-        };
+                return alert(`No se pudo realizar la compra:
+                    ${mensaje}`);
+            };
 
         alert('Su compra se ha realizado con éxito');
         localStorage.removeItem('carrito');
@@ -111,7 +110,8 @@ const pagarCompra = async () => {
         window.location.replace('/');
 
     } catch (err) {
-        alert(`Error al realizar la compra: ${err.message}`);
+        return alert(`Error al realizar la compra:
+            ${err.message}`);
     };
 };
 

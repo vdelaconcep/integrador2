@@ -2,13 +2,12 @@ const {
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    comprarProducto,
+    comprarProductos,
     actualizarProducto
 } = require('../controller/productosController');
 
 // Helpers y middlewares de validación
 const { reglasValidacionAlta } = require('../helpers/altaValidatorHelper');
-const { reglasValidacionCompra } = require('../helpers/compraValidatorHelper');
 const { reglasValidacionActualizacion } = require('../helpers/actualizacionValidatorHelper');
 const { validar } = require('../middlewares/validators');
 
@@ -28,8 +27,8 @@ router.get('/', obtenerProductos);
 // Eliminar producto
 router.delete('/:id', eliminarProducto);
 
-// Comprar producto (se modifica solamente stock)
-router.put('/comprar/:id', reglasValidacionCompra, validar, comprarProducto);
+// Comprar producto (se modifica stock y se registra la venta)
+router.post('/comprar/', comprarProductos);
 
 // Actualizar producto (agregar stock y/o modificar precio)
 router.put('/actualizar/:id', reglasValidacionActualizacion, validar, actualizarProducto);

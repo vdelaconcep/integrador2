@@ -4,23 +4,23 @@ const mongoose = require('mongoose');
 const mensajeSchema = new mongoose.Schema({
     fecha: {
         type: String,
-        require: true
+        required: true
     },
     nombre: {
         type: String,
-        require: true
+        required: true
     },
     email: {
         type: String,
-        require: true
+        required: true
     },
     asunto: {
         type: String,
-        require: true
+        required: true
     },
     mensaje: {
         type: String,
-        require: true
+        required: true
     }
 });
 

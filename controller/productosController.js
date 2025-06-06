@@ -1,4 +1,5 @@
 const Producto = require('../models/productoMongo');
+const Venta = require('../models/ventaMongo');
 const axios = require('axios');
 const sharp = require('sharp');
 
@@ -109,33 +110,54 @@ const eliminarProducto = async (req, res) => {
     }
 };
 
-// Modificar stock del producto (compra)
-const comprarProducto = async (req, res) => {
+// Comprar productos del carrito
+const comprarProductos = async (req, res) => {
+
+    const carritoString = req.body.carrito;
+    const carrito = JSON.parse(carritoString);
+
+    // modificar stocks en la base de datos
     try {
-        const buscaPorID = { _id: req.params.id };
+        for (const producto of carrito) {
+            const buscaPorID = { _id: producto._id };
 
-        const productoAModificar = await Producto.findById(buscaPorID);
+            const productoAModificar = await Producto.findOne(buscaPorID);
 
-        if (!productoAModificar) return res.status(404).send('Producto no encontrado');
+            if (!productoAModificar) return res.status(404).send('Producto no encontrado');
 
-        const stockActual = productoAModificar.stock;
-        const cantidadRequerida = req.body.cantidad;
-        const nuevoStock = stockActual - cantidadRequerida;
+            const stockActual = productoAModificar.stock;
+            const cantidadRequerida = producto.cantidad;
+            const nuevoStock = stockActual - cantidadRequerida;
 
-        if (nuevoStock < 0) return res.status(400).send('La cantidad requerida supera el stock');
+            if (nuevoStock < 0) return res.status(400).send('La cantidad requerida supera el stock');
 
-        const productoModificado = {
-            stock: nuevoStock
-        };
-        const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
+            const productoModificado = {
+                stock: nuevoStock
+            };
+            const actualizacion = await Producto.updateOne(buscaPorID, productoModificado);
 
-        if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
-
-        return res.status(200).json(`Compra realizada con éxito: ${JSON.stringify(actualizacion)}`);
-
+            if (!actualizacion) return res.status(404).send(`Producto no encontrado`);
+        }
     } catch (err) {
         return res.status(500).json({error: `Error al modificar stock del producto en la base de datos: ${err.message}`});
     };
+
+    // Registrar la venta en base de datos
+    try {
+        const hoy = new Date();
+        const venta = {
+            fecha: hoy,
+            usuario: "invitado",
+            carrito: carritoString
+        };
+
+        const ventaARegistrar = new Venta(venta);
+        const ventaRegistrada = await ventaARegistrar.save();
+        return res.status(200).json(`Compra realizada con éxito: ${JSON.stringify(ventaRegistrada)}`);
+
+    } catch (err) {
+        return res.status(500).json({ error: `Error al registrar la transacción: ${err.message}` });
+    }
 };
 
 // Actualizar stock y precio de un producto (administrador)
@@ -173,6 +195,6 @@ module.exports = {
     ingresarProducto,
     obtenerProductos,
     eliminarProducto,
-    comprarProducto,
+    comprarProductos,
     actualizarProducto
 }

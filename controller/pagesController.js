@@ -1,5 +1,6 @@
 const Producto = require('../models/productoMongo');
-const Mensaje = require('../models/mensajeMongo')
+const Mensaje = require('../models/mensajeMongo');
+const Venta = require('../models/ventaMongo');
 
 // Mostrar página principal
 const renderIndexApp = async (req, res) => {
@@ -45,6 +46,27 @@ const renderMensajesApp = async (req, res) => {
         });
     } catch (err) {
         return res.status(500).json({ error: `Error al obtener mensajes: ${err.message}` });
+    };
+};
+
+// Mostrar página de ventas registradas
+const renderVentasApp = async (req, res) => {
+    try {
+        const ventas = await Venta.find();
+        const ventasConCarrito = ventas.map(venta => {
+            const carrito = JSON.parse(venta.carrito);
+            const nuevaVenta = venta.toObject();
+            nuevaVenta.fecha = venta.fecha.slice(4, 21);
+            nuevaVenta.carrito = carrito;
+            return nuevaVenta;
+        });
+
+        return res.status(200).render('ventas', {
+            title: '- Ventas registradas',
+            ventas: ventasConCarrito
+        });
+    } catch (err) {
+        return res.status(500).json({ error: `Error al obtener ventas registradas: ${err.message}` });
     };
 };
 
@@ -101,6 +123,7 @@ module.exports = {
     renderApp,
     renderAltaApp,
     renderMensajesApp,
+    renderVentasApp,
     renderProductosApp,
     renderAdminApp
 }

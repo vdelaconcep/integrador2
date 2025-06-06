@@ -1,0 +1,37 @@
+<div class="m-0 p-0 text-white" id="pagina-ventas">
+    {{> headerAdmin}}
+    <main>
+        <div class="container d-flex flex-column text-center">
+            {{#if ventas}}
+            <h1 class="titulo-de-pagina mb-3 mt-3">
+                Ventas registradas
+            </h1>
+            <div style="display: flex; justify-content: center">
+                <div class="p-0 mb-5 mt-2" style="border-radius: 6px; overflow: hidden; max-width: 800px;">
+                    <table class="table table-dark table-striped m-0 text-center">
+                        <thead>
+                            <tr class="text-center">
+                                <th>fecha</th>
+                                <th>usuario</th>
+                                <th>productos</th>
+                            </tr>
+                        </thead>
+                        {{#each ventas}}
+                        <tr>
+                            <td data-titulo="fecha: ">{{this.fecha}}</td>
+                            <td data-titulo="usuario: ">{{this.usuario}}</td>
+                            <td data-titulo="productos: ">{{#each carrito}}
+                                - {{tipo}} {{banda}} #{{modelo}}: {{cantidad}}<br>
+                                {{/each}}
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </table>
+                </div>
+            </div>
+            {{else}}
+            <h1 class="titulo-de-pagina mb-3 mt-3">Aún no hay ventas registradas</h1>
+            {{/if}}
+        </div>
+    </main>
+</div>

@@ -4,6 +4,7 @@ const {
     renderApp,
     renderAltaApp,
     renderMensajesApp,
+    renderVentasApp,
     renderProductosApp,
     renderAdminApp
 } = require('../controller/pagesController');
@@ -17,6 +18,7 @@ router.get('/contacto', renderContactoApp);
 router.get('/nosotros', renderApp);
 router.get('/alta', renderAltaApp);
 router.get('/mensajes', renderMensajesApp);
+router.get('/ventas', renderVentasApp);
 router.get('/carrito', renderApp);
 router.get('/productos', renderProductosApp);
 router.get('/remeras', renderProductosApp);

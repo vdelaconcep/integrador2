@@ -4,27 +4,27 @@ const mongoose = require('mongoose');
 const productoSchema = new mongoose.Schema({
     tipo: {
         type: String,
-        require: true
+        required: true
     },
     banda: {
         type: String,
-        require: true
+        required: true
     },
     modelo: {
         type: Number,
-        require: true
+        required: true
     },
     stock: {
         type: Number,
-        require: true
+        required: true
     },
     precio: {
         type: Number,
-        require: true
+        required: true
     },
     imagen: {
         type: String,
-        require: true
+        required: true
     }
 });
 

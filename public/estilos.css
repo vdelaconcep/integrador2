@@ -20,7 +20,7 @@ a {
     background: linear-gradient(to top, #794fa0 60%, rgb(12, 12, 104));
 }
 
-#pagina-alta {
+#pagina-alta, #pagina-mensajes, #pagina-ventas {
     background-color: #794fa0;
 }
 
@@ -34,10 +34,6 @@ a {
 
 #pagina-error {
     background-color: #E5668F;
-}
-
-#pagina-mensajes {
-    background-color: #794fa0;
 }
 
 #pagina-nosotros {
@@ -59,7 +55,7 @@ a {
     }
 } */
 
-#panel-administrador, #pagina-alta, #pagina-mensajes {
+#panel-administrador, #pagina-alta, #pagina-mensajes, #pagina-ventas {
         min-height: 100vh;
 }
 

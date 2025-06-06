@@ -30,6 +30,7 @@ import {
 const paginaIndex = document.getElementById('index');
 const paginaProductos = document.getElementById('pagina-productos');
 const paginaAlta = document.getElementById('pagina-alta');
+const paginaVentas = document.getElementById('pagina-ventas');
 const paginaMensajes = document.getElementById('pagina-mensajes');
 const paginaCarrito = document.getElementById('pagina-carrito');
 const paginaContacto = document.getElementById('pagina-contacto');
@@ -157,7 +158,7 @@ if (paginaCarrito) {
         localStorage.setItem('total', totalAPagar.toString());
     });
 } else {
-    if (!paginaAdmin && !paginaMensajes && !paginaAlta) setCarrito();
+    if (!paginaAdmin && !paginaMensajes && !paginaAlta && !paginaVentas) setCarrito();
 };
 
 // Acciones sobre página "contacto"
