@@ -245,8 +245,10 @@ const actualizarCarrito = async () => {
 
 const eliminarProductoCarrito = (carrito, index) => {
     const id = carrito[index]._id;
+    const fila = document.getElementById(`F${id}`);
+
     carrito.splice(index, 1);
-    document.getElementById(`F${id}`).style.display = 'none';
+    if (fila) fila.remove();
 
     let total = 0;
     carrito.forEach(elemento => {

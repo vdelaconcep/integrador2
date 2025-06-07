@@ -44,19 +44,8 @@ a {
     min-height: calc(100vh - 250px);
 }
 
-/* @media (max-width: 768px) {
-    #index,
-        #pagina-productos,
-        #pagina-carrito,
-        #pagina-contacto,
-        #pagina-error,
-        #pagina-nosotros {
-            min-height: calc(100vh - 270px);
-    }
-} */
-
 #panel-administrador, #pagina-alta, #pagina-mensajes, #pagina-ventas {
-        min-height: 100vh;
+    min-height: 100vh;
 }
 
 .titulo-de-pagina {
@@ -261,12 +250,6 @@ footer {
     background-size: cover;
     height: 250px;
 }
-
-/* @media (max-width: 768px) {
-    footer {
-        height: 270px;
-    }
-} */
 
 /* Div de notificación cuando se agrega un producto al carrito*/
 #boton-carrito {
